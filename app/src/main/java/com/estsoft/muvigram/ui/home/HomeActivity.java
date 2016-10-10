@@ -3,12 +3,9 @@ package com.estsoft.muvigram.ui.home;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;
