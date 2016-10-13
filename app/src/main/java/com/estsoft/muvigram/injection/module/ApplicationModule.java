@@ -3,6 +3,7 @@ package com.estsoft.muvigram.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.estsoft.muvigram.data.remote.LoginSignService;
 import com.estsoft.muvigram.data.remote.NetWorkTestService;
 import com.estsoft.muvigram.injection.ApplicationContext;
 
@@ -35,5 +36,9 @@ public class ApplicationModule {
 
     @Provides
     NetWorkTestService providesNetWorkTestService()  { return new NetWorkTestService(); }
+
+    @Provides
+    @Singleton
+    LoginSignService provideRibotsService() { return LoginSignService.Creator.newLoginSignService(); }
 
 }

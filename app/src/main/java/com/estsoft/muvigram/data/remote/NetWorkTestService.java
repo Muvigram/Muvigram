@@ -15,8 +15,6 @@ import rx.Observable;
 @Singleton
 public class NetWorkTestService {
 
-
-
     public rx.Observable getTestData() {
         List<String> list = Arrays.asList("1", "2", "3"," 4", "5", "6");
         return Observable.from(list);

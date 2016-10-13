@@ -1,13 +1,14 @@
 package com.estsoft.muvigram.data;
 
 
+import com.estsoft.muvigram.data.remote.LoginSignService;
 import com.estsoft.muvigram.data.remote.NetWorkTestService;
-
-
-import java.util.List;
+import com.estsoft.muvigram.model.TestRepo;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import rx.Observable;
 
 /**
  * Created by gangGongUi on 2016. 10. 9..
@@ -16,13 +17,22 @@ import javax.inject.Singleton;
 public class DataManager {
 
     private final NetWorkTestService mNetWorkTestService;
+    private final LoginSignService mLoginSignService;
 
     @Inject
-    public DataManager(NetWorkTestService mNetWorkTestService) {
+    public DataManager(NetWorkTestService mNetWorkTestService, LoginSignService mLoginSignService) {
         this.mNetWorkTestService = mNetWorkTestService;
+        this.mLoginSignService = mLoginSignService;
+
     }
 
-    public rx.Observable<String> getNetWorkTestService() {
+    public Observable<TestRepo> getRibotTest() {
+        return mLoginSignService.getRibotTest();
+    }
+
+    public Observable<String> getNetWorkTestService() {
         return mNetWorkTestService.getTestData();
     }
+
+
 }

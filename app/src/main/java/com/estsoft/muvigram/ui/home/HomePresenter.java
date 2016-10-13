@@ -54,7 +54,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
                     @Override
                     public void onNext(String s) {
-                        getMvpView().showTestToast(Integer.valueOf(s));
+                        getMvpView().showTestToast(Integer.parseInt(s));
                     }
                 });
     }

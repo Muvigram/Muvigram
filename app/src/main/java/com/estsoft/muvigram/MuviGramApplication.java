@@ -3,10 +3,10 @@ package com.estsoft.muvigram;
 import android.app.Application;
 import android.content.Context;
 
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.estsoft.muvigram.injection.component.ApplicationComponent;
 import com.estsoft.muvigram.injection.component.DaggerApplicationComponent;
 import com.estsoft.muvigram.injection.module.ApplicationModule;
-
 
 import timber.log.Timber;
 
@@ -20,6 +20,7 @@ public class MuviGramApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        TypefaceProvider.registerDefaultIconSets();
         Timber.plant(new Timber.DebugTree());
 
     }

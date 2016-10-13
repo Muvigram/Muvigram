@@ -18,10 +18,13 @@ import com.mingle.sweetpick.CustomDelegate;
 import com.mingle.sweetpick.SweetSheet;
 
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 import timber.log.Timber;
 
 public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClickListener {
@@ -42,6 +45,7 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         initBottomSheetView();
         initSpaceNavigationView(savedInstanceState);
 
+
     }
 
     @Override
@@ -57,7 +61,6 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
     }
 
     /***** View init **/
-
     private void initBottomSheetView()
     {
         final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_home);

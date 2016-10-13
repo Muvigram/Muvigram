@@ -24,10 +24,10 @@ public class SplashActivity extends BaseActivity {
         activityComponent().inject(this);
         setContentView(R.layout.activity_splash);
 
-
-
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(SplashActivity.this, IntroActivity.class));
+            Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
             finish();
         }, 1000);
 

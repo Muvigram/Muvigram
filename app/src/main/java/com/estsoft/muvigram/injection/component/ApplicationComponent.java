@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.estsoft.muvigram.data.DataManager;
-import com.estsoft.muvigram.data.remote.NetWorkTestService;
 import com.estsoft.muvigram.injection.ApplicationContext;
 import com.estsoft.muvigram.injection.module.ApplicationModule;
 
@@ -23,4 +22,5 @@ public interface ApplicationComponent {
     Context context();
     Application application();
     DataManager dataManager();
+
 }
