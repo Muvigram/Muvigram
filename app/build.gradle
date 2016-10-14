@@ -95,6 +95,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
 
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
-
+    compile 'com.squareup.picasso:picasso:2.3.3'
+    provided "org.projectlombok:lombok:1.16.8"
     compile 'com.beardedhen:androidbootstrap:2.3.0'
 }

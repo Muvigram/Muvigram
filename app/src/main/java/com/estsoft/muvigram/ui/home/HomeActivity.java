@@ -3,6 +3,8 @@ package com.estsoft.muvigram.ui.home;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,6 +12,10 @@ import android.widget.FrameLayout;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
+import com.estsoft.muvigram.ui.feed.FeedFragment;
+import com.estsoft.muvigram.ui.notify.NotifyFragment;
+import com.estsoft.muvigram.ui.profile.ProfileFragment;
+import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
@@ -27,10 +33,18 @@ import butterknife.ButterKnife;
 import rx.Observable;
 import timber.log.Timber;
 
+import static android.R.attr.fragment;
+
 public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClickListener {
 
     @Inject HomePresenter mHomePresenter;
     private SweetSheet mSweetSheet;
+    private Fragment fragment = null;
+    private FragmentManager fm;
+    private FeedFragment feedFragment = null;
+    private SearchFragment searchFragment = null;
+    private NotifyFragment notifyFragment = null;
+    private ProfileFragment profileFragment = null;
 
     @BindView(R.id.home_space_navigation) SpaceNavigationView mSpaceNavigationView;
 
@@ -45,7 +59,14 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         initBottomSheetView();
         initSpaceNavigationView(savedInstanceState);
 
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.activity_home);
 
+        if(fragment == null){
+            feedFragment = new FeedFragment();
+            fragment = feedFragment;
+            fm.beginTransaction().replace(R.id.activity_home, fragment).commit();
+        }
     }
 
     @Override
@@ -103,6 +124,36 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
     @Override
     public void onItemClick(int itemIndex, String itemName) {
         mHomePresenter.loadTestData();
+
+        fm = getSupportFragmentManager();
+
+        switch(itemIndex){
+            case 0:
+                if(feedFragment == null) {
+                    feedFragment = new FeedFragment();
+                }
+                fm.beginTransaction().replace(R.id.activity_home,feedFragment).commit();
+                break;
+            case 1:
+                if(searchFragment == null) {
+                    searchFragment = new SearchFragment();
+                }
+                fm.beginTransaction().replace(R.id.activity_home, searchFragment).commit();
+                break;
+            case 2:
+                if(notifyFragment == null) {
+                    notifyFragment = new NotifyFragment();
+                }
+                fm.beginTransaction().replace(R.id.activity_home, notifyFragment).commit();
+                break;
+            case 3:
+                if(profileFragment == null) {
+                     profileFragment = new ProfileFragment();
+                }
+                fm.beginTransaction().replace(R.id.activity_home, profileFragment).commit();
+                break;
+        }
+
     }
 
     @Override

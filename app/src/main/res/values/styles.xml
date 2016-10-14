@@ -9,6 +9,7 @@
         <item name="android:colorForeground">@android:color/black</item>
     </style>
 
+    <style name="HomeTheme" parent="Theme.AppCompat.Light"></style>
 
 
     <style name="AppIntroTheme" parent="Theme.AppCompat.Light.NoActionBar">
