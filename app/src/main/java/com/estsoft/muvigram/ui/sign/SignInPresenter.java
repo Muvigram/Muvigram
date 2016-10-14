@@ -51,7 +51,6 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     public void attachSubscribe(Observable<CharSequence> emailChangeObservable, Observable<CharSequence> passwordChangeObservable, Observable<CharSequence> userIdChangeObservable) {
 
 
-
         final boolean isLogin = userIdChangeObservable == null;
 
         if(isLogin){

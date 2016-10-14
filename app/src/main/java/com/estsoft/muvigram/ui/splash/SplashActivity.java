@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity {
             Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
             startActivity(intent);
             finish();
-        }, 1000);
+        }, 0);
 
 
     }

@@ -39,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-
             <LinearLayout
                 android:id="@+id/intro_wrap_button"
                 android:weightSum="2"
@@ -50,6 +49,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
+                    android:id="@+id/intro_twitter_button"
                     android:text="@string/intro_button_twitter"
                     android:textColor="@color/white"
                     android:textAllCaps="false"

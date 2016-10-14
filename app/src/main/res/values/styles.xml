@@ -9,7 +9,13 @@
         <item name="android:colorForeground">@android:color/black</item>
     </style>
 
-    <style name="HomeTheme" parent="Theme.AppCompat.Light"></style>
+    <style name="HomeTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/light_blue_300</item>
+        <item name="colorPrimaryDark">@color/light_blue_300</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+        <item name="colorAccent">@color/blue_300</item>
+        <item name="android:colorForeground">@android:color/black</item>
+    </style>
 
 
     <style name="AppIntroTheme" parent="Theme.AppCompat.Light.NoActionBar">

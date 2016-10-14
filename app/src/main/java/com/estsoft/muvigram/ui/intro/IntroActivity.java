@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.sign.SignInActivity;
 
 import javax.inject.Inject;
@@ -43,10 +44,17 @@ public class IntroActivity extends BaseActivity implements IntroView {
 
         mIntroPresenter.attachView(this);
         mIntroPresenter.checkViewAttached();
+
+
         mIntroPresenter.loadVideo();
 
     }
 
+    @OnClick(R.id.intro_twitter_button)
+    public void skip() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+    }
 
     @OnClick(R.id.intro_email_button)
     public void emailButtonClick() {
