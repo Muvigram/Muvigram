@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
+import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.util.DisplayUtility;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
@@ -28,17 +29,18 @@ import rx.Observable;
 
 public class SignInActivity extends BaseActivity implements SignInView {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.email_til) TextInputLayout emailInputLayout;
-    @BindView(R.id.password_til) TextInputLayout passwordInputLayout;
-    @BindView(R.id.password_et) EditText passwordEditText;
-    @BindView(R.id.email_et) EditText emailEditText;
-    @BindView(R.id.sign_in_ll) LinearLayout signInLinearLayout;
-    @BindView(R.id.sign_in_btn) Button signInButton;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.username_til) TextInputLayout mUsernameInputLayout;
+    @BindView(R.id.email_til) TextInputLayout mEmailInputLayout;
+    @BindView(R.id.password_til) TextInputLayout mPasswordInputLayout;
+    @BindView(R.id.username_et) EditText mUserNameEditText;
+    @BindView(R.id.password_et) EditText mPasswordEditText;
+    @BindView(R.id.email_et) EditText mEmailEditText;
+    @BindView(R.id.sign_in_ll) LinearLayout mSignInLinearLayout;
+    @BindView(R.id.sign_in_btn) Button mSignInButton;
 
     @Inject
     SignInPresenter mSignInPresenter;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,19 +50,41 @@ public class SignInActivity extends BaseActivity implements SignInView {
         ButterKnife.bind(this);
         mSignInPresenter.attachView(this);
 
-        setSupportActionBar(toolbar);
+        Observable<CharSequence> emailChangeObservable = RxTextView.textChanges(mEmailEditText);
+        Observable<CharSequence> passwordChangeObservable = RxTextView.textChanges(mPasswordEditText);
+        Observable<CharSequence> userIdChangeObservable = RxTextView.textChanges(mUserNameEditText);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getString(R.string.sign_in));
+
+        // 로그인인지 회원가입인지 확인여부
+        int flags = getIntent().getIntExtra(IntroActivity.KEY, 0);
+        actionBarInit(flags);
+
+        if (flags == IntroActivity.LOG_IN_ACTIVITY) {
+            mUserNameEditText.setVisibility(View.GONE);
+            mUsernameInputLayout.setVisibility(View.GONE);
+            userIdChangeObservable = null;
+        } else {
+            mSignInButton.setText(getString(R.string.sign_up));
         }
 
-        Observable<CharSequence> emailChangeObservable = RxTextView.textChanges(emailEditText);
-        Observable<CharSequence> passwordChangeObservable = RxTextView.textChanges(passwordEditText);
-        mSignInPresenter.attachSubscribe(emailChangeObservable, passwordChangeObservable);
+        mSignInPresenter.attachSubscribe(emailChangeObservable, passwordChangeObservable, userIdChangeObservable);
 
     }
+
+    private void actionBarInit(int flags) {
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            String title = getString(R.string.log_in);
+            if (flags == IntroActivity.SIGN_UP_ACTIVITY) {
+                title = getString(R.string.sign_up);
+            }
+            actionBar.setTitle(title);
+        }
+    }
+
 
     @OnClick(R.id.sign_in_btn)
     public void onSignInButtonClicked(View view) {
@@ -92,47 +116,60 @@ public class SignInActivity extends BaseActivity implements SignInView {
     }
 
     @Override
-    public void showEmailError(){
-        enableError(emailInputLayout);
-        // emailInputLayout.setErrorEnabled(true);
-        emailInputLayout.setError(getString(R.string.invalid_email));
+    public void showEmailError() {
+        enableError(mEmailInputLayout);
+        mEmailInputLayout.setErrorEnabled(true);
+        mEmailInputLayout.setError(getString(R.string.invalid_email));
     }
 
     @Override
-    public void hideEmailError(){
-        disableError(emailInputLayout);
-        // emailInputLayout.setErrorEnabled(false);
-        emailInputLayout.setError(null);
+    public void hideEmailError() {
+        disableError(mEmailInputLayout);
+        mEmailInputLayout.setErrorEnabled(false);
+        mEmailInputLayout.setError(null);
     }
 
     @Override
-    public void showPasswordError(){
-        enableError(passwordInputLayout);
-        // passwordInputLayout.setErrorEnabled(true);
-        passwordInputLayout.setError(getString(R.string.invalid_password));
+    public void showPasswordError() {
+        enableError(mPasswordInputLayout);
+        mPasswordInputLayout.setErrorEnabled(true);
+        mPasswordInputLayout.setError(getString(R.string.invalid_password));
     }
 
     @Override
-    public void hidePasswordError(){
-        disableError(passwordInputLayout);
-        // passwordInputLayout.setErrorEnabled(false);
-        passwordInputLayout.setError(null);
+    public void hidePasswordError() {
+        disableError(mPasswordInputLayout);
+        mPasswordInputLayout.setErrorEnabled(false);
+        mPasswordInputLayout.setError(null);
     }
 
     @Override
-    public void enableSignIn(){
-        signInLinearLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
-        signInButton.setEnabled(true);
-        signInButton.setTextColor(ContextCompat.getColor(this, android.R.color.white));
+    public void showUseridError() {
+        disableError(mUsernameInputLayout);
+        mUsernameInputLayout.setErrorEnabled(true);
+        mUsernameInputLayout.setError(getString(R.string.invalid_userid));
     }
 
     @Override
-    public void disableSignIn(){
-        signInLinearLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_400));
-        signInButton.setEnabled(false);
-        signInButton.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
+    public void hideUseridError() {
+        disableError(mUsernameInputLayout);
+        mUsernameInputLayout.setErrorEnabled(false);
+        mUsernameInputLayout.setError(null);
+    }
+
+    @Override
+    public void enableSignIn() {
+        mSignInLinearLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        mSignInButton.setEnabled(true);
+        mSignInButton.setTextColor(ContextCompat.getColor(this, android.R.color.white));
+    }
+
+    @Override
+    public void disableSignIn() {
+        mSignInLinearLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_400));
+        mSignInButton.setEnabled(false);
+        mSignInButton.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
     }
 
 
 }
-

@@ -2,4 +2,5 @@
 <resources>
     <integer name="MAX_TEXT_LENGTH">20</integer>
     <integer name="EMAIL_TEXT_LENGTH">35</integer>
+    <integer name="USERID_TEXT_LENGTH">14</integer>
 </resources>

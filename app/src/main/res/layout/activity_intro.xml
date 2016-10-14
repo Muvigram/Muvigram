@@ -2,12 +2,13 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_intro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.estsoft.muvigram.ui.intro.IntroActivity">
+
+
 
     <com.estsoft.muvigram.customview.IncreasVideoView
         android:id="@+id/intro_video_view"
@@ -19,46 +20,92 @@
         android:layout_alignParentTop="true"
         tools:ignore="ObsoleteLayoutParam,RtlHardcoded"/>
 
-    <LinearLayout
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:background="#50607d8b"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:text="@string/intro_buttin_twitter"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:bootstrapSize="lg"
+        <RelativeLayout
+            android:background="#20B6B6B6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/intro_dummy_tv"
+                android:gravity="center"
+                android:text="@string/intro_dummy_text"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:id="@+id/intro_wrap_button"
+                android:weightSum="2"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:layout_above="@id/intro_dummy_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="@string/intro_button_twitter"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:theme="@style/IntroTwitterButton"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:textSize="@dimen/intro_button_text_size"
+                    android:minHeight="@dimen/intro_button_minheight"
+                    android:layout_marginLeft="@dimen/intro_button_margin"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/intro_email_button"
+                    android:theme="@style/IntroEmailButton"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:layout_weight="1"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/intro_button_minheight"
+                    android:layout_marginRight="@dimen/intro_button_margin"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/intro_button_text_size"
+                    android:textColor="@color/red_200"
+                    android:text="@string/intro_buttin_email" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/intro_facebook_button"
+                android:theme="@style/IntroFacebookButton"
+                android:layout_above="@id/intro_wrap_button"
+                android:text="@string/intro_facebook_text"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/intro_facebook_button_text_size"
+                android:layout_marginLeft="@dimen/intro_button_margin"
+                android:layout_marginRight="@dimen/intro_button_margin"
+                android:minHeight="@dimen/intro_button_minheight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <ImageView
+                android:src="@drawable/testlogo"
+                android:layout_margin="20dp"
+                android:layout_width="wrap_content"
+                android:layout_above="@id/intro_facebook_button"
+                android:layout_height="95dp"
                 />
 
-            <com.beardedhen.androidbootstrap.BootstrapButton
-                android:id="@+id/intro_email_button"
-                android:text="@string/intro_buttin_email"
-                android:layout_weight="1"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                app:bootstrapSize="lg"
-                />
-        </LinearLayout>
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/intro_buttin_facebook"
-            app:bootstrapBrand="primary"
-            app:bootstrapSize="lg"
-            app:buttonMode="regular"
-            app:showOutline="false"
-            />
+        </RelativeLayout>
 
-    </LinearLayout>
+
 
 </FrameLayout>

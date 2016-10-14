@@ -17,7 +17,6 @@ import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func2;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -48,7 +47,45 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     }
 
 
-    public void attachSubscribe(Observable<CharSequence> emailChangeObservable, Observable<CharSequence> passwordChangeObservable) {
+    // 형식 검사
+    public void attachSubscribe(Observable<CharSequence> emailChangeObservable, Observable<CharSequence> passwordChangeObservable, Observable<CharSequence> userIdChangeObservable) {
+
+
+
+        final boolean isLogin = userIdChangeObservable == null;
+
+        if(isLogin){
+            userIdChangeObservable = Observable.just("");
+        }
+
+        Subscription useridSubscription = userIdChangeObservable
+                .doOnNext(charSequence -> getMvpView().hideUseridError())
+                .debounce(400, TimeUnit.MILLISECONDS)
+                .filter(charSequence -> !TextUtils.isEmpty(charSequence))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CharSequence>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(CharSequence charSequence) {
+                        boolean isUseridValid = validateUserid(charSequence.toString());
+                        if(!isUseridValid) {
+                            getMvpView().showUseridError();
+                        } else {
+                            getMvpView().hideUseridError();
+                        }
+                    }
+                });
+
+        compositeSubscription.add(useridSubscription);
 
         Subscription emailSubscription = emailChangeObservable
                 .doOnNext(charSequence -> getMvpView().hideEmailError())
@@ -108,19 +145,17 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 
         compositeSubscription.add(passwordSubscription);
 
-        Subscription signInFieldsSubscription = Observable.combineLatest(emailChangeObservable, passwordChangeObservable, new Func2<CharSequence, CharSequence, Boolean>() {
-            @Override
-            public Boolean call(CharSequence email, CharSequence password) {
-                boolean isEmailValid = validateEmail(email.toString());
-                boolean isPasswordValid = validatePassword(password.toString());
-                return isEmailValid && isPasswordValid;
-            }
-        }).observeOn(AndroidSchedulers.mainThread()) // UI Thread
+        Subscription signInFieldsSubscription = Observable.combineLatest(emailChangeObservable, passwordChangeObservable, userIdChangeObservable,
+                (email, password, userid) -> {
+                    boolean isEmailValid = validateEmail(email.toString());
+                    boolean isPasswordValid = validatePassword(password.toString());
+                    boolean isUserValid = validateUserid(userid.toString());
+                    if(isLogin) isUserValid = true;
+                    return isEmailValid && isPasswordValid && isUserValid; })
+                .observeOn(AndroidSchedulers.mainThread()) // UI Thread
                 .subscribe(new Observer<Boolean>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
+                    public void onCompleted() { }
 
                     @Override
                     public void onError(Throwable e) {
@@ -153,6 +188,9 @@ public class SignInPresenter extends BasePresenter<SignInView> {
         return password.length() > 5;
     }
 
+    private boolean validateUserid(String userid) {
+        return userid.length() > 5;
+    }
 
 
 }

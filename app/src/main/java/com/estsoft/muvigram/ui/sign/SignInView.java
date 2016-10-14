@@ -12,4 +12,6 @@ public interface SignInView extends MvpView {
     void showPasswordError();
     void hideEmailError();
     void showEmailError();
+    void showUseridError();
+    void hideUseridError();
 }

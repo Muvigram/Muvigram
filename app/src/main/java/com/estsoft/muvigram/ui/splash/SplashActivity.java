@@ -26,7 +26,6 @@ public class SplashActivity extends BaseActivity {
 
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, IntroActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
             finish();
         }, 1000);
