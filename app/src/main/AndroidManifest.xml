@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.home.HomeActivity"
+            android:theme="@style/HomeTheme"/>
         <activity android:name=".ui.intro.IntroActivity">
         </activity>
         <activity
@@ -40,6 +41,14 @@
         <activity
             android:name=".ui.sign.SignInActivity"
             android:label="@string/title_activity_sign">
+        </activity>
+        <activity android:name=".ui.search.SearchBarActivity">
+        </activity>
+        <activity android:name=".ui.friend.FindFriendActivity">
+        </activity>
+        <activity android:name=".ui.setting.SettingsActivity">
+        </activity>
+        <activity android:name=".ui.profile.EditProfileActivity">
         </activity>
     </application>
 
