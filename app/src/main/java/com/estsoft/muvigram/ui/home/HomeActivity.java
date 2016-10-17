@@ -82,10 +82,10 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         mSweetSheet = new SweetSheet(frameLayout);
         CustomDelegate customDelegate = new CustomDelegate(false,
                 CustomDelegate.AnimationType.DuangLayoutAnimation);
+
         final View view = LayoutInflater.from(this).inflate(R.layout.home_bottom_sheet, null, false);
         customDelegate.setCustomView(view);
         mSweetSheet.setDelegate(customDelegate);
-
         view.findViewById(R.id.sheet_camera_button).setOnClickListener(
                 v -> startActivity(new Intent(this, CameraActivity.class))
         );
@@ -115,7 +115,11 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
 
     @Override
     public void onCentreButtonClick() {
-        mSweetSheet.show();
+        if (mSweetSheet.isShow()) {
+            mSweetSheet.dismiss();
+        } else {
+            mSweetSheet.show();
+        }
     }
 
     @Override
