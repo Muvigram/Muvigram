@@ -22,6 +22,11 @@
     <string name="sign_in_message">You have signed in!</string>
 
 
+    <!-- SearchFragment -->
+    <string name="search_bar_text">search</string>
+    <string name="search_heard_item_title">trending tags</string>
+
+
     <!-- Strings dialog  -->
     <string name="dialog_action_ok">OK</string>
     <string name="dialog_action_cancel">Cancel</string>

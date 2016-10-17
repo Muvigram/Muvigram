@@ -35,4 +35,6 @@ public class IncreasVideoView extends VideoView {
         final int deviceHeight = displayMetrics.heightPixels;
         setMeasuredDimension(deviceWidth, deviceHeight);
     }
+
+
 }

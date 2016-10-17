@@ -23,28 +23,21 @@ import com.luseen.spacenavigation.SpaceOnClickListener;
 import com.mingle.sweetpick.CustomDelegate;
 import com.mingle.sweetpick.SweetSheet;
 
-
-import java.util.Arrays;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
 import timber.log.Timber;
-
-import static android.R.attr.fragment;
 
 public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClickListener {
 
     @Inject HomePresenter mHomePresenter;
     private SweetSheet mSweetSheet;
-    private Fragment fragment = null;
-    private FragmentManager fm;
-    private FeedFragment feedFragment = null;
-    private SearchFragment searchFragment = null;
-    private NotifyFragment notifyFragment = null;
-    private ProfileFragment profileFragment = null;
+    private FragmentManager mFragmentManager;
+    private FeedFragment mFeedFragment = null;
+    private SearchFragment mSearchFragment = null;
+    private NotifyFragment mNotifyFragment = null;
+    private ProfileFragment mProfileFragment = null;
 
     @BindView(R.id.home_space_navigation) SpaceNavigationView mSpaceNavigationView;
 
@@ -63,8 +56,8 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         Fragment fragment = fm.findFragmentById(R.id.activity_home);
 
         if(fragment == null){
-            feedFragment = new FeedFragment();
-            fragment = feedFragment;
+            mFeedFragment = new FeedFragment();
+            fragment = mFeedFragment;
             fm.beginTransaction().replace(R.id.activity_home, fragment).commit();
         }
     }
@@ -125,32 +118,34 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
     public void onItemClick(int itemIndex, String itemName) {
         mHomePresenter.loadTestData();
 
-        fm = getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
 
         switch(itemIndex){
             case 0:
-                if(feedFragment == null) {
-                    feedFragment = new FeedFragment();
+                if(mFeedFragment == null) {
+                    mFeedFragment = new FeedFragment();
                 }
-                fm.beginTransaction().replace(R.id.activity_home,feedFragment).commit();
+                mFragmentManager.beginTransaction().replace(R.id.activity_home, mFeedFragment).commit();
                 break;
             case 1:
-                if(searchFragment == null) {
-                    searchFragment = new SearchFragment();
+                if(mSearchFragment == null) {
+                    mSearchFragment = new SearchFragment();
                 }
-                fm.beginTransaction().replace(R.id.activity_home, searchFragment).commit();
+                mFragmentManager.beginTransaction().replace(R.id.activity_home, mSearchFragment).commit();
                 break;
             case 2:
-                if(notifyFragment == null) {
-                    notifyFragment = new NotifyFragment();
+                if(mNotifyFragment == null) {
+                    mNotifyFragment = new NotifyFragment();
                 }
-                fm.beginTransaction().replace(R.id.activity_home, notifyFragment).commit();
+                mFragmentManager.beginTransaction().replace(R.id.activity_home, mNotifyFragment).commit();
                 break;
             case 3:
-                if(profileFragment == null) {
-                     profileFragment = new ProfileFragment();
+                if(mProfileFragment == null) {
+                     mProfileFragment = new ProfileFragment();
                 }
-                fm.beginTransaction().replace(R.id.activity_home, profileFragment).commit();
+                mFragmentManager.beginTransaction().replace(R.id.activity_home, mProfileFragment).commit();
+                break;
+            default:
                 break;
         }
 

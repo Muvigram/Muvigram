@@ -1,30 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="60dp"
-    android:gravity="center">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent" android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="350dp"
-        android:layout_height="40dp"
         android:id="@+id/search_bar"
-        android:background="@color/gray"
-        android:gravity="center_vertical">
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@drawable/search_view_background"
+        tools:ignore="UselessParent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="검색"/>
+
+       <LinearLayout
+           android:layout_centerInParent="true"
+           android:orientation="horizontal"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+           <ImageView
+               android:paddingRight="3dp"
+               android:src="@drawable/ic_action_bar_search"
+               android:layout_width="20dp"
+               android:layout_height="20dp"
+               tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
+               android:contentDescription="기능 없음"/>
+
+           <TextView
+               android:text="@string/search_bar_text"
+               android:textColor="@color/white"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
+       </LinearLayout>
 
         <ImageButton
-            android:layout_width="35dp"
-            android:layout_height="35dp"
             android:id="@+id/find_friend_button"
-            android:background="@drawable/ic_action_search_friend"
+
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"/>
+            android:layout_centerVertical="true"
+            android:background="@drawable/search_find_friend_button_event"
+            android:src="@drawable/ic_action_search_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
+            android:contentDescription="클릭 시 친구 찾기 액티비티로 이동"/>
+
 
     </RelativeLayout>
 

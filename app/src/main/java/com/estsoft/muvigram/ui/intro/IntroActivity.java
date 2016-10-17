@@ -1,5 +1,6 @@
 package com.estsoft.muvigram.ui.intro;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -44,9 +45,9 @@ public class IntroActivity extends BaseActivity implements IntroView {
 
         mIntroPresenter.attachView(this);
         mIntroPresenter.checkViewAttached();
-
-
         mIntroPresenter.loadVideo();
+
+
 
     }
 
@@ -63,7 +64,7 @@ public class IntroActivity extends BaseActivity implements IntroView {
             Intent intent = new Intent(this, SignInActivity.class);
             intent = (which == 0)
                     ? intent.putExtra(KEY, LOG_IN_ACTIVITY) : intent.putExtra(KEY, SIGN_UP_ACTIVITY);
-            startActivity(intent);
+            startActivity(intent,  ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
         dialog.show();
     }
