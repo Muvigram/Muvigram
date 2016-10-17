@@ -17,6 +17,7 @@ import com.estsoft.muvigram.ui.notify.NotifyFragment;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
+import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -90,6 +91,9 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         );
         view.findViewById(R.id.sheet_music_button).setOnClickListener(
                 v -> startActivity(new Intent(this, MusicSelectActivity.class))
+        );
+        view.findViewById(R.id.sheet_library_button).setOnClickListener(
+                v -> startActivity(new Intent(this, VideoSelectActivity.class))
         );
     }
 

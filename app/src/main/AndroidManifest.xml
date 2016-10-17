@@ -34,12 +34,11 @@
                   android:theme="@style/AppIntroTheme"
             >
         </activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"/>
         <activity android:name=".ui.selectmusic.MusicSelectActivity">
         </activity>
         <activity android:name=".ui.camera.CameraActivity">
+        </activity>
+        <activity android:name=".ui.videoselect.VideoSelectActivity">
         </activity>
         <activity
             android:name=".ui.sign.SignInActivity"
