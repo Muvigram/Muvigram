@@ -8,6 +8,7 @@ import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.estsoft.muvigram.ui.sign.SignInActivity;
 import com.estsoft.muvigram.ui.splash.SplashActivity;
+import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 
 import dagger.Subcomponent;
 
@@ -22,5 +23,6 @@ public interface ActivityComponent {
     void inject(IntroActivity activity);
     void inject(MusicSelectActivity musicSelectActivity);
     void inject(CameraActivity cameraActivity);
+    void inject(VideoSelectActivity videoSelectActivity);
     void inject(SignInActivity signInActivity);
 }

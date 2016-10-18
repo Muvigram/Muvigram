@@ -21,7 +21,6 @@
         tools:replace="android:icon"
         >
         <activity android:name=".ui.splash.SplashActivity"
-                  android:screenOrientation="portrait"
                   android:theme="@style/AppIntroTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -39,8 +38,11 @@
         <activity android:name=".ui.selectmusic.MusicSelectActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.camera.CameraActivity"
-                  android:screenOrientation="portrait">
+        <activity android:name=".ui.selectmusic.MusicSelectActivity">
+        </activity>
+        <activity android:name=".ui.camera.CameraActivity">
+        </activity>
+        <activity android:name=".ui.videoselect.VideoSelectActivity">
         </activity>
         <activity
             android:name=".ui.sign.SignInActivity"
