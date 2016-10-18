@@ -34,17 +34,18 @@ public class FeedFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_feed, container, false);
         ActionBar actionBar = ((HomeActivity)getActivity()).getSupportActionBar();
-        actionBar.setShowHideAnimationEnabled(false);
-        actionBar.hide();
+//        actionBar.setShowHideAnimationEnabled(false);
+//        actionBar.hide();
 
         mTabHost = (FragmentTabHost)v.findViewById(android.R.id.tabhost);
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("FeedFollow").setIndicator("팔로우"),
+
+        mTabHost.addTab(mTabHost.newTabSpec("FeedFollow").setIndicator(getString(R.string.feed_text_follow)),
                 FeedFollowFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("FeedSpecial").setIndicator("특집"),
+        mTabHost.addTab(mTabHost.newTabSpec("FeedSpecial").setIndicator(getString(R.string.feed_text_featured)),
                 FeedSpecialFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("FeedForYou").setIndicator("회원님을 위한"),
+        mTabHost.addTab(mTabHost.newTabSpec("FeedForYou").setIndicator(getString(R.string.feed_text_foryou)),
                 FeedForYouFragment.class, null);
 
         return v;

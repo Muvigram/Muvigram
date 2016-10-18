@@ -14,10 +14,12 @@ public class UserInfoRepo {
     private String password;
     private String email;
     private String bio;
+    private String profileImage;
 
-    public UserInfoRepo(String userid, String userName, String bio){
+    public UserInfoRepo(String userid, String userName, String bio, String profileImage){
         this.userid = userid;
         this.userName = userName;
         this.bio = bio;
+        this.profileImage = profileImage;
     }
 }

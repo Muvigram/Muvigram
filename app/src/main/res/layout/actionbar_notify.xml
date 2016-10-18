@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="60dp"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:id="@+id/linear"
     android:gravity="center">
 
     <Button
-        android:text="모두"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="@string/notify_text_all"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:id="@+id/all_button"
-        android:layout_centerVertical="true"/>
+        android:background="@color/gray"
+        android:textAllCaps="false"/>
 
     <Button
-        android:text="우선권"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/all_button"
-        android:layout_toEndOf="@+id/all_button"
-        android:id="@+id/prefer_button" />
+        android:text="@string/notify_text_priority"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@color/gray"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/prefer_button"
+        android:textAllCaps="false"/>
 
-</RelativeLayout>
+</LinearLayout>

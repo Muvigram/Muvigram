@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;

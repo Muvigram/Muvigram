@@ -5,6 +5,7 @@ import com.estsoft.muvigram.injection.module.ActivityModule;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
+import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.estsoft.muvigram.ui.sign.SignInActivity;
 import com.estsoft.muvigram.ui.splash.SplashActivity;
@@ -23,4 +24,5 @@ public interface ActivityComponent {
     void inject(MusicSelectActivity musicSelectActivity);
     void inject(CameraActivity cameraActivity);
     void inject(SignInActivity signInActivity);
+    void inject(ProfileFragment profileFragment);
 }

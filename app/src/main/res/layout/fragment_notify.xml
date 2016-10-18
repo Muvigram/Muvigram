@@ -4,5 +4,33 @@
     android:layout_height="match_parent"
     android:id="@+id/container_notify">
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        android:background="@color/light_blue_300"
+        android:layout_gravity="center"
+        android:id="@+id/linear"
+        android:gravity="center">
+
+        <Button
+            android:text="@string/notify_text_all"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:id="@+id/all_button"
+            android:background="@color/gray"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:text="@string/notify_text_priority"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@color/gray"
+            android:layout_marginLeft="4dp"
+            android:id="@+id/prefer_button"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
 </LinearLayout>
