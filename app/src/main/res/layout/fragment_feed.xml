@@ -1,19 +1,13 @@
-<android.support.v4.app.FragmentTabHost
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
+    android:orientation="vertical"
+    android:background="@color/indigo_300"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.estsoft.muvigram.customview.FeedTabView
+        android:id="@+id/feedTabView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="60dp"/>
 
-        <FrameLayout
-            android:id="@+id/realtabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-</android.support.v4.app.FragmentTabHost>
+</RelativeLayout>

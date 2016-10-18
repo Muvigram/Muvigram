@@ -2,10 +2,12 @@ package com.estsoft.muvigram.ui.intro;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.Button;
 
 import com.estsoft.muvigram.R;
@@ -40,8 +42,17 @@ public class IntroActivity extends BaseActivity implements IntroView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityComponent().inject(this);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+
         setContentView(R.layout.activity_intro);
         ButterKnife.bind(this);
+
+
 
         mIntroPresenter.attachView(this);
         mIntroPresenter.checkViewAttached();

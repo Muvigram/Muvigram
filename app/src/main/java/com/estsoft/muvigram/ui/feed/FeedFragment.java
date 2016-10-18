@@ -2,52 +2,67 @@ package com.estsoft.muvigram.ui.feed;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
+import com.estsoft.muvigram.MuviGramApplication;
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.home.HomeActivity;
+import com.estsoft.muvigram.customview.FeedTabView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by JEONGYI on 2016. 10. 11..
+ * Edited by jang gong ui on 2016. 10. 17..
  */
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements FeedTabView.onFeedTabItemClickListener {
 
-    private FragmentTabHost mTabHost;
 
-    //Mandatory Constructor
-    public FeedFragment() {
-    }
+    @BindView(R.id.feedTabView) FeedTabView mFeedTabView;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View v = inflater.inflate(R.layout.fragment_feed, container, false);
-        ActionBar actionBar = ((HomeActivity)getActivity()).getSupportActionBar();
-        actionBar.setShowHideAnimationEnabled(false);
-        actionBar.hide();
 
-        mTabHost = (FragmentTabHost)v.findViewById(android.R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        ButterKnife.bind(this, view);
 
-        mTabHost.addTab(mTabHost.newTabSpec("FeedFollow").setIndicator("팔로우"),
-                FeedFollowFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("FeedSpecial").setIndicator("특집"),
-                FeedSpecialFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("FeedForYou").setIndicator("회원님을 위한"),
-                FeedForYouFragment.class, null);
 
-        return v;
+
+
+        final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mFeedTabView.getLayoutParams();
+        params.setMargins(0, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
+        mFeedTabView.setLayoutParams(params);
+        mFeedTabView.setOnFeedTabItemClickListener(this);
+        mFeedTabView.setActiveItem(1);
+
+        return view;
     }
 
+
+    @Override
+    public void onItemClick(FeedTabView.BarItem barItem)
+    {
+        switch (barItem.getIndex()) {
+
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+
+            case 2:
+
+                break;
+            default:
+                break;
+        }
+    }
 }

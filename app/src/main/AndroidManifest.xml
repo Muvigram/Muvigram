@@ -21,6 +21,7 @@
         tools:replace="android:icon"
         >
         <activity android:name=".ui.splash.SplashActivity"
+                  android:screenOrientation="portrait"
                   android:theme="@style/AppIntroTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -29,30 +30,34 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.home.HomeActivity"
-                  android:theme="@style/HomeTheme"/>
+                  android:theme="@style/AppTheme"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.intro.IntroActivity"
                   android:theme="@style/AppIntroTheme"
-            >
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.selectmusic.MusicSelectActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"/>
-        <activity android:name=".ui.selectmusic.MusicSelectActivity">
-        </activity>
-        <activity android:name=".ui.camera.CameraActivity">
+        <activity android:name=".ui.camera.CameraActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.sign.SignInActivity"
             android:label="@string/title_activity_sign">
         </activity>
 
-        <activity android:name=".ui.search.SearchBarActivity">
+        <activity android:name=".ui.search.SearchBarActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.friend.FindFriendActivity">
+        <activity android:name=".ui.friend.FindFriendActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.setting.SettingsActivity">
+        <activity android:name=".ui.setting.SettingsActivity"
+                  android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.profile.EditProfileActivity">
+        <activity android:name=".ui.profile.EditProfileActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

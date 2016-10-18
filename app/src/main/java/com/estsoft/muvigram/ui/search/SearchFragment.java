@@ -10,7 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.estsoft.muvigram.MuviGramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
@@ -29,6 +32,8 @@ import butterknife.ButterKnife;
 public class SearchFragment extends Fragment {
 
     @BindView(R.id.search_fragment_recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.action_bar) RelativeLayout mActionBar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -39,9 +44,14 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+
         ButterKnife.bind(this, view);
-        setCustomActionbar();
-        initRecyclerView();
+        //initRecyclerView();
+
+        final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
+        params.setMargins(0, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
+        mActionBar.setLayoutParams(params);
+
         return view;
     }
 
@@ -51,6 +61,8 @@ public class SearchFragment extends Fragment {
         SearchRecyclerAdapter adapter = new SearchRecyclerAdapter(getVideoHeader(), getBoardHeader(), getListItems());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
+
 
     }
 
@@ -67,7 +79,7 @@ public class SearchFragment extends Fragment {
     public List<SearchListItem> getListItems()
     {
         List<SearchListItem> listItems = new ArrayList<>();
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i<16; i++) {
             SearchListItem item = new SearchListItem();
             if (i % 2 == 0) {
                 item.setTitle("goni");
@@ -80,16 +92,14 @@ public class SearchFragment extends Fragment {
     }
 
     private void setCustomActionbar(){
-        ActionBar actionBar = ((HomeActivity)getActivity()).getSupportActionBar();
-        actionBar.show();
 
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setElevation(0);
+
+        ActionBar mActionBar = ((HomeActivity) getActivity()).getDelegate().getSupportActionBar();
 
         View mCustomView = LayoutInflater.from(getActivity()).inflate(R.layout.actionbar_search, null);
-        actionBar.setCustomView(mCustomView);
+        mActionBar.setCustomView(mCustomView);
+
+
 
         mCustomView.findViewById(R.id.search_bar).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), SearchBarActivity.class));
