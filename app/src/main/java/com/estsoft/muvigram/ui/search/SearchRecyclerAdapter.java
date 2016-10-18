@@ -55,14 +55,13 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        holder.setIsRecyclable(false);
         if (holder instanceof SearchListItemHolder) {
             SearchListItemHolder searchListItemHolder = (SearchListItemHolder) holder;
             SearchListItem item = mSearchListItems.get(position-2);
             searchListItemHolder.tag.setText(item.getTitle());
 
         } else if(holder instanceof VideoHeader) {
-
             VideoHeader videoHeader = (VideoHeader) holder;
             videoHeader.videoView.setVideoURI(mHeaderVideoItem.getVideoFile());
             videoHeader.videoView.setOnPreparedListener(mp -> videoPlay(videoHeader.videoView, mp));
@@ -73,6 +72,11 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             boardHeader.title.setText(mHeaderBoardItem.getTitle());
 
         }
+    }
+
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
     }
 
     @Override
@@ -115,6 +119,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.setIsRecyclable(false);
+
         }
     }
 

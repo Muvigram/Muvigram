@@ -193,7 +193,7 @@
     <color name="yellow_800">#f9a825</color>
     <color name="yellow_900">#f57f17</color>
     <color name="yellow_A100">#ffff8d</color>
-    <color name="yellow_A200">#ffff00</color>
+    <color name="yellow_A200">#10ffff00</color>
     <color name="yellow_A400">#ffea00</color>
     <color name="yellow_A700">#ffd600</color>
 
@@ -266,6 +266,8 @@
     <color name="grey_black_1000">#000000</color>
     <color name="grey_white_1000">#ffffff</color>
 
+
+    <color name="transpart">#00ffffff</color>
     <color name="blue_grey_50">#eceff1</color>
     <color name="blue_grey_100">#cfd8dc</color>
     <color name="blue_grey_200">#b0bec5</color>
