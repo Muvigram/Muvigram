@@ -38,8 +38,6 @@
         <activity android:name=".ui.selectmusic.MusicSelectActivity"
                   android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.selectmusic.MusicSelectActivity">
-        </activity>
         <activity android:name=".ui.camera.CameraActivity">
         </activity>
         <activity android:name=".ui.videoselect.VideoSelectActivity">
