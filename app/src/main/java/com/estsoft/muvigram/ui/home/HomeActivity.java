@@ -18,6 +18,7 @@ import com.estsoft.muvigram.ui.notify.NotifyFragment;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
+import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -82,15 +83,18 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         mSweetSheet = new SweetSheet(frameLayout);
         CustomDelegate customDelegate = new CustomDelegate(false,
                 CustomDelegate.AnimationType.DuangLayoutAnimation);
+
         final View view = LayoutInflater.from(this).inflate(R.layout.home_bottom_sheet, null, false);
         customDelegate.setCustomView(view);
         mSweetSheet.setDelegate(customDelegate);
-
         view.findViewById(R.id.sheet_camera_button).setOnClickListener(
                 v -> startActivity(new Intent(this, CameraActivity.class))
         );
         view.findViewById(R.id.sheet_music_button).setOnClickListener(
                 v -> startActivity(new Intent(this, MusicSelectActivity.class))
+        );
+        view.findViewById(R.id.sheet_library_button).setOnClickListener(
+                v -> startActivity(new Intent(this, VideoSelectActivity.class))
         );
     }
 
@@ -112,7 +116,11 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
 
     @Override
     public void onCentreButtonClick() {
-        mSweetSheet.show();
+        if (mSweetSheet.isShow()) {
+            mSweetSheet.dismiss();
+        } else {
+            mSweetSheet.show();
+        }
     }
 
     @Override

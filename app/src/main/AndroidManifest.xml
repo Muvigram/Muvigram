@@ -38,6 +38,8 @@
         </activity>
         <activity android:name=".ui.camera.CameraActivity">
         </activity>
+        <activity android:name=".ui.videoselect.VideoSelectActivity">
+        </activity>
         <activity
             android:name=".ui.sign.SignInActivity"
             android:label="@string/title_activity_sign">
