@@ -27,16 +27,21 @@ import butterknife.OnClick;
 public class IntroActivity extends BaseActivity implements IntroView {
 
 
-    @BindView(R.id.intro_email_button) Button mEmailButton;
-    @BindString(R.string.intro_buttin_email) String mEmailButtonText;
-    @BindString(R.string.test_login) String mLoginText;
-    @BindString(R.string.test_sign) String mSingupText;
-    @BindView(R.id.intro_video_view) IncreasVideoView mVideoView;
-    @Inject IntroPresenter mIntroPresenter;
-
     public static final int LOG_IN_ACTIVITY = 0;
     public static final int SIGN_UP_ACTIVITY = 1;
     public static final String KEY = "key";
+    @BindView(R.id.intro_email_button)
+    Button mEmailButton;
+    @BindString(R.string.intro_buttin_email)
+    String mEmailButtonText;
+    @BindString(R.string.test_login)
+    String mLoginText;
+    @BindString(R.string.test_sign)
+    String mSingupText;
+    @BindView(R.id.intro_video_view)
+    IncreasVideoView mVideoView;
+    @Inject
+    IntroPresenter mIntroPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +58,9 @@ public class IntroActivity extends BaseActivity implements IntroView {
         ButterKnife.bind(this);
 
 
-
         mIntroPresenter.attachView(this);
         mIntroPresenter.checkViewAttached();
         mIntroPresenter.loadVideo();
-
 
 
     }
@@ -71,11 +74,11 @@ public class IntroActivity extends BaseActivity implements IntroView {
     @OnClick(R.id.intro_email_button)
     public void emailButtonClick() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setItems( new CharSequence[]{mLoginText, mSingupText}, (dialog1, which) -> {
+        dialog.setItems(new CharSequence[]{mLoginText, mSingupText}, (dialog1, which) -> {
             Intent intent = new Intent(this, SignInActivity.class);
             intent = (which == 0)
                     ? intent.putExtra(KEY, LOG_IN_ACTIVITY) : intent.putExtra(KEY, SIGN_UP_ACTIVITY);
-            startActivity(intent,  ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         });
         dialog.show();
     }
@@ -87,7 +90,7 @@ public class IntroActivity extends BaseActivity implements IntroView {
     }
 
     private void videoPlay(final MediaPlayer mediaPlayer) {
-        if(mVideoView != null) {
+        if (mVideoView != null) {
             mediaPlayer.setVolume(0, 0);
             mVideoView.seekTo(0);
             mVideoView.start();
@@ -99,16 +102,17 @@ public class IntroActivity extends BaseActivity implements IntroView {
         super.onStop();
     }
 
-    /***** MVP View methods implementation *****/
+    /*****
+     * MVP View methods implementation
+     *****/
 
     @Override
     public void playIntroView(final Uri videoFile) {
 
-        if(mVideoView != null && !mVideoView.isPlaying())
-        {
+        if (mVideoView != null && !mVideoView.isPlaying()) {
             mVideoView.setVideoURI(videoFile);
-            mVideoView.setOnPreparedListener( mediaPlayer -> videoPlay(mediaPlayer));
-            mVideoView.setOnCompletionListener( mediaPlayer -> videoPlay(mediaPlayer));
+            mVideoView.setOnPreparedListener(mediaPlayer -> videoPlay(mediaPlayer));
+            mVideoView.setOnCompletionListener(mediaPlayer -> videoPlay(mediaPlayer));
         }
     }
 }

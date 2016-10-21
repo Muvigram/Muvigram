@@ -36,13 +36,13 @@ public class SearchFragment extends Fragment {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         ButterKnife.bind(this, view);
@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
 
     private SearchHeaderVideoItem getVideoHeader() {
         final String VIDEO_FILE_NAME = "test_intro_video";
-        final Uri videoFile = Uri.parse("android.resource://"+ getActivity().getPackageName() +"/raw/" + VIDEO_FILE_NAME);
+        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
         return new SearchHeaderVideoItem(videoFile, "Title");
     }
 
@@ -76,10 +76,9 @@ public class SearchFragment extends Fragment {
         return new SearchHeaderBoardItem("test");
     }
 
-    public List<SearchListItem> getListItems()
-    {
+    public List<SearchListItem> getListItems() {
         List<SearchListItem> listItems = new ArrayList<>();
-        for (int i = 0; i<16; i++) {
+        for (int i = 0; i < 16; i++) {
             SearchListItem item = new SearchListItem();
             if (i % 2 == 0) {
                 item.setTitle("goni");
@@ -91,7 +90,7 @@ public class SearchFragment extends Fragment {
         return listItems;
     }
 
-    private void setCustomActionbar(){
+    private void setCustomActionbar() {
 
 
         ActionBar mActionBar = ((HomeActivity) getActivity()).getDelegate().getSupportActionBar();
@@ -100,13 +99,12 @@ public class SearchFragment extends Fragment {
         mActionBar.setCustomView(mCustomView);
 
 
-
         mCustomView.findViewById(R.id.search_bar).setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), SearchBarActivity.class));
         });
 
-        mCustomView.findViewById(R.id.find_friend_button).setOnClickListener(v->{
-           startActivity(new Intent(getActivity(), FindFriendActivity.class));
+        mCustomView.findViewById(R.id.find_friend_button).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), FindFriendActivity.class));
         });
     }
 

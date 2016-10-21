@@ -7,8 +7,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TestRepo {
 
-    @SerializedName("one") private String time;
-    @SerializedName("key") private String date;
+    @SerializedName("one")
+    private String time;
+    @SerializedName("key")
+    private String date;
 
 
     @Override

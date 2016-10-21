@@ -30,7 +30,7 @@ public class IncreasVideoView extends VideoView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
+        ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
         final int deviceWidth = displayMetrics.widthPixels;
         final int deviceHeight = displayMetrics.heightPixels;
         setMeasuredDimension(deviceWidth, deviceHeight);

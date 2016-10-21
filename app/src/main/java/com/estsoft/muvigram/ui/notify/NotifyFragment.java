@@ -96,8 +96,10 @@ public class NotifyFragment extends Fragment {
             preferButton.setBackgroundResource(R.color.white);
         }
 
+
         return view;
     }
+
 
 
 }

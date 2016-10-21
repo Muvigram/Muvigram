@@ -16,10 +16,10 @@
 
 
 
-    <com.luseen.spacenavigation.SpaceNavigationView
-        android:id="@+id/home_space_navigation"
+    <com.gonigoni.transparenttabview.spacebar.TransParentSpaceView
+        android:id="@+id/home_trans_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="57dp"
         android:layout_gravity="bottom"/>
 
 

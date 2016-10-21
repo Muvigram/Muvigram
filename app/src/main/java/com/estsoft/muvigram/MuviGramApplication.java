@@ -3,7 +3,6 @@ package com.estsoft.muvigram;
 import android.app.Application;
 import android.content.Context;
 
-
 import com.estsoft.muvigram.injection.component.ApplicationComponent;
 import com.estsoft.muvigram.injection.component.DaggerApplicationComponent;
 import com.estsoft.muvigram.injection.module.ApplicationModule;
@@ -17,6 +16,10 @@ public class MuviGramApplication extends Application {
 
     ApplicationComponent mApplicationComponent;
 
+    public static MuviGramApplication get(Context context) {
+        return (MuviGramApplication) context.getApplicationContext();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -24,12 +27,8 @@ public class MuviGramApplication extends Application {
 
     }
 
-    public static MuviGramApplication get(Context context) {
-        return (MuviGramApplication) context.getApplicationContext();
-    }
-
     public ApplicationComponent getComponent() {
-        if(mApplicationComponent == null) {
+        if (mApplicationComponent == null) {
 
             mApplicationComponent = DaggerApplicationComponent.builder()
                     .applicationModule(new ApplicationModule(this))

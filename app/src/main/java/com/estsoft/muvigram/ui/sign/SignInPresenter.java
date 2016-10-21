@@ -47,13 +47,19 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     }
 
 
-    // 형식 검사
+    /**
+     * Attach subscribe.
+     *
+     * @param emailChangeObservable    the email change observable
+     * @param passwordChangeObservable the password change observable
+     * @param userIdChangeObservable   the user id change observable
+     */
     public void attachSubscribe(Observable<CharSequence> emailChangeObservable, Observable<CharSequence> passwordChangeObservable, Observable<CharSequence> userIdChangeObservable) {
 
 
         final boolean isLogin = userIdChangeObservable == null;
 
-        if(isLogin){
+        if (isLogin) {
             userIdChangeObservable = Observable.just("");
         }
 
@@ -76,7 +82,7 @@ public class SignInPresenter extends BasePresenter<SignInView> {
                     @Override
                     public void onNext(CharSequence charSequence) {
                         boolean isUseridValid = validateUserid(charSequence.toString());
-                        if(!isUseridValid) {
+                        if (!isUseridValid) {
                             getMvpView().showUseridError();
                         } else {
                             getMvpView().hideUseridError();
@@ -149,12 +155,14 @@ public class SignInPresenter extends BasePresenter<SignInView> {
                     boolean isEmailValid = validateEmail(email.toString());
                     boolean isPasswordValid = validatePassword(password.toString());
                     boolean isUserValid = validateUserid(userid.toString());
-                    if(isLogin) isUserValid = true;
-                    return isEmailValid && isPasswordValid && isUserValid; })
+                    if (isLogin) isUserValid = true;
+                    return isEmailValid && isPasswordValid && isUserValid;
+                })
                 .observeOn(AndroidSchedulers.mainThread()) // UI Thread
                 .subscribe(new Observer<Boolean>() {
                     @Override
-                    public void onCompleted() { }
+                    public void onCompleted() {
+                    }
 
                     @Override
                     public void onError(Throwable e) {

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int TYPE_VIDEO_HEADER = 0;
-    public static final int TYPE_BOARD_HEDER = 1;
+    public static final int TYPE_BOARD_HEADER = 1;
     public static final int TYPE_ITEM = 2;
 
     private List<SearchListItem> mSearchListItems;
@@ -45,7 +45,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             View view = inflater.inflate(R.layout.search_fragment_haeder_video, parent, false);
             VideoHeader videoHeader = new VideoHeader(view);
             return videoHeader;
-        } else if(viewType == TYPE_BOARD_HEDER) {
+        } else if(viewType == TYPE_BOARD_HEADER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_fragment_header_board, parent, false);
             return new BoardHeader(view);
         } else {
@@ -85,7 +85,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(isPositionVideoHeader(position)) {
             return TYPE_VIDEO_HEADER;
         } else if(isPositionBoardHeader(position)) {
-            return TYPE_BOARD_HEDER;
+            return TYPE_BOARD_HEADER;
         }
         return TYPE_ITEM;
     }

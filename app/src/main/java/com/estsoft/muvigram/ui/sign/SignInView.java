@@ -7,11 +7,18 @@ import com.estsoft.muvigram.ui.base.MvpView;
  */
 public interface SignInView extends MvpView {
     void enableSignIn();
+
     void disableSignIn();
+
     void hidePasswordError();
+
     void showPasswordError();
+
     void hideEmailError();
+
     void showEmailError();
+
     void showUseridError();
+
     void hideUseridError();
 }

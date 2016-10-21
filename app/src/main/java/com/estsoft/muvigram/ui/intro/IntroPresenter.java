@@ -3,7 +3,6 @@ package com.estsoft.muvigram.ui.intro;
 import android.content.Context;
 import android.net.Uri;
 
-import com.estsoft.muvigram.data.DataManager;
 import com.estsoft.muvigram.injection.ConfigPersistent;
 import com.estsoft.muvigram.ui.base.BasePresenter;
 
@@ -16,7 +15,8 @@ import javax.inject.Inject;
 public class IntroPresenter extends BasePresenter<IntroView> {
 
     @Inject
-    public IntroPresenter() { }
+    public IntroPresenter() {
+    }
 
     @Override
     public void attachView(IntroView mvpView) {
@@ -31,7 +31,7 @@ public class IntroPresenter extends BasePresenter<IntroView> {
     public void loadVideo() {
         final String VIDEO_FILE_NAME = "test_intro_video";
         final Context context = (Context) getMvpView();
-        final Uri videoFile = Uri.parse("android.resource://"+ context.getPackageName() +"/raw/" + VIDEO_FILE_NAME);
+        final Uri videoFile = Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + VIDEO_FILE_NAME);
         getMvpView().playIntroView(videoFile);
     }
 }

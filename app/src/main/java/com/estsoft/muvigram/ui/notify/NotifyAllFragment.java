@@ -25,13 +25,13 @@ public class NotifyAllFragment extends Fragment {
     @BindView(R.id.notify_all_recyclerview) RecyclerView recyclerView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_notify_all, container, false);
         ButterKnife.bind(this,v);
 
