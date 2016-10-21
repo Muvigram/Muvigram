@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by gangGongUi on 2016. 10. 18..
  */
-public class FeedTabView extends View  {
+public class FeedTabView extends View {
     private int mBackLineColor;
     private int mActiveColor;
     private int mTextColor;
@@ -35,8 +35,7 @@ public class FeedTabView extends View  {
     private boolean[] isActiveItem = new boolean[3];
 
 
-    public FeedTabView(Context context)
-    {
+    public FeedTabView(Context context) {
         super(context);
     }
 
@@ -49,12 +48,11 @@ public class FeedTabView extends View  {
         this.mBackLineColor = typedArray.getInteger(R.styleable.FeedTabView_backLineColor, Color.parseColor("#90FAFAFA"));
         this.mActiveColor = typedArray.getInteger(R.styleable.FeedTabView_activeTabColor, Color.WHITE);
         this.mTextColor = typedArray.getInteger(R.styleable.FeedTabView_textColor, Color.WHITE);
-        this.mTextSize = typedArray.getInteger(R.styleable.FeedTabView_textSize,  40);
+        this.mTextSize = typedArray.getInteger(R.styleable.FeedTabView_textSize, 40);
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-    {
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
         int width = this.getMeasuredWidth();
@@ -62,11 +60,11 @@ public class FeedTabView extends View  {
 
         float tabWidthTemp = width / 5;
         float mTabWidthSize = tabWidthTemp * 3;
-        float barPlusSize =  tabWidthTemp * 30 / 100 * 2;
-         mTabWidthSize += barPlusSize;
+        float barPlusSize = tabWidthTemp * 30 / 100 * 2;
+        mTabWidthSize += barPlusSize;
         float backLineStartX = tabWidthTemp * 70 / 100;
         float backLineEndX = width - backLineStartX;
-        setPadding(0 , 0, 0 , 0);
+        setPadding(0, 0, 0, 0);
         mTabLocationInfo = new TabLocationInfo(mTabWidthSize, backLineStartX, backLineEndX);
 
         ViewGroup.MarginLayoutParams margins = ViewGroup.MarginLayoutParams.class.cast(getLayoutParams());
@@ -82,10 +80,10 @@ public class FeedTabView extends View  {
     }
 
     @Override
-    protected void onDraw(Canvas canvas)  {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int height =  this.getMeasuredHeight();
+        int height = this.getMeasuredHeight();
 
 
         Paint backLinePaint = new Paint();
@@ -95,7 +93,6 @@ public class FeedTabView extends View  {
         backLinePaint.setAntiAlias(true);
         backLinePaint.setShadowLayer(0, 0, 0, 0);
         backLinePaint.setStyle(Paint.Style.FILL);
-
 
         canvas.drawLine(mTabLocationInfo.mBackLineStartX, getPaddingTop(), mTabLocationInfo.mBarkLineEndX, getPaddingTop(), backLinePaint);
 
@@ -109,16 +106,16 @@ public class FeedTabView extends View  {
         textPaint.setTextSize(mTextSize);
 
         final float tebItemWidth = mTabLocationInfo.mTabWidthSize / 3;
-        canvas.drawText(mTabTitles.get(0), tebItemWidth / 2 + mTabLocationInfo.mBackLineStartX, height/ 2, textPaint);
-        canvas.drawText(mTabTitles.get(1), tebItemWidth + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint );
-        canvas.drawText(mTabTitles.get(2), tebItemWidth * 2 + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint );
+        canvas.drawText(mTabTitles.get(0), tebItemWidth / 2 + mTabLocationInfo.mBackLineStartX, height / 2, textPaint);
+        canvas.drawText(mTabTitles.get(1), tebItemWidth + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint);
+        canvas.drawText(mTabTitles.get(2), tebItemWidth * 2 + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint);
         activeTab(canvas, backLinePaint, textPaint);
 
     }
 
     private void activeTab(Canvas canvas, Paint backLinePaint, Paint textPaint) {
 
-        final int height =  this.getMeasuredHeight();
+        final int height = this.getMeasuredHeight();
         final float paddingTop = 0;
         final float tebItemWidth = mTabLocationInfo.mTabWidthSize / 3;
 
@@ -127,61 +124,58 @@ public class FeedTabView extends View  {
         textPaint.setStrokeWidth(500);
         textPaint.setTypeface(Typeface.DEFAULT_BOLD);
 
-        if(isActiveItem[0]) {
-            canvas.drawLine(mTabLocationInfo.mBackLineStartX, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth, getPaddingTop() + paddingTop,  backLinePaint);
-            canvas.drawText(mTabTitles.get(0), tebItemWidth / 2 + mTabLocationInfo.mBackLineStartX, height/ 2, textPaint);
-            if(mOnFeedTabItemClickListener != null) {
+        if (isActiveItem[0]) {
+            canvas.drawLine(mTabLocationInfo.mBackLineStartX, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth, getPaddingTop() + paddingTop, backLinePaint);
+            canvas.drawText(mTabTitles.get(0), tebItemWidth / 2 + mTabLocationInfo.mBackLineStartX, height / 2, textPaint);
+            if (mOnFeedTabItemClickListener != null) {
                 mOnFeedTabItemClickListener.onItemClick(new BarItem(0, mTabTitles.get(0)));
             }
         } else if (isActiveItem[1]) {
-            canvas.drawLine(mTabLocationInfo.mBackLineStartX + tebItemWidth, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth * 2, getPaddingTop() + paddingTop,  backLinePaint);
-            canvas.drawText(mTabTitles.get(1), tebItemWidth + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint );
-            if(mOnFeedTabItemClickListener != null) {
+            canvas.drawLine(mTabLocationInfo.mBackLineStartX + tebItemWidth, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth * 2, getPaddingTop() + paddingTop, backLinePaint);
+            canvas.drawText(mTabTitles.get(1), tebItemWidth + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint);
+            if (mOnFeedTabItemClickListener != null) {
                 mOnFeedTabItemClickListener.onItemClick(new BarItem(1, mTabTitles.get(1)));
             }
-        } else if(isActiveItem[2]) {
-            canvas.drawLine(mTabLocationInfo.mBackLineStartX + tebItemWidth * 2, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth * 3, getPaddingTop() + paddingTop,  backLinePaint);
-            canvas.drawText(mTabTitles.get(2), tebItemWidth * 2 + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint );
-            if(mOnFeedTabItemClickListener != null) {
+        } else if (isActiveItem[2]) {
+            canvas.drawLine(mTabLocationInfo.mBackLineStartX + tebItemWidth * 2, getPaddingTop() + paddingTop, mTabLocationInfo.mBackLineStartX + tebItemWidth * 3, getPaddingTop() + paddingTop, backLinePaint);
+            canvas.drawText(mTabTitles.get(2), tebItemWidth * 2 + mTabLocationInfo.mBackLineStartX + (tebItemWidth / 2), height / 2, textPaint);
+            if (mOnFeedTabItemClickListener != null) {
                 mOnFeedTabItemClickListener.onItemClick(new BarItem(2, mTabTitles.get(2)));
             }
         }
     }
 
-    public void setOnFeedTabItemClickListener(onFeedTabItemClickListener onFeedTabItemClickListener)
-    {
+    public void setOnFeedTabItemClickListener(onFeedTabItemClickListener onFeedTabItemClickListener) {
         mOnFeedTabItemClickListener = onFeedTabItemClickListener;
     }
 
     public void setTabTitles(String title, String title1, String title2) {
-            mTabTitles.clear();
-            mTabTitles.add(title);
-            mTabTitles.add(title1);
-            mTabTitles.add(title2);
-            invalidate();
+        mTabTitles.clear();
+        mTabTitles.add(title);
+        mTabTitles.add(title1);
+        mTabTitles.add(title2);
+        invalidate();
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
+    public boolean onTouchEvent(MotionEvent event) {
         PointF pointF = new PointF();
         pointF.x = event.getX();
         pointF.y = event.getY();
 
         final float tebItemWidth = mTabLocationInfo.mTabWidthSize / 3;
 
-        if(event.getAction() == MotionEvent.ACTION_UP) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
 
             final float startLocation = mTabLocationInfo.mBackLineStartX;
 
-            if(startLocation < pointF.x && pointF.x < startLocation+tebItemWidth)
-            {
+            if (startLocation < pointF.x && pointF.x < startLocation + tebItemWidth) {
                 // click item 0
                 setActiveItem(0);
             } else if (startLocation + tebItemWidth < pointF.x && pointF.x < startLocation + tebItemWidth * 2) {
                 // click item 1
                 setActiveItem(1);
-            } else if(startLocation + tebItemWidth * 2 < pointF.x && pointF.x < mTabLocationInfo.mBarkLineEndX) {
+            } else if (startLocation + tebItemWidth * 2 < pointF.x && pointF.x < mTabLocationInfo.mBarkLineEndX) {
                 // click item 2
                 setActiveItem(2);
             }
@@ -210,8 +204,7 @@ public class FeedTabView extends View  {
         invalidate();
     }
 
-    public interface onFeedTabItemClickListener
-    {
+    public interface onFeedTabItemClickListener {
         void onItemClick(BarItem barItem);
     }
 
@@ -219,19 +212,16 @@ public class FeedTabView extends View  {
         private int mIndex;
         private String mTitle;
 
-        public BarItem(int index, String title)
-        {
+        public BarItem(int index, String title) {
             mIndex = index;
             mTitle = title;
         }
 
-        public int getIndex()
-        {
+        public int getIndex() {
             return mIndex;
         }
 
-        public String getTitle()
-        {
+        public String getTitle() {
             return mTitle;
         }
     }
@@ -241,8 +231,7 @@ public class FeedTabView extends View  {
         public float mBackLineStartX;
         public float mBarkLineEndX;
 
-        public TabLocationInfo(float tabWidthSize, float backLineStartX, float barkLineEndX)
-        {
+        public TabLocationInfo(float tabWidthSize, float backLineStartX, float barkLineEndX) {
             mTabWidthSize = tabWidthSize;
             mBackLineStartX = backLineStartX;
             mBarkLineEndX = barkLineEndX;

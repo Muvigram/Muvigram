@@ -3,7 +3,6 @@ package com.estsoft.muvigram.injection.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.estsoft.muvigram.data.remote.NetWorkTestService;
 import com.estsoft.muvigram.injection.ActivityContext;
 
 import dagger.Module;

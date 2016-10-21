@@ -9,10 +9,10 @@ import com.estsoft.muvigram.ui.base.BaseActivity;
  * Created by JEONGYI on 2016. 10. 13..
  */
 
-public class FindFriendActivity extends BaseActivity{
+public class FindFriendActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_friend);
     }

@@ -12,8 +12,6 @@ import com.estsoft.muvigram.ui.intro.IntroActivity;
 import javax.inject.Inject;
 
 
-
-
 public class SplashActivity extends BaseActivity {
 
     @Inject DataManager dataManager;

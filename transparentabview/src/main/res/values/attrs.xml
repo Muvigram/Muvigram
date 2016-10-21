@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TransParentTabView">
+        <attr name="textSize" format="integer"/>
+        <attr name="textColor" format="color"/>
+        <attr name="backLineColor" format="color"/>
+        <attr name="activeTabColor" format="color"/>
+    </declare-styleable>
+</resources>

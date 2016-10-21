@@ -2,11 +2,8 @@ package com.estsoft.muvigram.ui.profile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.hardware.display.DisplayManagerCompat;
-import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +18,8 @@ import android.widget.TextView;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.model.UserInfoRepo;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
-import com.estsoft.muvigram.ui.home.HomeActivity;
-import com.estsoft.muvigram.ui.home.HomePresenter;
 import com.estsoft.muvigram.ui.setting.SettingsActivity;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,37 +34,35 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.find_friend_button) ImageButton findFriendButton;
     @BindView(R.id.setting_button) ImageButton settingButton;
 
-    UserInfoRepo user = new UserInfoRepo("pwjddl1126","박정이",
+    UserInfoRepo user = new UserInfoRepo("pwjddl1126", "박정이",
             "\"live with passion, live like muvigram\"",
             "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419");
-    private Integer[] mProfileThum = {R.drawable.profile_test, R.drawable.profile_test1,
-            R.drawable.profile_test2, R.drawable.profile_test3, R.drawable.profile_test};
-
-//    @Inject
+    //    @Inject
 //    ProfilePresenter mProfilePresenter;
 //    private Integer[] mProfileThum = mProfilePresenter.loadThumbnails();
     DisplayMetrics mMetrics;
+    private Integer[] mProfileThum = {R.drawable.profile_test, R.drawable.profile_test1,
+            R.drawable.profile_test2, R.drawable.profile_test3, R.drawable.profile_test};
 
-
-    @OnClick(R.id.find_friend_button) void setFindFriendButton(){
+    @OnClick(R.id.find_friend_button) void setFindFriendButton() {
         startActivity(new Intent(getActivity(), FindFriendActivity.class));
     }
 
-    @OnClick(R.id.setting_button) void setSettingButton(){
+    @OnClick(R.id.setting_button) void setSettingButton() {
         startActivity(new Intent(getActivity(), SettingsActivity.class));
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this,v);
+        ButterKnife.bind(this, v);
 
         ImageView profile = (ImageView) v.findViewById(R.id.profile_image);
         Picasso.with(getActivity())
@@ -81,24 +70,24 @@ public class ProfileFragment extends Fragment {
                 .transform(new CircleTransform()).into(profile);
 
 
-        TextView userId = (TextView)v.findViewById(R.id.id);
-        userId.setText("@"+user.getUserid());
-        TextView userBio = (TextView)v.findViewById(R.id.bio);
+        TextView userId = (TextView) v.findViewById(R.id.id);
+        userId.setText("@" + user.getUserid());
+        TextView userBio = (TextView) v.findViewById(R.id.bio);
         userBio.setText(user.getBio());
 
         //프로필 수정
-        Button editProfileButton = (Button)v.findViewById(R.id.edit_profile_button);
+        Button editProfileButton = (Button) v.findViewById(R.id.edit_profile_button);
         editProfileButton.setOnClickListener(v1 -> {
             Intent intent = new Intent(getActivity(), EditProfileActivity.class);
             intent.putExtra("userId", user.getUserid());
             intent.putExtra("userBio", user.getBio());
             intent.putExtra("userName", user.getUserName());
-            intent.putExtra("userProfileImage",user.getProfileImage());
+            intent.putExtra("userProfileImage", user.getProfileImage());
             startActivity(intent);
         });
 
         //그리드뷰
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView)v.findViewById(R.id.profile_gridview);
+        ExpandableHeightGridView gridView = (ExpandableHeightGridView) v.findViewById(R.id.profile_gridview);
         gridView.setExpanded(true);
         gridView.setAdapter(new ImageAdapter(getActivity()));
 //        gridView.setOnItemClickListener(gridViewOnItemClickListener);
@@ -135,7 +124,7 @@ public class ProfileFragment extends Fragment {
             ImageView imageView;
             if (convertView == null) {
                 imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(rowWidth,rowWidth));
+                imageView.setLayoutParams(new GridView.LayoutParams(rowWidth, rowWidth));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(1, 1, 1, 1);
             } else {

@@ -15,13 +15,13 @@ import com.estsoft.muvigram.R;
 public class NotifyPreferFragment extends Fragment {
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_notify_prefer, container, false);
         return v;
     }

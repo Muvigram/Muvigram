@@ -1,7 +1,6 @@
 package com.estsoft.muvigram.ui.home;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;
@@ -20,9 +18,7 @@ import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
-import com.luseen.spacenavigation.SpaceItem;
-import com.luseen.spacenavigation.SpaceNavigationView;
-import com.luseen.spacenavigation.SpaceOnClickListener;
+import com.gonigoni.transparenttabview.spacebar.TransParentSpaceView;
 import com.mingle.sweetpick.CustomDelegate;
 import com.mingle.sweetpick.SweetSheet;
 
@@ -35,25 +31,25 @@ import timber.log.Timber;
 /**
  * The type Home activity.
  */
-public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClickListener {
+public class HomeActivity extends BaseActivity implements HomeView, TransParentSpaceView.OnSpaceViewListener {
 
     /**
      * The M home presenter.
      */
-    @Inject HomePresenter mHomePresenter;
-    @BindView(R.id.background) FrameLayout background;
-
+    @Inject
+    HomePresenter mHomePresenter;
+    @BindView(R.id.background)
+    FrameLayout background;
+    /**
+     * The M space navigation view.
+     */
+    @BindView(R.id.home_trans_navigation) TransParentSpaceView mTransSpaceView;
     private SweetSheet mSweetSheet;
     private FragmentManager mFragmentManager;
     private FeedFragment mFeedFragment = null;
     private SearchFragment mSearchFragment = null;
     private NotifyFragment mNotifyFragment = null;
     private ProfileFragment mProfileFragment = null;
-
-    /**
-     * The M space navigation view.
-     */
-    @BindView(R.id.home_space_navigation) SpaceNavigationView mSpaceNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +68,12 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
 
 
         initBottomSheetView();
-        initSpaceNavigationView(savedInstanceState);
+        initTransSpaceView(savedInstanceState);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.activity_home);
 
-        if(fragment == null){
+        if (fragment == null) {
             mFeedFragment = new FeedFragment();
             fragment = mFeedFragment;
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
@@ -93,11 +89,9 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mSpaceNavigationView.onSaveInstanceState(outState);
     }
 
-    private void initBottomSheetView()
-    {
+    private void initBottomSheetView() {
         final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_home);
         mSweetSheet = new SweetSheet(frameLayout);
         CustomDelegate customDelegate = new CustomDelegate(false,
@@ -117,24 +111,27 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         );
     }
 
-    private void initSpaceNavigationView(Bundle savedInstanceState)
-    {
+    private void initTransSpaceView(Bundle savedInstanceState) {
         // space navigation view
-        final Resources res = getResources();
-        mSpaceNavigationView.initWithSaveInstanceState(savedInstanceState);
-        mSpaceNavigationView.setSpaceBackgroundColor(Color.TRANSPARENT);
-        mSpaceNavigationView.setActiveSpaceItemColor(getResources().getColor(R.color.blue_grey_700));
-        mSpaceNavigationView.addSpaceItem(new SpaceItem(res.getString(R.string.home_space_item), R.drawable.ic_action_home));
-        mSpaceNavigationView.addSpaceItem(new SpaceItem(res.getString(R.string.home_space_item1), R.drawable.ic_action_search));
-        mSpaceNavigationView.addSpaceItem(new SpaceItem(res.getString(R.string.home_space_item2), R.drawable.ic_action_noty));
-        mSpaceNavigationView.addSpaceItem(new SpaceItem(res.getString(R.string.home_space_item3), R.drawable.ic_action_info));
-        mSpaceNavigationView.setCentreButtonIcon(R.drawable.ic_action_camera);
-        mSpaceNavigationView.showIconOnly();
-        mSpaceNavigationView.setSpaceOnClickListener(this);
+        mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_home);
+        mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_search);
+        mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_noty);
+        mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_info);
+        mTransSpaceView.setOnSpaceViewListener(this);
+    }
+
+    /*test*/
+    public void showNetworkError() {
+        Timber.e("error");
     }
 
     @Override
-    public void onCentreButtonClick() {
+    public void showTestToast(int i) {
+
+    }
+    /*test*/
+
+    @Override public void onCenterClick() {
         if (mSweetSheet.isShow()) {
             mSweetSheet.dismiss();
         } else {
@@ -142,64 +139,39 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
         }
     }
 
-    @Override
-    public void onItemClick(int itemIndex, String itemName) {
+    @Override public void onSpaceTabClick(int index) {
         mHomePresenter.loadTestData();
 
         mFragmentManager = getSupportFragmentManager();
 
-        if(0 == itemIndex) {
-            mSpaceNavigationView.changeSpaceBackgroundColor(Color.TRANSPARENT);
-        } else {
-            mSpaceNavigationView.changeSpaceBackgroundColor(getResources().getColor(R.color.grey_800));
-        }
-
-        switch(itemIndex){
+        switch (index) {
             case 0:
-                if(mFeedFragment == null) {
+                if (mFeedFragment == null) {
                     mFeedFragment = new FeedFragment();
                 }
                 mFragmentManager.beginTransaction().replace(R.id.activity_home, mFeedFragment).commit();
                 break;
             case 1:
-                if(mSearchFragment == null) {
+                if (mSearchFragment == null) {
                     mSearchFragment = new SearchFragment();
                 }
                 mFragmentManager.beginTransaction().replace(R.id.activity_home, mSearchFragment).commit();
-                //getWindow().setStatusBarColor(getResources().getColor(R.color.light_blue_300));
                 break;
             case 2:
-                if(mNotifyFragment == null) {
+                if (mNotifyFragment == null) {
                     mNotifyFragment = new NotifyFragment();
                 }
                 mFragmentManager.beginTransaction().replace(R.id.activity_home, mNotifyFragment).commit();
-                //getWindow().setStatusBarColor(getResources().getColor(R.color.light_blue_300));
 
                 break;
             case 3:
-                if(mProfileFragment == null) {
-                     mProfileFragment = new ProfileFragment();
+                if (mProfileFragment == null) {
+                    mProfileFragment = new ProfileFragment();
                 }
                 mFragmentManager.beginTransaction().replace(R.id.activity_home, mProfileFragment).commit();
-                //getWindow().setStatusBarColor(getResources().getColor(R.color.light_blue_300));
                 break;
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onItemReselected(int itemIndex, String itemName) {
-
-    }
-
-    @Override
-    public void showNetworkError() {
-        Timber.e("error");
-    }
-
-    @Override
-    public void showTestToast(int i) {
-        Timber.e("showTestToast  " + i);
     }
 }

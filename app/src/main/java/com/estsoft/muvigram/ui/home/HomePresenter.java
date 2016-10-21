@@ -5,8 +5,6 @@ import com.estsoft.muvigram.injection.ConfigPersistent;
 import com.estsoft.muvigram.ui.base.BasePresenter;
 import com.estsoft.muvigram.util.RxUtil;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import rx.Subscriber;
@@ -24,7 +22,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
     private Subscription mSubscription;
 
     @Inject
-    public HomePresenter(DataManager mDataManager) { this.mDataManager = mDataManager; }
+    public HomePresenter(DataManager mDataManager) {
+        this.mDataManager = mDataManager;
+    }
 
     @Override
     public void attachView(HomeView mvpView) {

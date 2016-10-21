@@ -9,17 +9,14 @@ import android.view.View;
 /**
  * Created by gangGongUi on 2016. 10. 17..
  */
-public class VerticalViewPager extends ViewPager
-{
+public class VerticalViewPager extends ViewPager {
 
-    public VerticalViewPager(Context context)
-    {
+    public VerticalViewPager(Context context) {
         super(context);
         setPageTransformer(false, new Trasformer());
     }
 
-    public VerticalViewPager(Context context, AttributeSet attrs)
-    {
+    public VerticalViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         setPageTransformer(false, new Trasformer());
     }
@@ -38,24 +35,21 @@ public class VerticalViewPager extends ViewPager
 
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev)
-    {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean intercept = super.onInterceptTouchEvent(swapTouchEvent(ev));
         swapTouchEvent(ev);
         return intercept;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev)
-    {
+    public boolean onTouchEvent(MotionEvent ev) {
         return super.onTouchEvent(swapTouchEvent(ev));
     }
 
     class Trasformer implements ViewPager.PageTransformer {
 
         @Override
-        public void transformPage(View page, float position)
-        {
+        public void transformPage(View page, float position) {
             page.setTranslationX(page.getWidth() * -position);
             float yPosition = position * page.getHeight();
             page.setTranslationY(yPosition);

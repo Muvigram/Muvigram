@@ -35,10 +35,14 @@ public class ApplicationModule {
     }
 
     @Provides
-    NetWorkTestService providesNetWorkTestService()  { return new NetWorkTestService(); }
+    NetWorkTestService providesNetWorkTestService() {
+        return new NetWorkTestService();
+    }
 
     @Provides
     @Singleton
-    LoginSignService provideRibotsService() { return LoginSignService.Creator.newLoginSignService(); }
+    LoginSignService provideRibotsService() {
+        return LoginSignService.Creator.newLoginSignService();
+    }
 
 }
