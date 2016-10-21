@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
     @Inject HomePresenter mHomePresenter;
     @BindView(R.id.background) FrameLayout background;
 
+    private BottomSheetDialog mBottomSheetDialog;
     private SweetSheet mSweetSheet;
     private FragmentManager mFragmentManager;
     private FeedFragment mFeedFragment = null;
@@ -98,23 +100,20 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
 
     private void initBottomSheetView()
     {
-        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.activity_home);
-        mSweetSheet = new SweetSheet(frameLayout);
-        CustomDelegate customDelegate = new CustomDelegate(false,
-                CustomDelegate.AnimationType.DuangLayoutAnimation);
+        final View view = LayoutInflater.from(this).inflate(R.layout.camera_bottom_sheet, null, false);
+        mBottomSheetDialog = new BottomSheetDialog(this);
+        mBottomSheetDialog.setContentView(view);
 
-        final View view = LayoutInflater.from(this).inflate(R.layout.home_bottom_sheet, null, false);
-        customDelegate.setCustomView(view);
-        mSweetSheet.setDelegate(customDelegate);
-        view.findViewById(R.id.sheet_camera_button).setOnClickListener(
+        view.findViewById(R.id.sheet_camera_layout).setOnClickListener(
                 v -> startActivity(new Intent(this, CameraActivity.class))
         );
-        view.findViewById(R.id.sheet_music_button).setOnClickListener(
+        view.findViewById(R.id.sheet_music_layout).setOnClickListener(
                 v -> startActivity(new Intent(this, MusicSelectActivity.class))
         );
-        view.findViewById(R.id.sheet_library_button).setOnClickListener(
+        view.findViewById(R.id.sheet_library_layout).setOnClickListener(
                 v -> startActivity(new Intent(this, VideoSelectActivity.class))
         );
+
     }
 
     private void initSpaceNavigationView(Bundle savedInstanceState)
@@ -135,11 +134,12 @@ public class HomeActivity extends BaseActivity implements HomeView, SpaceOnClick
 
     @Override
     public void onCentreButtonClick() {
-        if (mSweetSheet.isShow()) {
-            mSweetSheet.dismiss();
-        } else {
-            mSweetSheet.show();
-        }
+//        if (mSweetSheet.isShow()) {
+//            mSweetSheet.dismiss();
+//        } else {
+//            mSweetSheet.show();
+//        }
+        mBottomSheetDialog.show();
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.BaseActivity;
@@ -39,7 +40,14 @@ public class EditProfileActivity extends BaseActivity{
     }
 
     @OnClick(R.id.save_button) void clickSave(){
+        Intent intent = this.getIntent();
+        intent.putExtra("userId",""+userIdEditText.getText());
+        intent.putExtra("userName",""+userNameEditText.getText());
+        intent.putExtra("userBio",""+userBioEditText.getText());
+        this.setResult(RESULT_OK,intent);
 
+        Toast.makeText(this, "saved", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -61,7 +69,6 @@ public class EditProfileActivity extends BaseActivity{
         userIdEditText.setText(userId);
         userBioEditText.setText(bio);
         userNameEditText.setText(userName);
-
 
     }
 

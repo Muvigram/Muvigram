@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.hardware.display.DisplayManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.estsoft.muvigram.MuviGramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.model.UserInfoRepo;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
@@ -42,6 +46,10 @@ public class ProfileFragment extends Fragment {
 
     @BindView(R.id.find_friend_button) ImageButton findFriendButton;
     @BindView(R.id.setting_button) ImageButton settingButton;
+    @BindView(R.id.action_bar) RelativeLayout mActionBar;
+    @BindView(R.id.id) TextView userId;
+    @BindView(R.id.bio) TextView userBio;
+    @BindView(R.id.name) TextView userName;
 
     UserInfoRepo user = new UserInfoRepo("pwjddl1126","박정이",
             "\"live with passion, live like muvigram\"",
@@ -80,11 +88,13 @@ public class ProfileFragment extends Fragment {
                 .load(user.getProfileImage())
                 .transform(new CircleTransform()).into(profile);
 
+        final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
+        params.setMargins(0, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
+        mActionBar.setLayoutParams(params);
 
-        TextView userId = (TextView)v.findViewById(R.id.id);
         userId.setText("@"+user.getUserid());
-        TextView userBio = (TextView)v.findViewById(R.id.bio);
         userBio.setText(user.getBio());
+        userName.setText(user.getUserName());
 
         //프로필 수정
         Button editProfileButton = (Button)v.findViewById(R.id.edit_profile_button);
@@ -94,7 +104,7 @@ public class ProfileFragment extends Fragment {
             intent.putExtra("userBio", user.getBio());
             intent.putExtra("userName", user.getUserName());
             intent.putExtra("userProfileImage",user.getProfileImage());
-            startActivity(intent);
+            startActivityForResult(intent,0);
         });
 
         //그리드뷰
@@ -106,6 +116,27 @@ public class ProfileFragment extends Fragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
 
         return v;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case -1:
+                Log.d("----->","asdfasdf");
+                String userId = data.getStringExtra("userId");
+                String userName = data.getStringExtra("userName");
+                String userBio = data.getStringExtra("userBio");
+                user.setUserid(userId);
+                user.setUserName(userName);
+                user.setBio(userBio);
+                break;
+            default:
+                break;
+        }
+
+        userId.setText("@"+user.getUserid());
+        userBio.setText(user.getBio());
+        userName.setText(user.getUserName());
     }
 
     public class ImageAdapter extends BaseAdapter {

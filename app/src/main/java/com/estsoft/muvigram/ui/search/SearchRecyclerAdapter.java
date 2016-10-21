@@ -28,6 +28,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private List<SearchListItem> mSearchListItems;
     private SearchHeaderVideoItem mHeaderVideoItem;
     private SearchHeaderBoardItem mHeaderBoardItem;
+
     private SearchListItem mListItem;
 
     public SearchRecyclerAdapter(SearchHeaderVideoItem headerVideoItem, SearchHeaderBoardItem headerBoardItem, List<SearchListItem> searchListItems) {
@@ -91,7 +92,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private boolean isPositionVideoHeader(int position)
     {
-        return position == 0;
+        return position == mSearchListItems.get(position).getId();
     }
 
     private boolean isPositionBoardHeader(int position)

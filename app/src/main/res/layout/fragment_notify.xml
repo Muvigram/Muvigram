@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container_notify">
+    android:id="@+id/container_notify"
+    android:background="@color/light_blue_300">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +12,7 @@
         android:orientation="horizontal"
         android:background="@color/light_blue_300"
         android:layout_gravity="center"
-        android:id="@+id/linear"
+        android:id="@+id/action_bar"
         android:gravity="center">
 
         <Button

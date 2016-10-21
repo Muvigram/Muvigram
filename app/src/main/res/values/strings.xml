@@ -43,9 +43,9 @@
     <string name="test_skip">skip</string>
     <string name="test_login">log in</string>
     <string name="test_sign">sign up</string>
-    <string name="test_bottom_music">Select music</string>
-    <string name="test_bottom_camera">Shot first</string>
-    <string name="test_bottom_library">Video from Library</string>
+    <string name="test_bottom_music">Select\nmusic</string>
+    <string name="test_bottom_camera">Shoot\nfirst</string>
+    <string name="test_bottom_library">From\nLibrary</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -80,6 +80,9 @@
     <!-- Notify Fragment -->
     <string name="notify_text_all">all</string>
     <string name="notify_text_priority">priority</string>
+    <string name="notify_follow_message">is now following you</string>
+    <string name="notify_like_message">liked your muvigram</string>
+    <string name="notify_reply_message">commented on your muvigram</string>
 
 
     <!-- Profile Fragment -->
