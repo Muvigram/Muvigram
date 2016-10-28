@@ -14,8 +14,12 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(prefix = "m")
 public class SearchListItem {
-    private int mId;
+    private String mProfile;
     private String mTitle;
+    private String mSubTitle;
 
-
+    SearchListItem(String title, String subTitle){
+        mTitle = title;
+        mSubTitle = subTitle;
+    }
 }

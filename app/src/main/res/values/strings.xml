@@ -76,6 +76,14 @@
 
 
     <!-- Search Fragment -->
+    <string name="cardview_text_1">popular now</string>
+    <string name="cardview_text_2">leaderboard</string>
+    <string name="cardview_text_3">song chart</string>
+    <string name="cardview_text_4">live moments</string>
+
+    <string name="search_people">search people</string>
+    <string name="search_tags">search tags</string>
+    <string name="search_sounds">search sounds</string>
 
 
     <!-- Notify Fragment -->
@@ -91,6 +99,9 @@
     <string name="profile_text_fans">fans</string>
     <string name="profile_text_likes">likes</string>
     <string name="profile_button_edit_profile">edit profile</string>
+
+    <string name="profile_most_popular">most popular</string>
+    <string name="profile_most_recent">most recent</string>
 
 
 </resources>

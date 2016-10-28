@@ -40,15 +40,12 @@ public class NotifyFragment extends Fragment {
 
     NotifyAllFragment notifyAllFragment = null;
     NotifyPreferFragment notifyPreferFragment = null;
-    static int clickedButton = 0;
-    WebView mWebView;
+    int clickedButton = 0;
     FragmentManager fm;
 
     @BindView(R.id.all_button) Button allButton;
     @BindView(R.id.prefer_button) Button preferButton;
     @BindView(R.id.action_bar) LinearLayout mActionBar;
-
-
 
     @OnClick(R.id.all_button) void setAllButton(){
         fm.beginTransaction().replace(R.id.container_notify, notifyAllFragment).commit();

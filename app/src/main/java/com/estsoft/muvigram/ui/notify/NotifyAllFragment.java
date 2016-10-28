@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class NotifyAllFragment extends Fragment {
 
-    @BindView(R.id.notify_all_recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.recyclerview) RecyclerView recyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class NotifyAllFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_notify_all, container, false);
+        View v = inflater.inflate(R.layout.recyclerview_simple_list, container, false);
         ButterKnife.bind(this,v);
 
         initRecyclerView();

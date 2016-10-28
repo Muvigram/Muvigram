@@ -59,6 +59,11 @@
         <activity android:name=".ui.profile.EditProfileActivity"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.search.SearchPeopleActivity"/>
+        <activity android:name=".ui.search.SearchSoundActivity"/>
+        <activity android:name=".ui.search.SearchTagActivity"/>
+        <activity android:name=".ui.profile.SoundProfileActivity"/>
+        <activity android:name=".ui.profile.TagProfileActivity"/>
     </application>
 
 </manifest>

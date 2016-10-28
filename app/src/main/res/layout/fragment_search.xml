@@ -7,66 +7,210 @@
     android:layout_height="match_parent">
 
 
+
+
+    <RelativeLayout
+        android:id="@+id/action_bar"
+        android:background="@color/light_blue_300"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
         <RelativeLayout
-            android:id="@+id/action_bar"
-            android:background="@color/light_blue_300"
+            android:id="@+id/search_bar"
+            android:layout_margin="12dp"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-                <RelativeLayout
-                    android:id="@+id/search_bar"
-                    android:layout_margin="12dp"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/search_view_background"
-                    tools:ignore="UselessParent">
+            android:background="@drawable/search_view_background"
+            tools:ignore="UselessParent">
 
 
-                        <LinearLayout
-                            android:layout_centerInParent="true"
-                            android:orientation="horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:ignore="RelativeOverlap,UseCompoundDrawables">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="RelativeOverlap,UseCompoundDrawables">
 
-                                <ImageView
-                                    android:paddingRight="3dp"
-                                    android:src="@drawable/ic_action_bar_search"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
-                                    android:contentDescription="기능 없음"/>
+                <ImageView
+                    android:paddingRight="3dp"
+                    android:src="@drawable/ic_action_bar_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
+                    android:contentDescription="기능 없음"/>
 
-                                <TextView
-                                    android:text="@string/search_bar_text"
-                                    android:textColor="@color/white"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="@string/search_bar_text"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                        </LinearLayout>
+            </LinearLayout>
 
-                        <ImageButton
-                            android:id="@+id/find_friend_button"
+            <ImageButton
+                android:id="@+id/find_friend_button"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/search_find_friend_button_event"
+                android:src="@drawable/ic_action_search_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
+                android:contentDescription="클릭 시 친구 찾기 액티비티로 이동"/>
 
-                            android:paddingRight="10dp"
-                            android:paddingLeft="10dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/search_find_friend_button_event"
-                            android:src="@drawable/ic_action_search_friend"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
-                            android:contentDescription="클릭 시 친구 찾기 액티비티로 이동"/>
-
-
-                </RelativeLayout>
 
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_fragment_recyclerview"
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/indigo_300">
+
+        <com.estsoft.muvigram.customview.IncreasVideoView
+            android:id="@+id/search_fragment_increasevideoview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:background="@color/grey_300">
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_search_popular_now"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cardview_text_1"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_search_leaderboard"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cardview_text_2"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:background="@color/grey_300">
+
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_search_songchart"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/cardview_text_3"/>
+
+        </LinearLayout>
+        <LinearLayout
+          android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_search_popular_now"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cardview_text_4"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/grey_300">
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/search_heard_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/items"
+        android:layout_marginBottom="55dp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_fragment_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

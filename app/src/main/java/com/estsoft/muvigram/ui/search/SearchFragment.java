@@ -1,20 +1,26 @@
 package com.estsoft.muvigram.ui.search;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.estsoft.muvigram.MuviGramApplication;
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 
@@ -23,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by JEONGYI on 2016. 10. 11..
@@ -31,9 +38,22 @@ import butterknife.ButterKnife;
 
 public class SearchFragment extends Fragment {
 
+    private String[] tagItemList = new String[]{"WaterBalance","Korea","SideToSide","Noma","Kkoma","JeongYi"};
+    private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33","#26c6da","#5677fc"};
+
     @BindView(R.id.search_fragment_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.action_bar) RelativeLayout mActionBar;
+    @BindView(R.id.search_bar) RelativeLayout mSearchBar;
+    @BindView(R.id.search_fragment_increasevideoview) IncreasVideoView videoView;
+    @BindView(R.id.items) LinearLayout itemLayout;
 
+    @OnClick(R.id.search_bar) void clickSearchBar(){
+        startActivity(new Intent(getActivity(), SearchBarActivity.class));
+    }
+
+    @OnClick(R.id.find_friend_button) void clickFindFriendButton(){
+        startActivity(new Intent(getActivity(), FindFriendActivity.class));
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +66,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         ButterKnife.bind(this, view);
-        //initRecyclerView();
+        initRecyclerView();
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
         params.setMargins(0, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
@@ -55,15 +75,17 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-
     private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        SearchRecyclerAdapter adapter = new SearchRecyclerAdapter(getVideoHeader(), getBoardHeader(), getListItems());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
+        setVideo();
+        setTagView();
+    }
 
-
+    //비디오
+    private void setVideo(){
+        SearchHeaderVideoItem videoItem = getVideoHeader();
+        videoView.setVideoURI(videoItem.getVideoFile());
+        videoView.setOnPreparedListener(mp -> videoPlay(videoView, mp));
+        videoView.setOnCompletionListener(mp -> videoPlay(videoView, mp));
     }
 
     private SearchHeaderVideoItem getVideoHeader() {
@@ -72,40 +94,34 @@ public class SearchFragment extends Fragment {
         return new SearchHeaderVideoItem(videoFile, "Title");
     }
 
-    private SearchHeaderBoardItem getBoardHeader() {
-        return new SearchHeaderBoardItem("test");
-    }
-
-    public List<SearchListItem> getListItems() {
-        List<SearchListItem> listItems = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
-            SearchListItem item = new SearchListItem();
-            if (i % 2 == 0) {
-                item.setTitle("goni");
-            } else {
-                item.setTitle("hahaha");
-            }
-            listItems.add(item);
+    private void videoPlay(final IncreasVideoView mVideoView ,final MediaPlayer mediaPlayer) {
+        if(mVideoView != null) {
+            mediaPlayer.setVolume(0, 0);
+            mVideoView.seekTo(0);
+            mVideoView.start();
         }
-        return listItems;
     }
 
-    private void setCustomActionbar() {
+    private void setTagView(){
+        for(int i=0; i<tagItemList.length; i++){
 
+            RelativeLayout item = new RelativeLayout(getActivity());
+            item.setBackgroundColor(Color.parseColor(tagColorList[i]));
 
-        ActionBar mActionBar = ((HomeActivity) getActivity()).getDelegate().getSupportActionBar();
+            TextView tag = new TextView(getActivity());
+            tag.setText("#"+tagItemList[i]);
+            tag.setTextColor(Color.WHITE);
+            tag.setTypeface(tag.getTypeface(), Typeface.BOLD);
+            tag.setTextSize(20);
+            item.addView(tag);
 
-        View mCustomView = LayoutInflater.from(getActivity()).inflate(R.layout.actionbar_search, null);
-        mActionBar.setCustomView(mCustomView);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                                                                                , ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(20,10,10,10);
 
-
-        mCustomView.findViewById(R.id.search_bar).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), SearchBarActivity.class));
-        });
-
-        mCustomView.findViewById(R.id.find_friend_button).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), FindFriendActivity.class));
-        });
+            tag.setLayoutParams(params);
+            itemLayout.addView(item);
+        }
     }
 
 }
