@@ -20,8 +20,6 @@ import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 import com.gonigoni.transparenttabview.spacebar.TransParentSpaceView;
-import com.mingle.sweetpick.CustomDelegate;
-import com.mingle.sweetpick.SweetSheet;
 
 import javax.inject.Inject;
 
@@ -39,7 +37,6 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
     @BindView(R.id.background) FrameLayout background;
 
     private BottomSheetDialog mBottomSheetDialog;
-    private SweetSheet mSweetSheet;
     private FragmentManager mFragmentManager;
     private FeedFragment mFeedFragment = null;
     private SearchFragment mSearchFragment = null;
@@ -61,7 +58,6 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
         ButterKnife.bind(this);
         mHomePresenter.attachView(this);
 
-
         initBottomSheetView();
         initTransSpaceView(savedInstanceState);
 
@@ -73,12 +69,30 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
             fragment = mFeedFragment;
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
         }
+
+        Timber.e("onCreate");
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        Timber.e("onStart");
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        Timber.e("onResume");
+    }
+
+    @Override protected void onStop() {
+        super.onStop();
+        Timber.e("onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mHomePresenter.detachView();
+        Timber.e("onDestroy");
     }
 
     @Override
@@ -86,8 +100,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
         super.onSaveInstanceState(outState);
     }
 
-    private void initBottomSheetView()
-    {
+    private void initBottomSheetView() {
         final View view = LayoutInflater.from(this).inflate(R.layout.camera_bottom_sheet, null, false);
         mBottomSheetDialog = new BottomSheetDialog(this);
         mBottomSheetDialog.setContentView(view);
@@ -115,7 +128,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
 
     /*test*/
     public void showNetworkError() {
-        Timber.e("error");
+        Timber.e("showNetworkError");
     }
 
     @Override

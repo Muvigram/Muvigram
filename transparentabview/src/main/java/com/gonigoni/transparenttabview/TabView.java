@@ -7,11 +7,12 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 /**
  * Created by gangGongUi on 2016. 10. 19..
  */
-public class TabView extends View implements OnClickListener {
+public class TabView extends Button implements OnClickListener {
 
     private final int index;
     private int mWidth;
@@ -76,8 +77,6 @@ public class TabView extends View implements OnClickListener {
 
         canvas.drawText(mTabText, mWidth / 2, (float) (mHeight / 2.4), textPaint);
 
-
-
         if (isActive) {
             textPaint.setStrokeWidth(50);
             textPaint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -86,7 +85,7 @@ public class TabView extends View implements OnClickListener {
             Paint backLinePaint = new Paint();
             backLinePaint.setColor(mActiveTabColor);
             backLinePaint.setStrokeJoin(Paint.Join.MITER);
-            backLinePaint.setStrokeWidth(10);
+            backLinePaint.setStrokeWidth(20);
             backLinePaint.setAntiAlias(true);
             backLinePaint.setShadowLayer(0, 0, 0, 0);
             backLinePaint.setStyle(Paint.Style.FILL);
@@ -96,6 +95,10 @@ public class TabView extends View implements OnClickListener {
         }
     }
 
+    @Override
+    public CharSequence getText() {
+        return mTabText;
+    }
 
     /**
      * Gets tab text.
@@ -117,7 +120,6 @@ public class TabView extends View implements OnClickListener {
 
     @Override
     final public void onClick(View view) {
-
         isActive = true;
         if (mOnTabClickListenerWithTransParentTab != null && view != null) {
             mOnTabClickListenerWithTransParentTab.onTabClick(this);

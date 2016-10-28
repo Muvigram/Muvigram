@@ -29,7 +29,7 @@ public class IntroPresenter extends BasePresenter<IntroView> {
     }
 
     public void loadVideo() {
-        final String VIDEO_FILE_NAME = "test_intro_video";
+        final String VIDEO_FILE_NAME = "test_intro_video1";
         final Context context = (Context) getMvpView();
         final Uri videoFile = Uri.parse("android.resource://" + context.getPackageName() + "/raw/" + VIDEO_FILE_NAME);
         getMvpView().playIntroView(videoFile);
