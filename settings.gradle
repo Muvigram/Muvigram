@@ -1,1 +1,1 @@
-include ':app', ':transparentabview'
+include ':app', ':transparentabview', ':list-visibility-utils'

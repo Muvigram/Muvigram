@@ -1,15 +1,36 @@
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="@color/indigo_300"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.estsoft.muvigram.customview.viewpager.RecyclerViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
     <com.gonigoni.transparenttabview.TransParentTabView
         android:id="@+id/trnasparent_tab"
         android:layout_width="match_parent"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_height="60dp"/>
+        android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.estsoft.muvigram.customview.MusicRecordView
+            android:id="@+id/musicRecordView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="6dp"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

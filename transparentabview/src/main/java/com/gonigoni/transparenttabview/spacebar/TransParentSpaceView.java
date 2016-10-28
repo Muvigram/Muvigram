@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,7 +21,6 @@ public class TransParentSpaceView extends LinearLayout implements SpaceCenterVie
     private final int MAX_ITEM_COUNT = 5;
     private final int CENTER_ITEM_IDX = 2;
     private final int PAINT_STOCK = 3;
-    private final int ICON_SIZE = 75;
     private final String DEFAULT_COLOR = "#262727";
     private int mTabButtonCnt = 0;
     private OnSpaceViewListener mOnSpaceViewListener;
@@ -42,8 +42,14 @@ public class TransParentSpaceView extends LinearLayout implements SpaceCenterVie
      */
     public TransParentSpaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setBackgroundColor(Color.parseColor(DEFAULT_COLOR));
+        setBackgroundColor(Color.TRANSPARENT);
         setOrientation(LinearLayout.HORIZONTAL);
+    }
+
+    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        final int height =  getDisplay().getHeight() * 9 / 100;
+        final int width = getDisplay().getWidth();
+        super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
     }
 
     @Override
@@ -148,7 +154,12 @@ public class TransParentSpaceView extends LinearLayout implements SpaceCenterVie
 
     private Bitmap getResizeBitmap(int res) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), res);
-        bitmap = Bitmap.createScaledBitmap(bitmap, ICON_SIZE, ICON_SIZE, true);
+
+        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+
+
+        final int icon_size = metrics.widthPixels * 7 / 100;
+        bitmap = Bitmap.createScaledBitmap(bitmap, icon_size, icon_size, true);
         return bitmap;
     }
 

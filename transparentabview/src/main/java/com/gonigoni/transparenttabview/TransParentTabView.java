@@ -46,7 +46,7 @@ public class TransParentTabView extends LinearLayout implements TabView.OnTabCli
         try {
 
 
-            this.mTextSize = typedArray.getInteger(R.styleable.TransParentTabView_textSize, 4);
+            this.mTextSize = typedArray.getInteger(R.styleable.TransParentTabView_textSize, 40);
             this.mTextColor = typedArray.getColor(R.styleable.TransParentTabView_textColor, Color.WHITE);
             this.mActiveTabColor = typedArray.getColor(R.styleable.TransParentTabView_activeTabColor, Color.WHITE);
             this.mBackLineColor = typedArray.getColor(R.styleable.TransParentTabView_backLineColor, Color.parseColor("#90FAFAFA"));
@@ -65,7 +65,8 @@ public class TransParentTabView extends LinearLayout implements TabView.OnTabCli
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(getDisplay().getHeight() * 9 / 100, MeasureSpec.AT_MOST));
     }
 
     @Override
@@ -83,10 +84,7 @@ public class TransParentTabView extends LinearLayout implements TabView.OnTabCli
             for (int i = 0; i < count; i++) {
                 View child = getChildAt(i);
 
-                child.measure(
-                        MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.AT_MOST),
-                        MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.AT_MOST)
-                );
+                child.measure(MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.AT_MOST));
 
                 child.layout(curLeft, getTop(), curRight, getMeasuredHeight());
                 curLeft += childWidth;

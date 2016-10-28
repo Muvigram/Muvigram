@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 public class SpaceTabView extends ImageButton implements View.OnClickListener {
 
     private int index;
-    private boolean isClick = false;
+    private boolean isClick = true;
     private OnSpaceTabClickListener mOnSpaceTabClickListener;
 
     public SpaceTabView(Context context, OnSpaceTabClickListener onSpaceTabClickListener, int index) {
