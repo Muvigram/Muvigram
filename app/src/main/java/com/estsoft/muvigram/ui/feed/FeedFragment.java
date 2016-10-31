@@ -154,9 +154,8 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mMusicRecordView.getLayoutParams();
         final Display mDisplay = ViewUtils.getDisPlay(getContext());
         final int bottomMargin = mDisplay.getHeight() * 12 / 100;
-        final int rightMargin = mDisplay.getWidth() * 1 / 100;
+        final int rightMargin = mDisplay.getWidth() * 2 / 100;
         params.setMargins(0, 0, rightMargin, bottomMargin);
-
 
         mMusicRecordView.addOnLayoutChangeListener(
                 (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> mMusicRecordView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.rotate))
