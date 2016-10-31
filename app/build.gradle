@@ -54,10 +54,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support.test:runner:0.4.1'
-        exclude group: 'com.android.support.test:rules:0.4.1'
-        exclude group: 'com.android.support.test:testing-support-lib:0.1'
-
     })
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
