@@ -44,13 +44,13 @@ public class SearchBarActivity extends TabActivity {
             searchEditText.setHint(getString(R.string.search_people));
         });
 
-        getTabHost().getTabWidget().getChildAt(1).setOnClickListener(v -> {
-            searchEditText.setHint(getString(R.string.search_tags));
-        });
-
-        getTabHost().getTabWidget().getChildAt(2).setOnClickListener(v -> {
-            searchEditText.setHint(getString(R.string.search_sounds));
-        });
+//        getTabHost().getTabWidget().getChildAt(1).setOnClickListener(v -> {
+//            searchEditText.setHint(getString(R.string.search_tags));
+//        });
+//
+//        getTabHost().getTabWidget().getChildAt(2).setOnClickListener(v -> {
+//            searchEditText.setHint(getString(R.string.search_sounds));
+//        });
 
 
         searchEditText.addTextChangedListener(new TextWatcher() {
