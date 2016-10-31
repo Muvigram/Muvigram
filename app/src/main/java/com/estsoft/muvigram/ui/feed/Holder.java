@@ -3,7 +3,7 @@ package com.estsoft.muvigram.ui.feed;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-
+import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.DynamicImageView;
 import com.estsoft.muvigram.customview.FeedMenuButton;
 import com.estsoft.muvigram.customview.IncreasVideoView;
