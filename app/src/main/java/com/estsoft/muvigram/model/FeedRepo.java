@@ -88,7 +88,6 @@ public class FeedRepo implements ListItem {
 
         //Timber.e("<< getVisibilityPercents, percents " + percents);
 
-
         final IncreasVideoView mIncreasVideoView = ((IncreasVideoView) view.findViewById(R.id.videoview));
         final View placeHolder = view.findViewById(R.id.placeholder);
 
