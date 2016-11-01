@@ -48,7 +48,7 @@
         android:layout_height="40dp"
         android:id="@+id/userid_edittext"
         android:paddingLeft="8dp"
-        android:background="@color/theme_gray"/>
+        android:background="@color/grey_200"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_height="40dp"
         android:id="@+id/username_eidttext"
         android:paddingLeft="8dp"
-        android:background="@color/theme_gray"/>
+        android:background="@color/grey_200"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,6 +76,6 @@
         android:layout_height="120dp"
         android:id="@+id/userbio_edittext"
         android:paddingLeft="8dp"
-        android:background="@color/theme_gray"/>
+        android:background="@color/grey_200"/>
 
 </LinearLayout>

@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
 
     UserInfoRepo user = new UserInfoRepo("pwjddl1126","박정이",
             "\"live with passion, live like muvigram\"",
-            "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419");
+            "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg");
     private Integer[] mProfileThum = {R.drawable.profile_test, R.drawable.profile_test1,
             R.drawable.profile_test2, R.drawable.profile_test3, R.drawable.profile_test};
 

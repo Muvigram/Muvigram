@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Created by JEONGYI on 2016. 10. 19..
@@ -29,8 +30,10 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int TYPE_ITEM_FOLLOW = 0;
     private static final int TYPE_ITEM_LIKE = 1;
     private static final int TYPE_ITEM_REPLY = 2;
-    private static final String PROFILE_IMAGE = "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419";
-    private static final String VIDEO_THUMBNAILS = "https://pixabay.com/static/uploads/photo/2016/01/05/17/51/dog-1123016_960_720.jpg";
+    private static final String PROFILE_IMAGE = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
+    private static final String VIDEO_THUMBNAILS = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
+
+    boolean isClicked = false;
 
     private List<NotificationItem> mNotificationItemList;
     private NotificationItem mNotificationItem;
@@ -68,6 +71,18 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             Picasso.with(context)
                     .load(PROFILE_IMAGE)
                     .transform(new CircleTransform()).into(followItemViewHolder.profile);
+
+
+            followItemViewHolder.followButton.setOnClickListener(v -> {
+
+                isClicked = !isClicked;
+                if(isClicked){
+                    v.setBackgroundResource(R.drawable.notify_follow_button_done);
+                }else if(!isClicked){
+                    v.setBackgroundResource(R.drawable.notify_follow_button_event);
+                }
+
+            });
 
         } else if(holder instanceof LikeItemViewHolder) {
             LikeItemViewHolder likeItemViewHolder = (LikeItemViewHolder) holder;

@@ -118,5 +118,10 @@
     <string name="feed_menu_item6">other share options</string>
     <string name="feed_menu_item7">report abuse</string>
 
+    <!-- Find Friend -->
+    <string name="phone_contact">phone contact</string>
+    <string name="connect_to_facebook">connect to facebook</string>
+    <string name="musers_text">musers you may know</string>
+
 
 </resources>
