@@ -2,11 +2,132 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               android:gravity="center_horizontal">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/light_blue_300">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/back_button"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/ic_action_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="find friend"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"/>
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/save_button"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_action_save_profile"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/phonebook_icon"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_contact"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/facebook_icon"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/connect_to_facebook"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12 facebook friends"
+                android:layout_marginLeft="8dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/musers_text"
+        android:paddingLeft="10dp"
+        android:background="@color/grey_200"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="find friend"/>
+        android:id="@+id/recyclerview"
+        android:background="@color/white"
+        android:scrollbars="vertical">
+    </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

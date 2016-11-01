@@ -26,16 +26,21 @@ import butterknife.ButterKnife;
 
 public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String PROFILE_IMAGE = "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419";
-    private static final String VIDEO_THUMBNAILS = "https://pixabay.com/static/uploads/photo/2016/01/05/17/51/dog-1123016_960_720.jpg";
+    private static final String TAG_IMAGE = "https://cdn1.iconfinder.com/data/icons/glyph-1-1/24/Hash_hashtag_sharp_tag_teg-512.png";
+
+    private final static int PEOPLE_INDEX = 0;
+    private final static int TAGS_INDEX = 1;
+    private final static int SOUNDS_INDEX = 2;
 
     private Context context;
+    private int index;
     private List<SearchListItem> mSearchListItemList;
     private ArrayList<SearchListItem> mSearchResultList;
 
-    public SearchItemAdapter(List<SearchListItem> mSearchListItemList, Context mContext) {
+    public SearchItemAdapter(List<SearchListItem> mSearchListItemList, int index, Context mContext) {
         this.context = mContext;
         this.mSearchListItemList = mSearchListItemList;
-
+        this.index = index;
         this.mSearchResultList = new ArrayList<SearchListItem>();
         mSearchResultList.addAll(mSearchListItemList);
     }
@@ -51,12 +56,22 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder (RecyclerView.ViewHolder holder, int position) {
 
-        SearchPeopleAdapter.ViewHolder mHolder = (SearchPeopleAdapter.ViewHolder)holder;
+        ViewHolder mHolder = (ViewHolder)holder;
         mHolder.setIsRecyclable(false);
 
-        Picasso.with(context)
-                .load(PROFILE_IMAGE)
-                .transform(new CircleTransform()).into(mHolder.profile);
+        if(index == PEOPLE_INDEX) {
+            Picasso.with(context)
+                    .load(PROFILE_IMAGE)
+                    .transform(new CircleTransform()).into(mHolder.profile);
+        }else if(index == TAGS_INDEX){
+            Picasso.with(context)
+                    .load(TAG_IMAGE)
+                    .into(mHolder.profile);
+        }else if(index == SOUNDS_INDEX){
+            Picasso.with(context)
+                    .load(PROFILE_IMAGE)
+                    .into(mHolder.profile);
+        }
 
         mHolder.title.setText (mSearchListItemList.get(position).getTitle());
         mHolder.subtitle.setText(mSearchListItemList.get(position).getSubTitle());
