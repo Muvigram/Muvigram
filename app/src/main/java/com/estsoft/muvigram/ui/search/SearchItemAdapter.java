@@ -2,6 +2,7 @@ package com.estsoft.muvigram.ui.search;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import butterknife.ButterKnife;
  */
 
 public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String PROFILE_IMAGE = "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419";
+    private static final String PROFILE_IMAGE = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
     private static final String TAG_IMAGE = "https://cdn1.iconfinder.com/data/icons/glyph-1-1/24/Hash_hashtag_sharp_tag_teg-512.png";
 
     private final static int PEOPLE_INDEX = 0;
@@ -60,6 +61,10 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mHolder.setIsRecyclable(false);
 
         if(index == PEOPLE_INDEX) {
+            float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, context.getResources().getDisplayMetrics());
+            int pixel = (int)pixels;
+            mHolder.profile.setPadding(pixel,pixel,pixel,pixel);
+
             Picasso.with(context)
                     .load(PROFILE_IMAGE)
                     .transform(new CircleTransform()).into(mHolder.profile);

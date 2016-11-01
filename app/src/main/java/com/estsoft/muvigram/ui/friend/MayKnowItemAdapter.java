@@ -29,7 +29,7 @@ import timber.log.Timber;
  */
 
 public class MayKnowItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String PROFILE_IMAGE = "https://scontent.xx.fbcdn.net/v/t1.0-9/12011354_171091463233969_4930354003965117617_n.jpg?oh=5d04533c62af8fed3eeab63f36df659a&oe=589FE419";
+    private static final String PROFILE_IMAGE = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
     boolean isClicked = false;
 
     private Context context;
