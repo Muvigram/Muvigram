@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- SigninActivity -->
     <integer name="MAX_TEXT_LENGTH">20</integer>
     <integer name="EMAIL_TEXT_LENGTH">35</integer>
     <integer name="USERID_TEXT_LENGTH">14</integer>
+
+    <!-- <<<<<<<<<< FeedFragment  -->
+
+    <!-- MusicRecordView -->
+    <integer name="music_record_view_margin_bottom_per">12</integer>
+    <integer name="music_record_view_margin_right_per">2</integer>
+
+    <!--TransParentView-->
+    <integer name="trans_parent_tab_margin_left_right_per">20</integer>
+
+    <!-- FeedMenuButton -->
+    <integer name="feed_menu_button_margin_bottom_per">24</integer>
+
+    <!-- StreamTextView -->
+    <integer name="stream_text_view_width_per">72</integer>
+    <integer name="stream_text_view_height_per">4</integer>
+    <integer name="stream_text_view_margin_bottom_per">9</integer>
+    <integer name="stream_text_view_margin_left_per">2</integer>
+
+    <!-- AutoLinkTextView -->
+    <integer name="auto_link_text_view_margin_left_per">2</integer>
+    <integer name="auto_link_text_view_margin_bottom_per">1</integer>
+
+    <!--UserNameTextView -->
+    <integer name="user_name_text_view_margin_left_per">2</integer>
+
+    <!--FeaturedTextView -->
+    <integer name="featured_text_view_margin_left_per">2</integer>
+    <integer name="featured_text_view_padding_left_right">6</integer>
+
+
+    <!-- FeedFragment >>>>>>>>>>> -->
 </resources>

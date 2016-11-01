@@ -39,9 +39,17 @@ public class ListItemData {
     }
 
     public int getVisibilityPercents(List<? extends ListItem> listItems) {
-        int visibilityPercents = listItems.get(getIndex()).getVisibilityPercents(getView());
-        if(SHOW_LOGS) Logger.v(TAG, "getVisibilityPercents, visibilityPercents " + visibilityPercents);
-        return visibilityPercents;
+
+        // Sometimes the value of getIndex() comes to -1 beyond. that is arrayIndexOutOfBoundsException - gongui
+        int idx = getIndex();
+
+        if(idx >= 0) {
+            int visibilityPercents = listItems.get(getIndex()).getVisibilityPercents(getView());
+            if(SHOW_LOGS) Logger.v(TAG, "getVisibilityPercents, visibilityPercents " + visibilityPercents);
+            return visibilityPercents;
+        }
+
+        return 0;
     }
 
     public void setMostVisibleItemChanged(boolean isDataChanged) {

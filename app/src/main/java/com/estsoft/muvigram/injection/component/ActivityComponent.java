@@ -3,6 +3,7 @@ package com.estsoft.muvigram.injection.component;
 import com.estsoft.muvigram.injection.PerActivity;
 import com.estsoft.muvigram.injection.module.ActivityModule;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
+import com.estsoft.muvigram.ui.feed.comment.CommentActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
@@ -34,4 +35,6 @@ public interface ActivityComponent {
     void inject(SignInActivity signInActivity);
 
     void inject(ProfileFragment profileFragment);
+
+    void inject(CommentActivity commentActivity);
 }

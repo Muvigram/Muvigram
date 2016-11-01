@@ -37,7 +37,6 @@ public class FeedMenuButton extends Button {
         final int widthDistance = getMeasuredWidth() * 15 / 100;
 
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, radius, paint);
-
         canvas.drawCircle(getMeasuredWidth() / 2 - widthDistance, getMeasuredHeight() / 2, radius, paint);
         canvas.drawCircle(getMeasuredWidth() / 2 + widthDistance, getMeasuredHeight() / 2, radius, paint);
 

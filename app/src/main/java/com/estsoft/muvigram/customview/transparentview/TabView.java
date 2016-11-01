@@ -1,4 +1,4 @@
-package com.gonigoni.transparenttabview;
+package com.estsoft.muvigram.customview.transparentview;
 
 import android.content.Context;
 import android.graphics.Canvas;

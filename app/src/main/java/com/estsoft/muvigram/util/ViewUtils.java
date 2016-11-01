@@ -32,6 +32,25 @@ public final class ViewUtils {
         imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
     }
 
+    public static int getDisplayPerHeightByRes(Context mContext, int resourceId) {
+        return getDisPlay(mContext).getHeight() * mContext.getResources().getInteger(resourceId) / 100;
+    }
+
+    public static int getDisplayPerWidthByRes(Context mContext, int resourceId) {
+        return getDisPlay(mContext).getWidth() * mContext.getResources().getInteger(resourceId) / 100;
+    }
+
+
+    public static int getDisplayPerHeight(Context mContext, int percent) {
+        return getDisPlay(mContext).getHeight() * percent / 100;
+    }
+
+    public static int getDisplayPerWidth(Context mContext, int percent) {
+        return getDisPlay(mContext).getWidth() * percent / 100;
+    }
+
+
+
     /**
      * Get center child in X Axes
      */

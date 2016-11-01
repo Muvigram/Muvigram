@@ -10,4 +10,22 @@
     <dimen name="intro_button_text_size">20sp</dimen>
     <dimen name="intro_facebook_button_text_size">18sp</dimen>
 
+
+    <!-- FeedFragment <<<<< -->
+
+    <!-- StreamTextView -->
+    <dimen name="stream_text_view_text_size">13sp</dimen>
+
+    <!-- AutoLinkTextView -->
+    <dimen name="auto_link_text_size">16sp</dimen>
+
+    <!-- UserNameTextView -->
+    <dimen name="user_name_text_size">15sp</dimen>
+
+    <!-- FeaturedTextView -->
+    <dimen name="featured_text_size">14sp</dimen>
+
+
+    <!-- FeedFragment >>>>> -->
+
 </resources>

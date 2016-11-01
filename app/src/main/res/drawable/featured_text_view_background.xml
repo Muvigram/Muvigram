@@ -4,18 +4,15 @@
 
 
     <solid
-        android:color="#00ff0000"
+        android:color="#ff2d6f"
         />
 
     <size
-        android:width="120dp"
-        android:height="35dp"
+        android:width="3dp"
+        android:height="3dp"
         />
     <corners
-        android:radius="20dp"
+        android:radius="3dp"
         />
-    <stroke
-        android:width="10px"
-        android:color="#FFFFFF"/>
 
 </shape>

@@ -1,4 +1,4 @@
-package com.gonigoni.transparenttabview;
+package com.estsoft.muvigram.customview.transparentview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +10,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.estsoft.muvigram.R;
+
 
 /**
  * Created by gangGongUi on 2016. 10. 18..
@@ -44,7 +47,6 @@ public class TransParentTabView extends LinearLayout implements TabView.OnTabCli
         super(context, attrs);
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.TransParentTabView, 0, 0);
         try {
-
 
             this.mTextSize = typedArray.getInteger(R.styleable.TransParentTabView_textSize, 40);
             this.mTextColor = typedArray.getColor(R.styleable.TransParentTabView_textColor, Color.WHITE);

@@ -2,7 +2,6 @@
 <resources>
 
 
-
     <declare-styleable name="FeedTabView">
         <attr name="textSize" format="integer"/>
         <attr name="textColor" format="color"/>
@@ -16,7 +15,7 @@
         <attr name="rvp_singlePageFling" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="TransCirclerView">
+    <declare-styleable name="TransCircleView">
         <attr name="dynamic_width" format="integer"/>
         <attr name="dynamic_height" format="integer"/>
         <attr name="dynamic_icon" format="integer"/>
@@ -25,7 +24,23 @@
     </declare-styleable>
 
     <declare-styleable name="DynamicImageView">
-        <attr name="dynamic_width" />
+        <attr name="dynamic_width"/>
         <attr name="dynamic_height"/>
     </declare-styleable>
+
+    <declare-styleable name="StreamTextView">
+        <attr name="dynamic_textColor" format="color"/>
+        <attr name="dynamic_width"/>
+        <attr name="dynamic_height"/>
+        <attr name="dynamic_text"/>
+        <attr name="dynamic_textSize"/>
+    </declare-styleable>
+
+    <declare-styleable name="TransParentTabView">
+        <attr name="textSize"/>
+        <attr name="textColor"/>
+        <attr name="backLineColor"/>
+        <attr name="activeTabColor"/>
+    </declare-styleable>
+
 </resources>

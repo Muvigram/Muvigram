@@ -12,7 +12,7 @@
         android:layout_height="match_parent"/>
 
 
-    <com.gonigoni.transparenttabview.TransParentTabView
+    <com.estsoft.muvigram.customview.transparentview.TransParentTabView
         android:id="@+id/trnasparent_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

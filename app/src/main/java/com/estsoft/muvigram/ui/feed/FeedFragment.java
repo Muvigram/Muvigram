@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,13 @@ import android.widget.RelativeLayout;
 import com.estsoft.muvigram.MuviGramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.MusicRecordView;
+import com.estsoft.muvigram.customview.transparentview.TabView;
+import com.estsoft.muvigram.customview.transparentview.TransParentTabView;
+import com.estsoft.muvigram.customview.viewpager.PreCachingLayoutManager;
 import com.estsoft.muvigram.customview.viewpager.RecyclerViewPager;
 import com.estsoft.muvigram.model.FeedRepo;
 import com.estsoft.muvigram.ui.profile.CircleTransform;
 import com.estsoft.muvigram.util.ViewUtils;
-import com.gonigoni.transparenttabview.TabView;
-import com.gonigoni.transparenttabview.TransParentTabView;
 import com.squareup.picasso.Picasso;
 import com.volokh.danylo.visibility_utils.calculator.DefaultSingleItemCalculatorCallback;
 import com.volokh.danylo.visibility_utils.calculator.ListItemsVisibilityCalculator;
@@ -48,7 +48,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
     @BindView(R.id.pager) RecyclerViewPager mRecyclerViewPager;
     @BindView(R.id.musicRecordView) MusicRecordView mMusicRecordView;
 
-    private LinearLayoutManager mLayoutManager;
+    private PreCachingLayoutManager mLayoutManager;
     private ListItemsVisibilityCalculator mListItemVisibilityCalculator;
     private ItemsPositionGetter mItemsPositionGetter;
     private ArrayList<FeedRepo> mFeedRepos;
@@ -68,7 +68,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         initTransParentTab();
         initMusicRecordView();
 
-
         return view;
     }
 
@@ -77,7 +76,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         super.onResume();
         if (!mFeedRepos.isEmpty()) {
             // need to call this method from list view handler in order to have filled list
-
             mRecyclerViewPager.post(() -> mListItemVisibilityCalculator.onScrollStateIdle(
                     mItemsPositionGetter,
                     mLayoutManager.findFirstVisibleItemPosition(),
@@ -93,7 +91,8 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
 
     private void initViewPager() {
         mFeedRepos = getDummyFeedRepos();
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mLayoutManager = new PreCachingLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.setExtraLayoutSpace(ViewUtils.getDisplayPerHeight(getContext(), 99));
         mListItemVisibilityCalculator = new SingleListViewItemActiveCalculator(new DefaultSingleItemCalculatorCallback(), mFeedRepos);
         mFeedAdapter = new FeedAdapter(mFeedRepos);
         mRecyclerViewPager.setSinglePageFling(true);
@@ -139,7 +138,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
     private void initTransParentTab() {
 
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mFeedTabView.getLayoutParams();
-        final int leftRightMargin = ViewUtils.getDisPlay(getContext()).getWidth() * 20 / 100;
+        final int leftRightMargin = ViewUtils.getDisplayPerWidthByRes(getContext(), R.integer.trans_parent_tab_margin_left_right_per);
 
         params.setMargins(leftRightMargin, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight() / 2, leftRightMargin, 0);
         mFeedTabView.setLayoutParams(params);
@@ -152,32 +151,13 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
 
     private void initMusicRecordView() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mMusicRecordView.getLayoutParams();
-        final Display mDisplay = ViewUtils.getDisPlay(getContext());
-        final int bottomMargin = mDisplay.getHeight() * 12 / 100;
-        final int rightMargin = mDisplay.getWidth() * 2 / 100;
-        params.setMargins(0, 0, rightMargin, bottomMargin);
 
+        final int bottomMargin = ViewUtils.getDisplayPerHeightByRes(getContext(), R.integer.music_record_view_margin_bottom_per);
+        final int rightMargin = ViewUtils.getDisplayPerWidthByRes(getContext(), R.integer.music_record_view_margin_right_per);
+        params.setMargins(0, 0, rightMargin, bottomMargin);
         mMusicRecordView.addOnLayoutChangeListener(
                 (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> mMusicRecordView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.rotate))
         );
-    }
-
-    @Override
-    public void onTabItemClick(TabView tabView) {
-        switch (tabView.getIndex()) {
-
-            case 0:
-                Timber.e(tabView.getTabText());
-                break;
-            case 1:
-                Timber.e(tabView.getTabText());
-                break;
-            case 2:
-                Timber.e(tabView.getTabText());
-                break;
-            default:
-                break;
-        }
     }
 
 
@@ -194,7 +174,12 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         for (int i = 1; i <= 3; i++) {
             final String VIDEO_FILE_NAME = "test_intro_video" + String.valueOf(i);
             final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
-            ret.add(new FeedRepo(getContext(), videoFile, drawables[i], "https://pbs.twimg.com/profile_images/565601976063647744/PP085xzu.jpeg", this));
+
+            ret.add(
+                    new FeedRepo(getContext(), getResources().getString(R.string.user_name_text_dummy), videoFile,
+                            drawables[i], "https://pbs.twimg.com/profile_images/565601976063647744/PP085xzu.jpeg",
+                            getResources().getString(R.string.video_specification_dummy), true, this)
+            );
         }
         return ret;
     }
@@ -216,5 +201,22 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 .into(mMusicRecordView);
 
 
+    }
+
+    @Override public void onTabItemClick(TabView tabView) {
+        switch (tabView.getIndex()) {
+
+            case 0:
+                Timber.e(tabView.getTabText());
+                break;
+            case 1:
+                Timber.e(tabView.getTabText());
+                break;
+            case 2:
+                Timber.e(tabView.getTabText());
+                break;
+            default:
+                break;
+        }
     }
 }

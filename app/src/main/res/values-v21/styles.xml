@@ -29,7 +29,7 @@
 
     <style name="IntroEmailButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">@color/white</item>
-        <item name="colorButtonNormal">@color/theme_gray</item>
+        <item name="colorButtonNormal">@color/white</item>
     </style>
 
     <style name="IntroTwitterButton" parent="Theme.AppCompat.Light">

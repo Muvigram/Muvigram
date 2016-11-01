@@ -2,6 +2,12 @@
     <string name="app_name">Muvigram</string>
     <string name="title_activity_login">Sign in</string>
 
+    <!-- Dummy Text -->
+    <string name="stream_text_music_name_dummy">Lana Del Rey - Young And Beautiful</string>
+    <string name="video_specification_dummy">Check out @websta_me’s 25 most popular hashtags on Instagram: #15 = #picoftheday @scottayres @PostPlanner Similar
+        to #8 </string>
+    <string name="user_name_text_dummy">aless.dancelife</string>
+
 
     <!-- Dialog  -->
     <string name="dialog_loading">Loading</string>
@@ -102,6 +108,15 @@
 
     <string name="profile_most_popular">most popular</string>
     <string name="profile_most_recent">most recent</string>
+
+    <!-- Feed Fragment Item -->
+    <string name="feed_menu_item1">ask question</string>
+    <string name="feed_menu_item2">start duet new!</string>
+    <string name="feed_menu_item3">share on facebook</string>
+    <string name="feed_menu_item4">share on instagram</string>
+    <string name="feed_menu_item5">share on FB messenger</string>
+    <string name="feed_menu_item6">other share options</string>
+    <string name="feed_menu_item7">report abuse</string>
 
 
 </resources>

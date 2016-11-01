@@ -37,4 +37,7 @@ public class IncreasVideoView extends VideoView {
     }
 
 
+    @Override protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
 }

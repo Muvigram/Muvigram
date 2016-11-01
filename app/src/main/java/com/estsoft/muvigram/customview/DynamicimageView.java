@@ -32,11 +32,11 @@ public class DynamicImageView extends ImageView {
 
     private void initAttrs(Context context, AttributeSet attrs, int defStyle) {
         setBackgroundColor(Color.TRANSPARENT);
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TransCirclerView, defStyle,
+        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TransCircleView, defStyle,
                 0);
         //final int defSize = ViewUtils.getDisPlay(getContext()).getWidth() * 12 / 100;
-        mDynamicHeight = a.getInteger(R.styleable.TransCirclerView_dynamic_height, -1);
-        mDynamicWidth = a.getInteger(R.styleable.TransCirclerView_dynamic_width, -1);
+        mDynamicHeight = a.getInteger(R.styleable.TransCircleView_dynamic_height, -1);
+        mDynamicWidth = a.getInteger(R.styleable.TransCircleView_dynamic_width, -1);
         a.recycle();
     }
 
@@ -54,6 +54,7 @@ public class DynamicImageView extends ImageView {
         }
 
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
-
     }
+
+
 }

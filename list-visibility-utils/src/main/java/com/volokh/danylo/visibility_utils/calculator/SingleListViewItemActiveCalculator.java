@@ -237,6 +237,10 @@ public class SingleListViewItemActiveCalculator extends BaseItemsVisibilityCalcu
                 ; indexOfCurrentView >= 0  // iterating via listView Items
                 ; indexOfCurrentItem--, indexOfCurrentView--){
 
+            if(indexOfCurrentItem == -1) {
+                indexOfCurrentItem = 0;
+            }
+
             if(SHOW_LOGS) Logger.v(TAG, "bottomToTopMostVisibleItem, indexOfCurrentView " + indexOfCurrentView);
             ListItem listItem = mListItems.get(indexOfCurrentItem);
             View currentView = itemsPositionGetter.getChildAt(indexOfCurrentView);

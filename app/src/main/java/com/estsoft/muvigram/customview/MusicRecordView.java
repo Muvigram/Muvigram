@@ -37,8 +37,8 @@ public class MusicRecordView extends ImageView {
 
 
     @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            int width = getDisplay().getWidth() * 15 / 100;
-            super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST));
+        int width = getDisplay().getWidth() * 15 / 100;
+        super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST));
     }
 
     @Override
@@ -54,7 +54,6 @@ public class MusicRecordView extends ImageView {
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, (float) (getMeasuredWidth() * 7.5 / 100), paint);
 
     }
-
 
 
 }

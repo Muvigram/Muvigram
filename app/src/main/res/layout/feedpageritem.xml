@@ -6,6 +6,7 @@
              android:layout_height="match_parent"
              android:orientation="vertical">
 
+
     <com.estsoft.muvigram.customview.IncreasVideoView
         android:id="@+id/videoview"
         android:layout_width="match_parent"
@@ -28,7 +29,50 @@
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_weight="82.5"/>
+            android:layout_weight="82.5">
+
+
+            <com.estsoft.muvigram.customview.StreamTextView
+                android:id="@+id/stream_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:dynamic_height="@integer/stream_text_view_height_per"
+                app:dynamic_text="@string/stream_text_music_name_dummy"
+                app:dynamic_textColor="@color/streamTextViewColor"
+                app:dynamic_textSize="@dimen/stream_text_view_text_size"
+                app:dynamic_width="@integer/stream_text_view_width_per"/>
+
+
+            <com.estsoft.muvigram.customview.autolicktextview.AutoLinkTextView
+                android:id="@+id/auto_link_text_view"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/auto_link_text_size"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/stream_text_view"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/user_name_text_view"
+                android:layout_above="@id/auto_link_text_view"
+                android:textSize="@dimen/user_name_text_size"
+                android:textColor="@color/userNameTextColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/featured_text_view"
+                android:layout_above="@id/user_name_text_view"
+                android:text="@string/feed_text_featured"
+                android:textSize="@dimen/featured_text_size"
+                android:textColor="@color/white"
+                android:background="@drawable/featured_text_view_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dip"
@@ -39,16 +83,16 @@
             <com.estsoft.muvigram.customview.FeedMenuButton
                 android:id="@+id/menu_button"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="30dp"
                 android:layout_alignParentBottom="true"/>
 
-            <com.estsoft.muvigram.customview.TransCirclerView
+            <com.estsoft.muvigram.customview.TransCircleView
                 android:id="@+id/circular_comment_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/menu_button"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 app:dynamic_height="12"
                 app:dynamic_icon="@drawable/ic_feed_comment"
                 app:dynamic_text="122"
@@ -56,7 +100,7 @@
                 app:dynamic_width="15"
                 />
 
-            <com.estsoft.muvigram.customview.TransCirclerView
+            <com.estsoft.muvigram.customview.TransCircleView
                 android:id="@+id/circular_like_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

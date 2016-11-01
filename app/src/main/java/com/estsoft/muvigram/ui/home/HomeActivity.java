@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.customview.spacebar.TransParentSpaceView;
 import com.estsoft.muvigram.ui.base.BaseActivity;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
 import com.estsoft.muvigram.ui.feed.FeedFragment;
@@ -19,7 +20,6 @@ import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
-import com.gonigoni.transparenttabview.spacebar.TransParentSpaceView;
 
 import javax.inject.Inject;
 
@@ -70,30 +70,8 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
         }
 
-        Timber.e("onCreate");
     }
 
-    @Override protected void onStart() {
-        super.onStart();
-        Timber.e("onStart");
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-        Timber.e("onResume");
-    }
-
-    @Override protected void onStop() {
-        super.onStop();
-        Timber.e("onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mHomePresenter.detachView();
-        Timber.e("onDestroy");
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -152,6 +130,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
                     mFeedFragment = new FeedFragment();
                 }
                 mFragmentManager.beginTransaction().replace(R.id.activity_home, mFeedFragment).commit();
+
                 break;
             case 1:
                 if (mSearchFragment == null) {

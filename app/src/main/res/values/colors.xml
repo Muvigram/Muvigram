@@ -11,5 +11,12 @@
 
     <!--FeedFragment-->
     <color name="transCircularButtonColor">#40000000</color>
+    <color name="transCircularButtonLikeColor">#ff2d6f</color>
+
+    <!--StreamTextView -->
+    <color name="streamTextViewColor">#EEEEEE</color>
+
+    <!--UserNameTextView-->
+    <color name="userNameTextColor">#e0e0e0</color>
 
 </resources>
