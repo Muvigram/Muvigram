@@ -134,6 +134,17 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mNotificationItemList.size();
     }
 
+    public void clear() {
+        mNotificationItemList.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items
+    public void addAll(List<NotificationItem> list) {
+        mNotificationItemList.addAll(list);
+        notifyDataSetChanged();
+    }
+
     class FollowItemViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.id) TextView id;
         @BindView(R.id.profile_image) ImageView profile;
