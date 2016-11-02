@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerNestedFragment;
 import com.estsoft.muvigram.model.Category;
-import com.estsoft.muvigram.ui.musicselect.injection.PerNestedFragment;
 import com.estsoft.muvigram.ui.musicselectonline.MusicSelectOnlineListActivitiy;
 
 import java.util.ArrayList;

@@ -2,8 +2,12 @@ package com.estsoft.muvigram.injection.module;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 
-import com.estsoft.muvigram.injection.ActivityContext;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
+import com.estsoft.muvigram.injection.qualifier.ParentFragment;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
+import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragmentActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,6 +35,12 @@ public class PlainActivityModule {
     @ActivityContext
     Context providesContext() {
         return mActivity;
+    }
+
+    @Provides
+    @ParentFragment
+    FragmentManager providesFragmentManager() {
+        return ((BasePlainActivity) mActivity).getSupportFragmentManager();
     }
 
     /* Functionality */

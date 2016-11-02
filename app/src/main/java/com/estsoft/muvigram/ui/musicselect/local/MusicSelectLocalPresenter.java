@@ -1,10 +1,10 @@
 package com.estsoft.muvigram.ui.musicselect.local;
 
 import com.estsoft.muvigram.data.DataManager;
+import com.estsoft.muvigram.injection.PerNestedFragment;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.ui.base.BasePresenter;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectView;
-import com.estsoft.muvigram.ui.musicselect.injection.PerNestedFragment;
 import com.estsoft.muvigram.util.RxUtil;
 
 import java.util.List;

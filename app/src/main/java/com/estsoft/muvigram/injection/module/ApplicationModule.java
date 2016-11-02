@@ -6,7 +6,7 @@ import android.content.Context;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
-import com.estsoft.muvigram.injection.ApplicationContext;
+import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 
 import javax.inject.Singleton;
 

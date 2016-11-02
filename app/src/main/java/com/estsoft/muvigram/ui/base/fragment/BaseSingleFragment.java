@@ -13,22 +13,18 @@ import com.estsoft.muvigram.injection.module.SingleFragmentModule;
  * Created by jaylim on 10/31/2016.
  */
 
-public class BaseSingleFragment extends Fragment {
+public class BaseSingleFragment extends BaseFragment {
 
     private SingleFragmentComponent mSingleFragmentComponent;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mSingleFragmentComponent = getSingleFragmentActivityComponent().plus(new SingleFragmentModule());
+        mSingleFragmentComponent = getSingleFragmentActivityComponent().plus(new SingleFragmentModule(this));
     }
 
     public SingleFragmentComponent getSingleFragmentComponent() {
         return mSingleFragmentComponent;
     }
 
-    /** Do not use in any fragment but only in {@link BaseSingleFragment} */
-    private SingleFragmentActivityComponent getSingleFragmentActivityComponent() {
-        return BaseSingleFragmentActivity.get(this).getSingleFragmentActivityComponent();
-    }
 }

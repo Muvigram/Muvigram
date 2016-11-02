@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerNestedFragment;
 import com.estsoft.muvigram.model.Music;
-import com.estsoft.muvigram.ui.musicselect.injection.PerNestedFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,7 +3,6 @@ package com.estsoft.muvigram.ui.musicselect.pager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,14 +12,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
+import com.estsoft.muvigram.ui.base.nestedfragment.BaseParentFragment;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectView;
-import com.estsoft.muvigram.ui.musicselect.injection.NestedFragment;
 import com.estsoft.muvigram.ui.musicselect.local.MusicSelectLocalFragment;
 import com.estsoft.muvigram.ui.musicselect.online.MusicSelectOnlineFragment;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +32,7 @@ import butterknife.Unbinder;
  * Created by jaylim on 10/31/2016.
  */
 
-public class MusicSelectFragment extends BaseSingleFragment implements MusicSelectView.ParentView {
+public class MusicSelectFragment extends BaseParentFragment implements MusicSelectView.ParentView {
 
     private final static int PAGE_ONLINE_LIBRARY = 0;
     private final static int PAGE_LOCAL_LIBRARY = 1;
@@ -87,7 +84,7 @@ public class MusicSelectFragment extends BaseSingleFragment implements MusicSele
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getSingleFragmentComponent().inject(this);
+        getParentFragmentComponent().inject(this);
         mPresenter.attachView(this);
 
         mFragments.add(MusicSelectOnlineFragment.newInstance());
@@ -144,11 +141,6 @@ public class MusicSelectFragment extends BaseSingleFragment implements MusicSele
                 break;
         }
 
-    }
-
-    /** This method is only for {@link NestedFragment} or its child fragment. */
-    public static MusicSelectFragment get(NestedFragment nestedFragment) {
-        return (MusicSelectFragment) nestedFragment.getParentFragment();
     }
 
 

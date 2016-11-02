@@ -1,4 +1,4 @@
-package com.estsoft.muvigram.ui.musicselect.injection.module;
+package com.estsoft.muvigram.injection.module;
 
 import dagger.Module;
 

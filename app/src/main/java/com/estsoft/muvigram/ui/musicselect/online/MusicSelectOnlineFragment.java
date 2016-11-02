@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.model.Category;
+import com.estsoft.muvigram.ui.base.nestedfragment.BaseNestedFragment;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectView;
-import com.estsoft.muvigram.ui.musicselect.injection.NestedFragment;
 import com.estsoft.muvigram.util.DialogFactory;
 
 import java.util.Collections;
@@ -28,7 +28,7 @@ import butterknife.Unbinder;
  * Created by jaylim on 11/1/2016.
  */
 
-public class MusicSelectOnlineFragment extends NestedFragment implements MusicSelectView.OnlineView {
+public class MusicSelectOnlineFragment extends BaseNestedFragment implements MusicSelectView.OnlineView {
 
     @Inject MusicSelectOnlinePresenter mPresenter;
     @Inject

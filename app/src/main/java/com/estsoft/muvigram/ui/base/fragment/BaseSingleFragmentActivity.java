@@ -17,10 +17,6 @@ public abstract class BaseSingleFragmentActivity extends BaseActivity {
 
     private SingleFragmentActivityComponent mSingleFragmentActivityComponent;
 
-    public static BaseSingleFragmentActivity get(BaseSingleFragment baseSingleFragment) {
-        return (BaseSingleFragmentActivity) baseSingleFragment.getActivity();
-    }
-
     protected abstract Fragment createDefaultFragment();
 
     @Override
@@ -47,5 +43,9 @@ public abstract class BaseSingleFragmentActivity extends BaseActivity {
 
     public SingleFragmentActivityComponent getSingleFragmentActivityComponent() {
         return mSingleFragmentActivityComponent;
+    }
+
+    public static BaseSingleFragmentActivity get(BaseFragment baseFragment) {
+        return (BaseSingleFragmentActivity) baseFragment.getActivity();
     }
 }

@@ -4,7 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.estsoft.muvigram.injection.PerSingleFragment;
+import com.estsoft.muvigram.injection.PerParentFragment;
+import com.estsoft.muvigram.injection.qualifier.NestedFragment;
 
 import javax.inject.Inject;
 
@@ -12,16 +13,11 @@ import javax.inject.Inject;
  * Created by jaylim on 11/2/2016.
  */
 
-@PerSingleFragment
+@PerParentFragment
 public class MusicSelectPagerAdapter extends FragmentStatePagerAdapter {
 
     @Inject
-    public MusicSelectPagerAdapter() {
-        super(null);
-
-    }
-
-    public MusicSelectPagerAdapter(FragmentManager fm) {
+    public MusicSelectPagerAdapter(@NestedFragment FragmentManager fm) {
         super(fm);
     }
 

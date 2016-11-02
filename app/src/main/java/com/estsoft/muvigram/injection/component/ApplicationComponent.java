@@ -7,7 +7,7 @@ import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.data.DataManager;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
-import com.estsoft.muvigram.injection.ApplicationContext;
+import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 import com.estsoft.muvigram.injection.module.ApplicationModule;
 
 import javax.inject.Singleton;
