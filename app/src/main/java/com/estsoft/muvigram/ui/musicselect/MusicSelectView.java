@@ -1,5 +1,6 @@
 package com.estsoft.muvigram.ui.musicselect;
 
+import com.estsoft.muvigram.model.Category;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.ui.base.MvpView;
 
@@ -14,27 +15,24 @@ public interface MusicSelectView {
     interface ParentView extends MvpView {
         /* View logic here */
 
-
-        // public void showError();
-
-        // public void showLocalMusicList(List<Music> musicList);
-
-        // public void showEmptyLocalMusicList();
-
     }
-
 
     interface OnlineView extends MvpView {
 
+        void showCategories(List<Category> categories);
+
+        void showCategoriesEmpty();
+
+        void showError();
     }
 
     interface LocalView extends MvpView {
 
-        void showError();
-
-        void showMusics(List<Music> musicList);
+        void showMusics(List<Music> musics);
 
         void showMusicsEmpty();
+
+        void showError();
     }
 
 

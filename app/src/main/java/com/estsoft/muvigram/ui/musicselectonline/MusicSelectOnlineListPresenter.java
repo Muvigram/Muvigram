@@ -1,39 +1,34 @@
-package com.estsoft.muvigram.ui.musicselect.local;
+package com.estsoft.muvigram.ui.musicselectonline;
 
 import com.estsoft.muvigram.data.DataManager;
-import com.estsoft.muvigram.model.Music;
+import com.estsoft.muvigram.injection.PerSingleFragment;
 import com.estsoft.muvigram.ui.base.BasePresenter;
-import com.estsoft.muvigram.ui.musicselect.MusicSelectView;
-import com.estsoft.muvigram.ui.musicselect.injection.PerNestedFragment;
 import com.estsoft.muvigram.util.RxUtil;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
- * Created by jaylim on 11/1/2016.
+ * Created by jaylim on 11/2/2016.
  */
 
-@PerNestedFragment
-public class MusicSelectLocalPresenter extends BasePresenter<MusicSelectView.LocalView> {
+@PerSingleFragment
+public class MusicSelectOnlineListPresenter extends BasePresenter<MusicSelectOnlineListView> {
 
-    private final DataManager mDataManager;
-    private Subscription mSubscription;
+    final DataManager mDataManager;
+    Subscription mSubscription;
 
     @Inject
-    public MusicSelectLocalPresenter(DataManager dataManager) {
+    public MusicSelectOnlineListPresenter(DataManager dataManager) {
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(MusicSelectView.LocalView mvpView) {
+    public void attachView(MusicSelectOnlineListView mvpView) {
         super.attachView(mvpView);
     }
 

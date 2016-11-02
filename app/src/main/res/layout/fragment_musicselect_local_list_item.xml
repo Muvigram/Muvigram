@@ -10,7 +10,7 @@
                 android:weightSum="1">
 
     <ImageView
-        android:id="@+id/musicselect_local_music_play"
+        android:id="@+id/musicselect_local_list_item_music_play"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@color/teal_200"
@@ -20,17 +20,17 @@
         android:contentDescription="@string/musicselect_list_item_music_play_desc"/>
 
     <LinearLayout
-        android:id="@+id/musicselect_local_music_profile"
+        android:id="@+id/musicselect_local_list_item_music_profile"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
         android:gravity="center_vertical"
-        android:layout_toEndOf="@id/musicselect_local_music_play"
+        android:layout_toEndOf="@id/musicselect_local_list_item_music_play"
         android:layout_marginStart="20dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/musicselect_local_music_title"
+            android:id="@+id/musicselect_local_list_item_music_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Music title here"
@@ -38,10 +38,10 @@
             android:textColor="@color/grey_black_1000"/>
 
         <TextView
-            android:id="@+id/musicselect_local_music_desc"
+            android:id="@+id/musicselect_local_list_item_music_artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Description here..."/>
+            tools:text="Artist here..."/>
 
     </LinearLayout>
 

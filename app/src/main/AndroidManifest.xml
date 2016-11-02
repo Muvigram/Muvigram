@@ -65,9 +65,12 @@
         <!-- Media Part -->
         <activity android:name=".ui.musicselect.MusicSelectActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".ui.musicselectonline.MusicSelectOnlineListActivitiy"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.camera.CameraActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".ui.videoselect.VideoSelectActivity" />
+        <activity android:name=".ui.videoselect.VideoSelectActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.videoedit.VideoEditActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".ui.videocut.VideoCutActivity"

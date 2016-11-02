@@ -21,7 +21,7 @@ import rx.Observable;
 
 public interface MusicSelectService {
 
-    String ENDPOINT = "http://www.json-generator.com/api/";
+    String ENDPOINT = "http://www.json-generator.com/api/json/get/";
     // String ENDOPINT = "http://address/media/music/";
 
     @GET("cezPVLVMHS")

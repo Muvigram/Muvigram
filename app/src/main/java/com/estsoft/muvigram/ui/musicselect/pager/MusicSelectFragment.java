@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -34,10 +37,31 @@ import butterknife.Unbinder;
 
 public class MusicSelectFragment extends BaseSingleFragment implements MusicSelectView.ParentView {
 
+    private final static int PAGE_ONLINE_LIBRARY = 0;
+    private final static int PAGE_LOCAL_LIBRARY = 1;
+
     @Inject MusicSelectPresenter mPresenter;
 
     @BindView(R.id.musicselect_view_pager) ViewPager mViewPager;
 
+    @BindView(R.id.musicselect_tab_bar_online_button) Button mOnlineButton;
+    @BindView(R.id.musicselect_tab_bar_local_button) Button mLocalButton;
+    @BindView(R.id.musicselect_tab_bar_back_button) ImageButton mBackButton;
+
+    @OnClick(R.id.musicselect_tab_bar_online_button)
+    public void showOnlineLibrary() {
+        syncPage(PAGE_ONLINE_LIBRARY);
+    }
+
+    @OnClick(R.id.musicselect_tab_bar_local_button)
+    public void showLocalLibrary() {
+        syncPage(PAGE_LOCAL_LIBRARY);
+    }
+
+    @OnClick(R.id.musicselect_tab_bar_back_button)
+    public void finishActivity() {
+        getActivity().onBackPressed();
+    }
 
     private Unbinder mUnbinder;
 
@@ -45,15 +69,9 @@ public class MusicSelectFragment extends BaseSingleFragment implements MusicSele
         return new MusicSelectFragment();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     // Butterknife view binding here ...
 
-    @Nullable
-    @Override
+    @Nullable @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -70,9 +88,12 @@ public class MusicSelectFragment extends BaseSingleFragment implements MusicSele
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getSingleFragmentComponent().inject(this);
+        mPresenter.attachView(this);
 
         mFragments.add(MusicSelectOnlineFragment.newInstance());
         mFragments.add(MusicSelectLocalFragment.newInstance());
+
+        mFragments = Collections.unmodifiableList(mFragments);
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -84,24 +105,45 @@ public class MusicSelectFragment extends BaseSingleFragment implements MusicSele
             public int getCount() {
                 return mFragments.size();
             }
+
         });
+        syncPage(PAGE_ONLINE_LIBRARY);
 
-        mViewPager.setCurrentItem(0);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
-        mPresenter.attachView(this);
-    }
+            @Override
+            public void onPageSelected(int position) {
+                syncPage(position);
+            }
 
-    // View logic(?) here ...
-
-    @Override
-    public void onStart() {
-        super.onStart();
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    private void syncPage(int position) {
+        mViewPager.setCurrentItem(position);
+        switch (position) {
+            case PAGE_ONLINE_LIBRARY :
+                mOnlineButton.setBackgroundResource(R.color.white);
+                mLocalButton.setBackgroundResource(R.color.gray);
+                break;
+            case PAGE_LOCAL_LIBRARY :
+                mLocalButton.setBackgroundResource(R.color.white);
+                mOnlineButton.setBackgroundResource(R.color.gray);
+                break;
+        }
+
     }
 
     /** This method is only for {@link NestedFragment} or its child fragment. */

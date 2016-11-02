@@ -1,4 +1,4 @@
-package com.estsoft.muvigram.ui.musicselect.local;
+package com.estsoft.muvigram.ui.musicselectonline;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,8 +11,9 @@ import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.model.Music;
-import com.estsoft.muvigram.ui.musicselect.MusicSelectView;
-import com.estsoft.muvigram.ui.musicselect.injection.NestedFragment;
+import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
+import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragmentActivity;
+import com.estsoft.muvigram.ui.musicselect.local.MusicSelectLocalListAdapter;
 import com.estsoft.muvigram.util.DialogFactory;
 
 import java.util.Collections;
@@ -25,34 +26,37 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by jaylim on 11/1/2016.
+ * Created by jaylim on 11/2/2016.
  */
 
-public class MusicSelectLocalFragment extends NestedFragment implements MusicSelectView.LocalView {
+public class MusicSelectOnlineListFragment extends BaseSingleFragment
+        implements MusicSelectOnlineListView {
 
-    @Inject MusicSelectLocalPresenter mPresenter;
-    @Inject MusicSelectLocalListAdapter mMusicsAdapter;
+    private Long mCategoryId;
+    private static final String ARG_CATEGORY_ID
+            = "category_id";
 
-    @BindView(R.id.musicselect_local_list_recycler_view) RecyclerView mRecyclerView;
+    @Inject MusicSelectOnlineListPresenter mPresenter;
+    @Inject MusicSelectOnlineListAdapter mMusicsAdapter;
 
-    public static MusicSelectLocalFragment newInstance() {
-        return new MusicSelectLocalFragment();
-    }
+    @BindView(R.id.musicselect_online_list_recycler_view) RecyclerView mRecyclerView;
 
     private Unbinder mUnbinder;
 
-    @Nullable
-    @Override
+
+    @Nullable @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_musicselect_local_list_recycler_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_musicselect_online_list_recycler_view, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         return view;
     }
 
+    /* View Logic */
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getNestedFragmentComponent().inject(this);
+        getSingleFragmentComponent().inject(this);
         mPresenter.attachView(this);
     }
 
@@ -93,5 +97,16 @@ public class MusicSelectLocalFragment extends NestedFragment implements MusicSel
                 getActivity(),
                 getString(R.string.musicselect_local_list_error_loading)
         ).show();
+    }
+
+    public static MusicSelectOnlineListFragment newInstance(long categoryId) {
+        Bundle args = new Bundle();
+        args.putLong(ARG_CATEGORY_ID, categoryId);
+
+        MusicSelectOnlineListFragment musicSelectOnlineListFragment
+                = new MusicSelectOnlineListFragment();
+        musicSelectOnlineListFragment.setArguments(args);
+
+        return musicSelectOnlineListFragment;
     }
 }
