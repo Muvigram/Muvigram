@@ -3,7 +3,6 @@ package com.estsoft.muvigram.ui.musicselect.pager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +28,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
+ *
  * Created by jaylim on 10/31/2016.
  */
 
@@ -38,6 +38,7 @@ public class MusicSelectFragment extends BaseParentFragment implements MusicSele
     private final static int PAGE_LOCAL_LIBRARY = 1;
 
     @Inject MusicSelectPresenter mPresenter;
+    @Inject MusicSelectPagerAdapter mPagerAdapter;
 
     @BindView(R.id.musicselect_view_pager) ViewPager mViewPager;
 
@@ -66,7 +67,7 @@ public class MusicSelectFragment extends BaseParentFragment implements MusicSele
         return new MusicSelectFragment();
     }
 
-    // Butterknife view binding here ...
+    // ButterKnife view binding here ...
 
     @Nullable @Override
     public View onCreateView(LayoutInflater inflater,
@@ -92,32 +93,16 @@ public class MusicSelectFragment extends BaseParentFragment implements MusicSele
 
         mFragments = Collections.unmodifiableList(mFragments);
 
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return mFragments.get(position);
-            }
+        mPagerAdapter.setFragments(mFragments);
 
-            @Override
-            public int getCount() {
-                return mFragments.size();
-            }
+        mViewPager.setAdapter(mPagerAdapter);
 
-        });
         syncPage(PAGE_ONLINE_LIBRARY);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 syncPage(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
             }
         });
     }
