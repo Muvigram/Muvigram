@@ -175,11 +175,14 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
             final String VIDEO_FILE_NAME = "test_intro_video" + String.valueOf(i);
             final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
 
-            ret.add(
-                    new FeedRepo(getContext(), getResources().getString(R.string.user_name_text_dummy), videoFile,
-                            drawables[i], "https://pbs.twimg.com/profile_images/565601976063647744/PP085xzu.jpeg",
-                            getResources().getString(R.string.video_specification_dummy), true, this)
-            );
+
+            for(int j = 0; j < 20; j++) {
+                ret.add(
+                        new FeedRepo(getContext(), getResources().getString(R.string.user_name_text_dummy), videoFile,
+                                drawables[i], "https://pbs.twimg.com/profile_images/565601976063647744/PP085xzu.jpeg",
+                                getResources().getString(R.string.video_specification_dummy), true, this)
+                );
+            }
         }
         return ret;
     }
@@ -199,8 +202,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 .placeholder(R.drawable.recode_placeholder)
                 .transform(new CircleTransform())
                 .into(mMusicRecordView);
-
-
     }
 
     @Override public void onTabItemClick(TabView tabView) {
