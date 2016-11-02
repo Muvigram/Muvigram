@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/comment_item_height"
+                android:layout_marginBottom="@dimen/comment_item_margin_bottom">
+
+
+    <com.estsoft.muvigram.customview.DynamicImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        app:dynamic_height="-1"
+        app:dynamic_width="13"
+        />
+
+    <TextView
+        android:layout_marginTop="@dimen/comment_text_margin_top"
+        android:textSize="@dimen/comment_text_size"
+        android:id="@+id/username_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/profile_image_view"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:textSize="@dimen/comment_text_size"
+        android:id="@+id/comment_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_text_view"
+        android:layout_toRightOf="@id/profile_image_view"
+        android:textColor="@color/white"/>
+
+
+</RelativeLayout>

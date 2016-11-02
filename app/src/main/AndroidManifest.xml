@@ -64,12 +64,12 @@
             android:name=".ui.profile.EditProfileActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.search.SearchPeopleActivity"/>
-        <activity android:name=".ui.search.SearchSoundActivity"/>
-        <activity android:name=".ui.search.SearchTagActivity"/>
         <activity android:name=".ui.profile.SoundProfileActivity"/>
         <activity android:name=".ui.profile.TagProfileActivity"/>
-        <activity android:name=".ui.feed.comment.CommentActivity">
+        <activity
+            android:windowSoftInputMode="adjustPan"
+
+            android:name=".ui.feed.comment.CommentActivity">
         </activity>
     </application>
 
