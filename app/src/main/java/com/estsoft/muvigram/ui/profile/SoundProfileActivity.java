@@ -11,7 +11,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +22,7 @@ import butterknife.OnClick;
  * Created by JEONGYI on 2016. 10. 25..
  */
 
-public class SoundProfileActivity extends BaseActivity{
+public class SoundProfileActivity extends BasePlainActivity {
 
     DisplayMetrics mMetrics;
     private Integer[] mSoundThumb = {R.drawable.profile_test, R.drawable.profile_test1,

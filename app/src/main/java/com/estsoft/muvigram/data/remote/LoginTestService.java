@@ -11,21 +11,21 @@ import rx.Observable;
 /**
  * Created by gangGongUi on 2016. 10. 12..
  */
-public interface LoginSignService {
+public interface LoginTestService {
 
     String ENDPOINT = "http://echo.jsontest.com/key/value/one/";
 
     @GET("two")
-    Observable<TestRepo> getRibotTest();
+    Observable<TestRepo> getLoginTest();
 
     class Creator {
-        public static LoginSignService newLoginSignService() {
+        public static LoginTestService newLoginService() {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(LoginSignService.ENDPOINT)
+                    .baseUrl(LoginTestService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
-            return retrofit.create(LoginSignService.class);
+            return retrofit.create(LoginTestService.class);
         }
 
     }

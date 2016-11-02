@@ -12,10 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
-import com.estsoft.muvigram.ui.notify.NotifyRecyclerAdapter;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.profile.CircleTransform;
-import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by JEONGYI on 2016. 10. 25..
  */
 
-public class SearchPeopleActivity extends BaseActivity {
+public class SearchPeopleActivity extends BasePlainActivity {
 
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
 

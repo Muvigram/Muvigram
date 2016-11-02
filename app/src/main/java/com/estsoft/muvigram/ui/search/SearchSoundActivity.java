@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
-import com.estsoft.muvigram.ui.profile.CircleTransform;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.profile.SoundProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by JEONGYI on 2016. 10. 25..
  */
 
-public class SearchSoundActivity extends BaseActivity {
+public class SearchSoundActivity extends BasePlainActivity {
 
     private static final String[] titleList = {"Closer ft Halsey","Cold Water","Perfect Illusion"};
     private static final String[] subTitleList = {"The Chainsomkers","Major Lazer","Lady Gaga"};

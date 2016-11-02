@@ -13,7 +13,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.util.DisplayUtility;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
 import rx.Observable;
 
 
-public class SignInActivity extends BaseActivity implements SignInView {
+public class SignInActivity extends BasePlainActivity implements SignInView {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.username_til) TextInputLayout mUsernameInputLayout;
@@ -45,7 +46,7 @@ public class SignInActivity extends BaseActivity implements SignInView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityComponent().inject(this);
+        getPlainActivityComponent().inject(this);
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
         mSignInPresenter.attachView(this);

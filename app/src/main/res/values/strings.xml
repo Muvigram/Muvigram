@@ -103,5 +103,17 @@
     <string name="profile_most_popular">most popular</string>
     <string name="profile_most_recent">most recent</string>
 
+    <!-- Camera Fragment -->
+    <string name="camera_record_video">Start record</string>
+    <string name="camera_change_mode">Change the camera mode</string>
+    <string name="camera_flash_on_off">On/Off the flash</string>
+    <string name="permission_request">This sample needs permission for camera and audio recording.</string>
 
+    <!-- MusicSelect Fragment -->
+    <string name="musicselect_list_item_music_play_desc">Play the music</string>
+    <string name="musicselect_list_item_music_info_desc">Information about the music</string>
+    <string name="musicselect_tab_bar_online_library">Online library</string>
+    <string name="musicselect_tab_bar_local_library">My songs</string>
+
+    <string name="musicselect_search_bar_search">Search music</string>
 </resources>

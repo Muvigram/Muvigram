@@ -6,10 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import javax.inject.Scope;
 
 /**
- * Created by gangGongUi on 2016. 10. 9..
+ * Created by jaylim on 11/1/2016.
  */
+
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PerActivity {
-
+public @interface PerSingleFragmentActivity {
 }

@@ -11,13 +11,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
 import com.estsoft.muvigram.ui.feed.FeedFragment;
 import com.estsoft.muvigram.ui.notify.NotifyFragment;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
-import com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity;
+import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 import com.gonigoni.transparenttabview.spacebar.TransParentSpaceView;
 
@@ -30,7 +31,7 @@ import timber.log.Timber;
 /**
  * The type Home activity.
  */
-public class HomeActivity extends BaseActivity implements HomeView, TransParentSpaceView.OnSpaceViewListener {
+public class HomeActivity extends BasePlainActivity implements HomeView, TransParentSpaceView.OnSpaceViewListener {
 
     @BindView(R.id.home_trans_navigation) TransParentSpaceView mTransSpaceView;
     @Inject HomePresenter mHomePresenter;
@@ -46,7 +47,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityComponent().inject(this);
+        getPlainActivityComponent().inject(this);
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE

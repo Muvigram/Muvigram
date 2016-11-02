@@ -267,7 +267,7 @@
     <color name="grey_white_1000">#ffffff</color>
 
 
-    <color name="transpart">#00ffffff</color>
+    <color name="transparent">#00ffffff</color>
     <color name="blue_grey_50">#eceff1</color>
     <color name="blue_grey_100">#cfd8dc</color>
     <color name="blue_grey_200">#b0bec5</color>

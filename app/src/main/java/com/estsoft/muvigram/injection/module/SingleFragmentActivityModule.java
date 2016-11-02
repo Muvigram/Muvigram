@@ -9,17 +9,20 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by gangGongUi on 2016. 10. 9..
+ * Created by jaylim on 10/31/2016.
  */
+
 @Module
-public class ActivityModule {
+public class SingleFragmentActivityModule {
 
     private Activity mActivity;
 
-    public ActivityModule(Activity mActivity) {
-        this.mActivity = mActivity;
+    /** Constructor */
+    public SingleFragmentActivityModule(Activity activity) {
+        this.mActivity = activity;
     }
 
+    /* System */
     @Provides
     Activity provideActivity() {
         return mActivity;
@@ -31,5 +34,6 @@ public class ActivityModule {
         return mActivity;
     }
 
-
+    /* Functionality */
+    // TODO - Functional dependency objects would be here.
 }

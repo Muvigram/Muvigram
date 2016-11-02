@@ -1,22 +1,17 @@
 package com.estsoft.muvigram.ui.videoselect;
 
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
-import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
-
-import butterknife.ButterKnife;
+import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragmentActivity;
 
 /**
  * Created by jaylim on 10/17/2016.
  */
 
-public class VideoSelectActivity extends BaseActivity {
+public class VideoSelectActivity extends BaseSingleFragmentActivity {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        activityComponent().inject(this);
-        setContentView(R.layout.activity_video_select);
-        ButterKnife.bind(this);
+    protected Fragment createDefaultFragment() {
+        return VideoSelectFragment.newInstance();
     }
 }

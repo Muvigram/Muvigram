@@ -2,11 +2,8 @@ package com.estsoft.muvigram.ui.profile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.hardware.display.DisplayManagerCompat;
-import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,18 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.estsoft.muvigram.MuviGramApplication;
+import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.model.UserInfoRepo;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
-import com.estsoft.muvigram.ui.home.HomeActivity;
-import com.estsoft.muvigram.ui.home.HomePresenter;
 import com.estsoft.muvigram.ui.setting.SettingsActivity;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,7 +80,7 @@ public class ProfileFragment extends Fragment {
                 .transform(new CircleTransform()).into(profile);
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
-        params.setMargins(0, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
+        params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
         mActionBar.setLayoutParams(params);
 
         userId.setText("@"+user.getUserid());

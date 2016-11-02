@@ -13,7 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.profile.TagProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by JEONGYI on 2016. 10. 25..
  */
 
-public class SearchTagActivity extends BaseActivity {
+public class SearchTagActivity extends BasePlainActivity {
 
     private static final String[] titleList = {"comedy","question","dance","snapchatstory","muservoice"};
     private static final int[] subTitleList = {123,34,436,567,12};

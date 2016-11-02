@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.estsoft.muvigram.ui.selectmusic.MusicSelectActivity">
+    tools:context="com.estsoft.muvigram.ui.musicselect.MusicSelectActivity">
 
     <TextView
         android:text="music select"
