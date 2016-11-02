@@ -35,6 +35,8 @@
     <integer name="featured_text_view_margin_left_per">2</integer>
     <integer name="featured_text_view_padding_left_right">6</integer>
 
+    <!-- commentActivity cancelButton -->
+    <integer name="commnet_edit_text_max_length">20</integer>
 
     <!-- FeedFragment >>>>>>>>>>> -->
 </resources>
