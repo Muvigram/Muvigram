@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/musicselect_fragment_container"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/musicselect_tab_bar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/light_blue_300"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/musicselect_tab_bar_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_musicselect_action_bar_back_button"
+            android:contentDescription="@string/musicselect_tab_bar_local_library"
+            />
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <Button
+                android:id="@+id/musicselect_tab_bar_online_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/gray"
+                android:gravity="center"
+                android:text="@string/musicselect_tab_bar_online_library"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/musicselect_tab_bar_local_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@color/gray"
+                android:gravity="center"
+                android:text="@string/musicselect_tab_bar_local_library"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/musicselect_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

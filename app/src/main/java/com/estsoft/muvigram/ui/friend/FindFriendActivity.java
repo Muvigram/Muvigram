@@ -9,7 +9,8 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import timber.log.Timber;
  * Created by JEONGYI on 2016. 10. 13..
  */
 
-public class FindFriendActivity extends BaseActivity {
+public class FindFriendActivity extends BasePlainActivity {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;

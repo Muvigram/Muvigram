@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/musicselect_local_list_search_bar"
+        android:background="@color/light_blue_300"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_margin="12dp"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@drawable/search_view_background"
+            tools:ignore="UselessParent">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+                <ImageView
+                    android:paddingRight="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_action_bar_search"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"/>
+
+                <EditText
+                    android:id="@+id/musicselect_local_list_search_bar_edit_text"
+                    android:hint="@string/search_people"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/white"
+                    android:background="@drawable/search_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/musicselect_local_list_recycler_view"
+        android:background="@color/white"
+        android:scrollbars="vertical"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

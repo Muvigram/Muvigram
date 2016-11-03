@@ -11,17 +11,21 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
-        android:name=".MuviGramApplication"
+        android:name=".MuvigramApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
-        <activity
-            android:name=".ui.splash.SplashActivity"
-            android:theme="@style/AppIntroTheme">
+        tools:replace="android:icon"
+        >
+        <activity android:name=".ui.splash.SplashActivity"
+                  android:theme="@style/AppIntroTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -36,14 +40,6 @@
             android:name=".ui.intro.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppIntroTheme"/>
-        <activity
-            android:name=".ui.selectmusic.MusicSelectActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ui.camera.CameraActivity">
-        </activity>
-        <activity android:name=".ui.videoselect.VideoSelectActivity">
-        </activity>
         <activity
             android:name=".ui.sign.SignInActivity"
             android:label="@string/title_activity_sign">
@@ -66,9 +62,22 @@
         </activity>
         <activity android:name=".ui.profile.SoundProfileActivity"/>
         <activity android:name=".ui.profile.TagProfileActivity"/>
+
+        <!-- Media Part -->
+        <activity android:name=".ui.musicselect.MusicSelectActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.musicselectonline.MusicSelectOnlineListActivitiy"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.camera.CameraActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.videoselect.VideoSelectActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.videoedit.VideoEditActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.videocut.VideoCutActivity"
+                  android:screenOrientation="portrait"/>
         <activity
             android:windowSoftInputMode="adjustPan"
-
             android:name=".ui.feed.comment.CommentActivity">
         </activity>
     </application>

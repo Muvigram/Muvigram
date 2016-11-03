@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.estsoft.muvigram.MuviGramApplication;
+import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.MusicRecordView;
 import com.estsoft.muvigram.customview.transparentview.TabView;
@@ -140,7 +140,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mFeedTabView.getLayoutParams();
         final int leftRightMargin = ViewUtils.getDisplayPerWidthByRes(getContext(), R.integer.trans_parent_tab_margin_left_right_per);
 
-        params.setMargins(leftRightMargin, ((MuviGramApplication) getActivity().getApplication()).getStatusBarHeight() / 2, leftRightMargin, 0);
+        params.setMargins(leftRightMargin, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight() / 2, leftRightMargin, 0);
         mFeedTabView.setLayoutParams(params);
         mFeedTabView.setOnTabItemClickListener(this);
         mFeedTabView.addTabItem(getResources().getString(R.string.feed_text_follow));

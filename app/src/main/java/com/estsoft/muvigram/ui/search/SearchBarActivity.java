@@ -20,7 +20,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 
 import org.w3c.dom.Text;
 
@@ -32,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchBarActivity extends BaseActivity{
+public class SearchBarActivity extends BasePlainActivity {
 
     @BindView(R.id.search_edittext)
     EditText searchEditText;

@@ -37,7 +37,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     public void loadTestData() {
         checkViewAttached();
         RxUtil.unsubscribe(mSubscription);
-        mSubscription = mDataManager.getNetWorkTestService()
+        mSubscription = mDataManager.getNetworkTestService()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<String>() {

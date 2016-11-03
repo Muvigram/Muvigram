@@ -11,6 +11,7 @@ import javax.inject.Inject;
 /**
  * Created by gangGongUi on 2016. 10. 11..
  */
+
 @ConfigPersistent
 public class IntroPresenter extends BasePresenter<IntroView> {
 

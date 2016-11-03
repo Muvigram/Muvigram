@@ -12,7 +12,8 @@ import android.widget.Button;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
-import com.estsoft.muvigram.ui.base.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.sign.SignInActivity;
 
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class IntroActivity extends BaseActivity implements IntroView {
+public class IntroActivity extends BasePlainActivity implements IntroView {
 
 
     public static final int LOG_IN_ACTIVITY = 0;
@@ -40,13 +41,14 @@ public class IntroActivity extends BaseActivity implements IntroView {
     String mSingupText;
     @BindView(R.id.intro_video_view)
     IncreasVideoView mVideoView;
+
     @Inject
     IntroPresenter mIntroPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityComponent().inject(this);
+        getPlainActivityComponent().inject(this);
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE

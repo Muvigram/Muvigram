@@ -2,20 +2,14 @@ package com.estsoft.muvigram.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.BaseActivity;
-import com.estsoft.muvigram.ui.friend.FindFriendActivity;
-import com.estsoft.muvigram.ui.home.HomeActivity;
-import com.estsoft.muvigram.ui.setting.SettingsActivity;
+import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -26,7 +20,7 @@ import butterknife.OnClick;
  * Created by JEONGYI on 2016. 10. 14..
  */
 
-public class EditProfileActivity extends BaseActivity{
+public class EditProfileActivity extends BasePlainActivity {
 
     @BindView(R.id.profile_image) ImageView profileImage;
     @BindView(R.id.userid_edittext) EditText userIdEditText;

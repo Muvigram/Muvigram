@@ -127,5 +127,26 @@
     <string name="comment_title">comments</string>
     <string name="comment_edittext_hint">say something nice...</string>
 
+    <!-- Camera Fragment -->
+    <string name="camera_record_video">Start record</string>
+    <string name="camera_change_mode">Change the camera mode</string>
+    <string name="camera_flash_on_off">On/Off the flash</string>
+    <string name="permission_request">This sample needs permission for camera and audio recording.</string>
+
+    <!-- MusicSelect Fragment -->
+    <string name="musicselect_list_item_music_play_desc">Play the music</string>
+    <string name="musicselect_list_item_music_info_desc">Information about the music</string>
+    <string name="musicselect_category_item_category_image_desc">Category image</string>
+
+    <string name="musicselect_tab_bar_online_library">Online library</string>
+    <string name="musicselect_tab_bar_local_library">My songs</string>
+
+    <string name="musicselect_search_bar_search">Search music</string>
+
+    <string name="musicselect_local_list_empty_musics">There arn\'t any musics</string>
+    <string name="musicselect_local_list_error_loading">There was a problem loading the musics.</string>
+
+    <string name="musicselect_online_category_empty_musics">There arn\'t any musics</string>
+    <string name="musicselect_online_category_error_loading">There was a problem loading the categories.</string>
 
 </resources>

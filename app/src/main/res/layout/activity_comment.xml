@@ -22,7 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/comment_activity_cancel_button_margin_left"
-            android:background="@color/transpart"
+            android:background="@color/transparent"
             android:src="@drawable/ic_action_cancel"
             />
 

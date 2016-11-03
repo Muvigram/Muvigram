@@ -12,12 +12,12 @@ import timber.log.Timber;
 /**
  * Created by gangGongUi on 2016. 10. 9..
  */
-public class MuviGramApplication extends Application {
+public class MuvigramApplication extends Application {
 
     ApplicationComponent mApplicationComponent;
 
-    public static MuviGramApplication get(Context context) {
-        return (MuviGramApplication) context.getApplicationContext();
+    public static MuvigramApplication get(Context context) {
+        return (MuvigramApplication) context.getApplicationContext();
     }
 
     @Override
@@ -27,16 +27,6 @@ public class MuviGramApplication extends Application {
 
     }
 
-    public ApplicationComponent getComponent() {
-        if (mApplicationComponent == null) {
-
-            mApplicationComponent = DaggerApplicationComponent.builder()
-                    .applicationModule(new ApplicationModule(this))
-                    .build();
-        }
-        return mApplicationComponent;
-    }
-
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -44,6 +34,16 @@ public class MuviGramApplication extends Application {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        if (mApplicationComponent == null) {
+
+            mApplicationComponent = DaggerApplicationComponent.builder()
+                    .applicationModule(new ApplicationModule(this))
+                    .build();
+        }
+        return mApplicationComponent;
     }
 
 
