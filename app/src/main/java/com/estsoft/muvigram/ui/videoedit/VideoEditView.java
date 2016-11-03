@@ -1,5 +1,8 @@
 package com.estsoft.muvigram.ui.videoedit;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
 import com.estsoft.muvigram.ui.base.MvpView;
 
 /**
@@ -8,5 +11,5 @@ import com.estsoft.muvigram.ui.base.MvpView;
 
 public interface VideoEditView extends MvpView {
 
-    /* View logic interface here ... */
+
 }

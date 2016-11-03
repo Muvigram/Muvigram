@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.data.DataManager;
+import com.estsoft.muvigram.data.MediaManager;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
@@ -45,6 +46,7 @@ public interface ApplicationComponent {
     /* Subcomponent */
 
     /* Dependencies extended by constructor injections */
+    MediaManager mediaManager();
 
     /* Dependencies provided from modules */
     @ApplicationContext Context context();

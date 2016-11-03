@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
+
+
+    <com.estsoft.muvigram.customview.EditVideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/edit_video_video_view"
+        android:layout_gravity="center"
+        />
+
+    <com.estsoft.muvigram.customview.ScrollViewNoFling
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_video_thumbnail_scroll_view"
+        android:layout_gravity="bottom"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:id="@+id/edit_video_thumbnail_container_layout">
+        </LinearLayout>
+
+    </com.estsoft.muvigram.customview.ScrollViewNoFling>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:text="submit"
+        android:id="@+id/edit_video_submit_button"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/background_dark"
+        android:visibility="gone"
+        android:alpha="0.8"
+        android:id="@+id/edit_video_disable_layout"/>
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_video_thumbnail_progressbar"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+
+</FrameLayout>

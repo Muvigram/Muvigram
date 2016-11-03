@@ -149,4 +149,11 @@
     <string name="musicselect_online_category_empty_musics">There arn\'t any musics</string>
     <string name="musicselect_online_category_error_loading">There was a problem loading the categories.</string>
 
+    <!-- VideoSelection Fragment -->
+    <string name="video_select_local_loading_error">Loading local video problem</string>
+    <string name="video_select_title">Videos</string>
+    <string name="video_select_too_short">duration should be MIN_TIME seconds up</string>
+    <string name="video_select_too_long">duration should be MAX_TIME seconds down</string>
+    <string name="video_select_force_wait">please wait a second</string>
+
 </resources>
