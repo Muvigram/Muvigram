@@ -3,6 +3,7 @@ package com.estsoft.muvigram.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
@@ -55,6 +56,12 @@ public class ApplicationModule {
     @Singleton
     MusicSelectService provideMusicSelectService() {
         return MusicSelectService.Creator.newMusicSelectService();
+    }
+
+    @Provides
+    @Singleton
+    FindFriendService provideFindFriendService() {
+        return FindFriendService.Creator.newFindFriendService();
     }
 
 }

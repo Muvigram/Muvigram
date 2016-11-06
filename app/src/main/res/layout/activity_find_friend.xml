@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:gravity="center_horizontal">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,30 +11,30 @@
         android:background="@color/light_blue_300">
 
         <ImageButton
+            android:id="@+id/find_friend_back_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/back_button"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/ic_action_back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="find friend"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:textSize="18sp"
+            android:text="find friend"
             android:textColor="@color/white"
-            android:layout_centerInParent="true"/>
+            android:textSize="18sp"/>
 
         <ImageButton
+            android:id="@+id/save_button"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/save_button"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:background="@drawable/ic_action_save_profile"/>
 
     </RelativeLayout>
@@ -42,91 +42,87 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/phonebook_icon"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/phone_contact"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
-
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/facebook_icon"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/connect_to_facebook"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:layout_marginTop="8dp"/>
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/find_friend_phone_book_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/phonebook_icon"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/find_friend_phone_book_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/phone_contact"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/find_friend_face_book_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/facebook_icon"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/find_friend_face_book_icon"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/connect_to_facebook"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="12 facebook friends"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/grey_200"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/musers_text"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/find_friend_recycler_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12 facebook friends"
-                android:layout_marginLeft="8dp"/>
+                android:background="@color/white"
+                android:scrollbars="vertical"/>
 
         </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:text="@string/musers_text"
-        android:paddingLeft="10dp"
-        android:background="@color/grey_200"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerview"
-        android:background="@color/white"
-        android:scrollbars="vertical">
-    </android.support.v7.widget.RecyclerView>
-
-    </LinearLayout>
     </ScrollView>
 
 

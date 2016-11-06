@@ -5,6 +5,7 @@ import com.estsoft.muvigram.injection.module.PlainActivityModule;
 import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
 import com.estsoft.muvigram.ui.feed.comment.CommentActivity;
+import com.estsoft.muvigram.ui.friend.FindFriendActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
@@ -58,5 +59,5 @@ public interface PlainActivityComponent {
     void inject(HomeActivity activity);
     void inject(SignInActivity signInActivity);
     void inject(CommentActivity commentActivity);
-
+    void inject(FindFriendActivity findFriendActivity);
 }
