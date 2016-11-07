@@ -12,14 +12,17 @@ import android.widget.FrameLayout;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.spacebar.TransParentSpaceView;
-import com.estsoft.muvigram.ui.base.activity.BaseActivity;
+import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
+import com.estsoft.muvigram.injection.component.SingleFragmentActivityComponent;
+import com.estsoft.muvigram.injection.module.ParentFragmentModule;
+import com.estsoft.muvigram.injection.module.SingleFragmentActivityModule;
 import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.camera.CameraActivity;
 import com.estsoft.muvigram.ui.feed.FeedFragment;
+import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
 import com.estsoft.muvigram.ui.notify.NotifyFragment;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
-import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
 
 import javax.inject.Inject;
@@ -34,8 +37,8 @@ import timber.log.Timber;
 public class HomeActivity extends BasePlainActivity implements HomeView, TransParentSpaceView.OnSpaceViewListener {
 
     @BindView(R.id.home_trans_navigation) TransParentSpaceView mTransSpaceView;
-    @Inject HomePresenter mHomePresenter;
     @BindView(R.id.background) FrameLayout background;
+    @Inject HomePresenter mHomePresenter;
 
     private BottomSheetDialog mBottomSheetDialog;
     private FragmentManager mFragmentManager;
@@ -43,6 +46,8 @@ public class HomeActivity extends BasePlainActivity implements HomeView, TransPa
     private SearchFragment mSearchFragment = null;
     private NotifyFragment mNotifyFragment = null;
     private ProfileFragment mProfileFragment = null;
+
+    private SingleFragmentActivityComponent mSingleFragmentActivityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public class HomeActivity extends BasePlainActivity implements HomeView, TransPa
         initBottomSheetView();
         initTransSpaceView(savedInstanceState);
 
-        FragmentManager fm = getSupportFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.activity_home);
 
         if (fragment == null) {
@@ -71,8 +76,14 @@ public class HomeActivity extends BasePlainActivity implements HomeView, TransPa
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
         }
 
+        mSingleFragmentActivityComponent = getConfigPersistentComponent()
+                .plus(new SingleFragmentActivityModule(this));
+
     }
 
+    public ParentFragmentComponent getSingleFragmentActivityComponent(Fragment mFragment) {
+        return mSingleFragmentActivityComponent.plus(new ParentFragmentModule(mFragment));
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

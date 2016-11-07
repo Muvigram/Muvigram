@@ -19,7 +19,7 @@ import com.estsoft.muvigram.R;
  */
 public class TransParentTabView extends LinearLayout implements TabView.OnTabClickListenerWithTransParentTab {
 
-    private final int ITEM_LIMIT = 6;
+    private static final int ITEM_LIMIT = 6;
     private int mItemCount = 0;
     private int mTextSize;
     private int mTextColor;

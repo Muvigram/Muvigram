@@ -1,11 +1,8 @@
 package com.estsoft.muvigram.injection.component;
 
 import com.estsoft.muvigram.injection.PerSingleFragment;
-import com.estsoft.muvigram.injection.module.NestedFragmentModule;
 import com.estsoft.muvigram.injection.module.SingleFragmentModule;
-import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.camera.CameraFragment;
-import com.estsoft.muvigram.ui.musicselect.pager.MusicSelectFragment;
 import com.estsoft.muvigram.ui.musicselectonline.MusicSelectOnlineListFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.videocut.VideoCutFragment;
@@ -40,7 +37,6 @@ public interface SingleFragmentComponent {
     void inject(MusicSelectOnlineListFragment musicSelectOnlineListFragment);
 
     void inject(CameraFragment cameraFragment);
-
     void inject(VideoSelectFragment videoSelectFragment);
     void inject(VideoEditFragment videoEditFragment);
     void inject(VideoCutFragment videoCutFragment);

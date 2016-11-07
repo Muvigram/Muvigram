@@ -124,6 +124,8 @@ public class MusicSelectFragment extends BaseParentFragment implements MusicSele
                 mLocalButton.setBackgroundResource(R.color.white);
                 mOnlineButton.setBackgroundResource(R.color.gray);
                 break;
+            default: // goni
+                break;
         }
 
     }

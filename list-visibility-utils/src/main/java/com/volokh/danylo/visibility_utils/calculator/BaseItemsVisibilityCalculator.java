@@ -37,6 +37,8 @@ public abstract class BaseItemsVisibilityCalculator implements ListItemsVisibili
             case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
                 if (SHOW_LOGS) Logger.v(TAG, "onScroll, SCROLL_STATE_IDLE. ignoring");
                 break;
+            default:
+                break;
         }
     }
 

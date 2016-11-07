@@ -45,14 +45,13 @@ public class DynamicImageView extends ImageView {
         int height = getDisplay().getHeight() * mDynamicHeight / 100;
         int width = getDisplay().getWidth() * mDynamicWidth / 100;
 
-        if (mDynamicHeight == -1) {
+        if(mDynamicHeight == -1 && mDynamicWidth == -1) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        } else if (mDynamicHeight == -1) {
             height = width;
         } else if (mDynamicWidth == -1) {
             width = height;
-        } else if (mDynamicHeight == -1 && mDynamicWidth == -1) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
-
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST), MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST));
     }
 

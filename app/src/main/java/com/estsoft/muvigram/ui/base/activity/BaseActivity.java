@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.estsoft.muvigram.MuvigramApplication;
-import com.estsoft.muvigram.injection.component.PlainActivityComponent;
 import com.estsoft.muvigram.injection.component.ApplicationComponent;
 import com.estsoft.muvigram.injection.component.ConfigPersistentComponent;
 import com.estsoft.muvigram.injection.component.DaggerConfigPersistentComponent;
+import com.estsoft.muvigram.injection.component.PlainActivityComponent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,27 +18,25 @@ import timber.log.Timber;
 
 /**
  * Activity that every ather activity in this application must implement.
- *
+ * <p>
  * It handles
- *   1. Creation of dagger components
- *   2. Makes sure that instances of {@link ConfigPersistentComponent}
- *      survive across the configuration change. (NOT PlainActivityComponent.)
- *
+ * 1. Creation of dagger components
+ * 2. Makes sure that instances of {@link ConfigPersistentComponent}
+ * survive across the configuration change. (NOT PlainActivityComponent.)
+ * <p>
  * It provides
- *   1. Access to the {@link PlainActivityComponent}.
+ * 1. Access to the {@link PlainActivityComponent}.
  */
 public class BaseActivity extends AppCompatActivity {
 
     /* KV pair : KEY_ACTIVITIY_ID -> mActivityId -> mActivityComponent */
     private static final String KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID";
-    private long mActivityId;
-    private ConfigPersistentComponent mConfigPersistentComponent;
-
     /* Where the key is stored. */
     private static final Map<Long, ConfigPersistentComponent> sComponentMap = new HashMap<>();
-
     /* Async key generator */
     private static final AtomicLong NEXT_ID = new AtomicLong(0);
+    private long mActivityId;
+    private ConfigPersistentComponent mConfigPersistentComponent;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -62,6 +60,7 @@ public class BaseActivity extends AppCompatActivity {
 
         } else { /* GENERATE AND SAVE */
             Timber.i("Creating new ConfigPersistentComponent id=%d", mActivityId);
+
             mConfigPersistentComponent = DaggerConfigPersistentComponent.builder()
                     .applicationComponent(getApplicationComponent()).build();
 
@@ -87,7 +86,9 @@ public class BaseActivity extends AppCompatActivity {
         return mConfigPersistentComponent;
     }
 
-    /** Do not use in any activity but only {@link BaseActivity} */
+    /**
+     * Do not use in any activity but only {@link BaseActivity}
+     */
     private ApplicationComponent getApplicationComponent() {
         return MuvigramApplication.get(this).getApplicationComponent();
     }

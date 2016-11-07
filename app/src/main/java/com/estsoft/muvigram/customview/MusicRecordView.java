@@ -12,8 +12,8 @@ import android.widget.ImageView;
  */
 public class MusicRecordView extends ImageView {
 
-    private final String RECODE_COLOR = "#90000000";
-    private final String RECODE_IN_COLOR = "#F0CA21";
+    private static final String RECODE_COLOR = "#90000000";
+    private static final String RECODE_IN_COLOR = "#F0CA21";
 
 
     public MusicRecordView(Context context) {
