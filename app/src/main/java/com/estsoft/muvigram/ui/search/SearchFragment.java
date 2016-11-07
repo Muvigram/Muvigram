@@ -19,10 +19,12 @@ import android.widget.Toast;
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
+import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
 import com.estsoft.muvigram.injection.component.SingleFragmentComponent;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.util.DialogFactory;
 
 import java.util.List;
@@ -38,7 +40,7 @@ import butterknife.OnClick;
  * Edited by gangGongUi on 2016. 10. 16..
  */
 
-public class SearchFragment extends BaseSingleFragment implements TrendingTagsView {
+public class SearchFragment extends Fragment implements TrendingTagsView {
 
 //    private String[] tagItemList = new String[]{"WaterBalance","Korea","SideToSide","Noma","Kkoma","JeongYi"};
     private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33","#26c6da","#5677fc"};
@@ -71,7 +73,8 @@ public class SearchFragment extends BaseSingleFragment implements TrendingTagsVi
         ButterKnife.bind(this, view);
 
         initRecyclerView();
-        getSingleFragmentComponent().inject(this);
+        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+        activityComponent.inject(this);
         mPresenter.attachView(this);
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();

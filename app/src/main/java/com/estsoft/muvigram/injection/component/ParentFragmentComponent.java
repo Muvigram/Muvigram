@@ -5,6 +5,7 @@ import com.estsoft.muvigram.injection.module.NestedFragmentModule;
 import com.estsoft.muvigram.injection.module.ParentFragmentModule;
 import com.estsoft.muvigram.ui.feed.FeedFragment;
 import com.estsoft.muvigram.ui.musicselect.pager.MusicSelectFragment;
+import com.estsoft.muvigram.ui.search.SearchFragment;
 
 import dagger.Subcomponent;
 
@@ -28,4 +29,5 @@ public interface ParentFragmentComponent {
     /* Field injection */
     void inject(MusicSelectFragment musicSelectFragment);
     void inject(FeedFragment feedFragment);
+    void inject(SearchFragment searchFragment);
 }

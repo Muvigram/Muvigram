@@ -41,5 +41,4 @@ public interface SingleFragmentComponent {
     void inject(VideoEditFragment videoEditFragment);
     void inject(VideoCutFragment videoCutFragment);
 
-    void inject(SearchFragment searchFragment);
 }
