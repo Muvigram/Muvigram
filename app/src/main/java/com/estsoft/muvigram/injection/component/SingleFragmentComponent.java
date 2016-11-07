@@ -7,6 +7,7 @@ import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.camera.CameraFragment;
 import com.estsoft.muvigram.ui.musicselect.pager.MusicSelectFragment;
 import com.estsoft.muvigram.ui.musicselectonline.MusicSelectOnlineListFragment;
+import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.videocut.VideoCutFragment;
 import com.estsoft.muvigram.ui.videoedit.VideoEditFragment;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectFragment;
@@ -43,4 +44,6 @@ public interface SingleFragmentComponent {
     void inject(VideoSelectFragment videoSelectFragment);
     void inject(VideoEditFragment videoEditFragment);
     void inject(VideoCutFragment videoCutFragment);
+
+    void inject(SearchFragment searchFragment);
 }

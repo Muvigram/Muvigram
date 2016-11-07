@@ -44,14 +44,13 @@ public interface ApplicationComponent {
 
     /* Subcomponent */
 
-    /* Dependencies extended by constructor injections */
+    /* Dependency objects extended by constructor injections */
+    DataManager dataManager();
 
-    /* Dependencies provided from modules */
+    /* Dependency objects provided from modules and dependencies */
     @ApplicationContext Context context();
     Application application();
 
     /* Field injection */
-    DataManager dataManager();
-
 
 }

@@ -89,7 +89,7 @@ public class FindFriendActivity extends BasePlainActivity implements FindFriendV
 
     private void initRecyclerView(int friendNumber) {
         float pixels = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 70,
+                TypedValue.COMPLEX_UNIT_DIP, 71,
                 getResources().getDisplayMetrics()
         );
         ViewGroup.LayoutParams params = mRecyclerView.getLayoutParams();
