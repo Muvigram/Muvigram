@@ -111,28 +111,6 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         }
     }
 
-//    private void setTagView(){
-//        for(int i=0; i<tagItemList.length; i++){
-//
-//            RelativeLayout item = new RelativeLayout(getActivity());
-//            item.setBackgroundColor(Color.parseColor(tagColorList[i]));
-//
-//            TextView tag = new TextView(getActivity());
-//            tag.setText("#"+tagItemList[i]);
-//            tag.setTextColor(Color.WHITE);
-//            tag.setTypeface(tag.getTypeface(), Typeface.BOLD);
-//            tag.setTextSize(20);
-//            item.addView(tag);
-//
-//            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-//                                                                                , ViewGroup.LayoutParams.WRAP_CONTENT);
-//            params.setMargins(20,10,10,10);
-//
-//            tag.setLayoutParams(params);
-//            itemLayout.addView(item);
-//        }
-//    }
-
     @Override
     public void onStart(){
         super.onStart();
@@ -147,7 +125,7 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
             item.setBackgroundColor(Color.parseColor(tagColorList[i]));
 
             TextView tag = new TextView(getActivity());
-            tag.setText("#"+tags.get(i));
+            tag.setText("#"+tags.get(i).tagName());
             tag.setTextColor(Color.WHITE);
             tag.setTypeface(tag.getTypeface(), Typeface.BOLD);
             tag.setTextSize(20);
