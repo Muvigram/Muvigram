@@ -48,6 +48,7 @@ public interface ApplicationComponent {
 
     /* Dependencies provided from modules */
     @ApplicationContext Context context();
+
     Application application();
 
     /* Field injection */

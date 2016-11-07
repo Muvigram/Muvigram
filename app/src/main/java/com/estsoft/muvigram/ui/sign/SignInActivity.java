@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.ui.base.activity.BaseActivity;
 import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
@@ -99,13 +98,6 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mSignInPresenter.detachView();
-    }
-
-
     private void enableError(TextInputLayout textInputLayout) {
         if (textInputLayout.getChildCount() == 2)
             textInputLayout.getChildAt(1).setVisibility(View.VISIBLE);
@@ -172,5 +164,10 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
         mSignInButton.setTextColor(ContextCompat.getColor(this, R.color.grey_500));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSignInPresenter.detachView();
+    }
 
 }

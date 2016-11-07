@@ -22,8 +22,8 @@ import com.estsoft.muvigram.util.ViewUtils;
  */
 public class TransCircleView extends Button {
 
-    private final int DEFAULT_WIDTH_HEIGHT_PER = 12;
-    private final int DEFAULT_TEXT_SIZE = 20;
+    private static final int DEFAULT_WIDTH_HEIGHT_PER = 12;
+    private static final int DEFAULT_TEXT_SIZE = 20;
     private int mDynamicWidth;
     private int mDynamicHeight;
     private int mImageResource;
@@ -31,8 +31,8 @@ public class TransCircleView extends Button {
     private String mDynamicText;
     private Bitmap mImageBitmap;
     private boolean isLike = false;
-    private final String mDefaultColor = "#40000000";
-    private final String mLikeColor = "#ff2d6f";
+    private static final String mDefaultColor = "#40000000";
+    private static final String mLikeColor = "#ff2d6f";
     private String mBackGroundColor = mDefaultColor;
 
 

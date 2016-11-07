@@ -22,11 +22,11 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public class TransParentSpaceView extends LinearLayout implements SpaceCenterView.OnSpaceCenterClickListener, SpaceTabView.OnSpaceTabClickListener {
 
-    private final int MAX_ITEM_COUNT = 5;
-    private final int CENTER_ITEM_IDX = 2;
-    private final int PAINT_STOCK = 3;
-    private final int TRANSPARENT_COLOR_CHANGE_DELAY = 1;
-    private final String DEFAULT_COLOR = "#262727";
+    private static final int MAX_ITEM_COUNT = 5;
+    private static final int CENTER_ITEM_IDX = 2;
+    private static final int PAINT_STOCK = 3;
+    private static final int TRANSPARENT_COLOR_CHANGE_DELAY = 1;
+    private static final String DEFAULT_COLOR = "#262727";
     private int mTabButtonCnt = 0;
     private OnSpaceViewListener mOnSpaceViewListener;
 
