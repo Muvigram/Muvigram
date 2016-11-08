@@ -18,7 +18,7 @@ public abstract class Music implements Comparable<Music>, Parcelable {
     public abstract Long id();
     public abstract String title();
     @Nullable public abstract String artist();
-    public abstract String albumCover();
+    @Nullable public abstract String albumCover();
 
 
 

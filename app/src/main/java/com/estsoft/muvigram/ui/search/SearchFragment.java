@@ -1,5 +1,6 @@
 package com.estsoft.muvigram.ui.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -23,6 +24,7 @@ import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
 import com.estsoft.muvigram.injection.component.SingleFragmentComponent;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
@@ -37,6 +39,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by JEONGYI on 2016. 10. 11..
@@ -70,6 +73,8 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
 
     }
 
+    Unbinder mUnbinder;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +83,7 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         activityComponent.inject(this);
 
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         mPresenter.attachView(this);
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
@@ -90,8 +95,12 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         return view;
     }
 
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+        mPresenter.detachView();
+    }
 
     @Override
     public void showVideo(SearchHeaderVideoItem video){
