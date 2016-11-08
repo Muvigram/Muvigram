@@ -17,6 +17,8 @@ public interface VideoCutView extends MvpView {
     void checkLayoutMeasured();
 
     void updateThumbnails(Bitmap bitmap);
+    void restartVideoAt( int ms );
+    void providingRuntime();
 
     void enableProgress();
     void disableProgress();

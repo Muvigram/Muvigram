@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
+import butterknife.OnTouch;
 import butterknife.Unbinder;
 
 /**
@@ -42,11 +44,20 @@ public class VideoSelectFragment extends BaseSingleFragment implements VideoSele
     private static final int MAX_DURATION = 180;
 
     @Inject VideoSelectPresenter mPresenter;
-    ThumbnailListAdapter mThumbnailAdaptor;
+    @Inject ThumbnailListAdapter mThumbnailAdaptor;
 
     @BindView(R.id.select_video_grid)  GridView mGridView;
     @BindView(R.id.select_video_layout)   LinearLayout mDisableLayout;
     @BindView(R.id.select_video_progress)   ProgressBar mProgressBar;
+    @BindView(R.id.select_video_back_image_view)    ImageView mBackButton;
+
+    @OnTouch(R.id.select_video_layout)
+    boolean onLayoutTouch() { return true; }
+
+    @OnClick(R.id.select_video_back_image_view)
+    void onBackClick() {
+        getActivity().onBackPressed();
+    }
 
     @OnItemClick(R.id.select_video_grid)
     void onGridViewClick(int position) {
@@ -66,7 +77,6 @@ public class VideoSelectFragment extends BaseSingleFragment implements VideoSele
 
     private Unbinder mUnbinder;
 
-
     public static VideoSelectFragment newInstance() {
         return new VideoSelectFragment();
     }
@@ -74,7 +84,6 @@ public class VideoSelectFragment extends BaseSingleFragment implements VideoSele
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mThumbnailAdaptor = new ThumbnailListAdapter(getActivity());
     }
 
     @Nullable
@@ -108,11 +117,13 @@ public class VideoSelectFragment extends BaseSingleFragment implements VideoSele
 
     @Override
     public void enableProgress() {
+        mDisableLayout.setVisibility(View.VISIBLE);
         Log.d(TAG, "enableProgress: ");
     }
 
     @Override
     public void disableProgress() {
+        mDisableLayout.setVisibility(View.GONE);
         Log.d(TAG, "disableProgress: ");
     }
 

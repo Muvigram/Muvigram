@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 import com.estsoft.muvigram.model.VideoMetaData;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Subscriber;
 
 /**
  * Created by estsoft on 2016-11-03.
@@ -25,6 +26,7 @@ import rx.Subscriber;
 
 @Singleton
 public class MediaStorageService {
+    private static final String TAG = "MediaStorageService";
 
     private final int TYPE_VIDEO = 1;
     private final int TYPE_AUDIO = 2;
@@ -40,6 +42,16 @@ public class MediaStorageService {
     public final String[] confirmedAudioExtensions = {
             "mp3"
     };
+    public final String[] audioMetaColumns = {
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media.ALBUM_ID,
+    };
+    public final String[] audioAlbumColumns = {
+            MediaStore.Audio.Albums._ID,
+            MediaStore.Audio.Albums.ALBUM_ART
+    };
 
     @Inject
     public MediaStorageService(@ApplicationContext Context context) {
@@ -49,7 +61,6 @@ public class MediaStorageService {
     }
 
     /* API - Device - Data supplier */
-
     public Observable<VideoMetaData> getVideoThumbnailDurationMetaData() {
         List<String> videoPaths = getConfirmedVideoPathsFromCamera();
         String[] projection = new String[] {
@@ -87,7 +98,49 @@ public class MediaStorageService {
             });
     }
 
+    public Observable<String[]> getAudioMetaData( String path ) {
+        List<String> results = new ArrayList<>();
+        return Observable.create( subscriber -> {
+            Cursor cursor = mContext.getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    audioMetaColumns,
+                    MediaStore.Audio.Media.DATA + " = ?",
+                    new String [] {
+                            path
+                    },
+                    "");
+            if (cursor.moveToFirst()) {
+                for ( String column : audioMetaColumns ) {
+                    if (column.equals( MediaStore.Audio.Media.ALBUM_ID )) {
+                        results.add( getAlbumPath( cursor.getString(cursor.getColumnIndex( column ) )));
+                    } else {
+                        results.add(cursor.getString(cursor.getColumnIndex(column)));
+                    }
+                }
+                subscriber.onNext( results.toArray( new String[results.size()] ) );
+            } else {
+                subscriber.onError( new IOException() );
+            }
+            subscriber.onCompleted();
+        });
+    }
+
     // inner Method
+    private String getAlbumPath( String id ) {
+        Cursor cursor = mContext.getContentResolver().query(
+                MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                audioAlbumColumns,
+                MediaStore.Audio.Albums._ID + " = ?",
+                new String [] {
+                        id
+                },
+                "");
+        if (cursor.moveToFirst()) {
+            return cursor.getString( cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART) );
+        } else {
+            return "";
+        }
+    }
     private List<String> getConfirmedVideoPathsFromCamera() {
         return scanFilesAt( DCIM_CAMERA_PATH, TYPE_VIDEO );
     }

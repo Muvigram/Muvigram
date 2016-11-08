@@ -1,19 +1,12 @@
 package com.estsoft.muvigram.ui.videoselect;
 
-import android.util.Log;
-
 import com.estsoft.muvigram.data.MediaManager;
 import com.estsoft.muvigram.injection.PerSingleFragment;
-import com.estsoft.muvigram.model.VideoMetaData;
 import com.estsoft.muvigram.ui.base.BasePresenter;
 import com.estsoft.muvigram.util.RxUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -29,6 +22,7 @@ public class VideoSelectPresenter extends BasePresenter<VideoSelectView> {
 
     final MediaManager mMediaManager;
     Subscription mSubscription;
+    boolean thumbnailUpdated;
 
     @Inject
     public VideoSelectPresenter(MediaManager mediaManager) {
@@ -47,6 +41,8 @@ public class VideoSelectPresenter extends BasePresenter<VideoSelectView> {
 
     /* Business logic here ... */
     public void loadThumbnails(){
+        if (thumbnailUpdated) return;
+        else thumbnailUpdated = true;
         getMvpView().enableProgress();
         checkViewAttached();
         RxUtil.unsubscribe(mSubscription);

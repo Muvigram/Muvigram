@@ -2,6 +2,8 @@ package com.estsoft.muvigram.injection.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
@@ -56,5 +58,15 @@ public class ApplicationModule {
     MusicSelectService provideMusicSelectService() {
         return MusicSelectService.Creator.newMusicSelectService();
     }
+
+    //media scope!!
+    @Provides
+    @Singleton
+    MediaPlayer provideMediaPlayer() {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        return mediaPlayer;
+    }
+
 
 }

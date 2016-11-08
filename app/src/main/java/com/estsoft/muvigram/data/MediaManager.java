@@ -36,5 +36,9 @@ public class MediaManager {
         return mFFmpegSupporter.cutVideo( videoPath, startTimeMs, runTimeSeconds);
     }
 
+    public Observable<String[]> getAlbumMetaData( String audioPath ) {
+        return mMediaStorageService.getAudioMetaData( audioPath );
+    }
+
 
 }

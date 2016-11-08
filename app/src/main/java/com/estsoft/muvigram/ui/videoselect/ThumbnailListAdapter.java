@@ -11,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerSingleFragment;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
 import com.estsoft.muvigram.model.VideoMetaData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +27,7 @@ import butterknife.ButterKnife;
  * Created by estsoft on 2016-11-03.
  */
 
+@PerSingleFragment
 public class ThumbnailListAdapter extends BaseAdapter {
     private static final String TAG = "ThumbnailListAdaptor";
 
@@ -30,7 +35,8 @@ public class ThumbnailListAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private List<VideoMetaData> mVideoMetaDatas;
 
-    public ThumbnailListAdapter(Context context) {
+    @Inject
+    public ThumbnailListAdapter(@ActivityContext Context context) {
 //        mContext = context;
         mInflater = LayoutInflater.from(context);
         mVideoMetaDatas = new ArrayList<>();
