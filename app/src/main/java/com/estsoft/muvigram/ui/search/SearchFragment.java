@@ -14,11 +14,22 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
+import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
+import com.estsoft.muvigram.injection.component.SingleFragmentComponent;
+import com.estsoft.muvigram.model.Tag;
+import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
+import com.estsoft.muvigram.ui.home.HomeActivity;
+import com.estsoft.muvigram.util.DialogFactory;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,10 +40,12 @@ import butterknife.OnClick;
  * Edited by gangGongUi on 2016. 10. 16..
  */
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements TrendingTagsView {
 
-    private String[] tagItemList = new String[]{"WaterBalance","Korea","SideToSide","Noma","Kkoma","JeongYi"};
+//    private String[] tagItemList = new String[]{"WaterBalance","Korea","SideToSide","Noma","Kkoma","JeongYi"};
     private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33","#26c6da","#5677fc"};
+
+    @Inject TrendingTagsPresenter mPresenter;
 
     @BindView(R.id.search_fragment_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.action_bar) RelativeLayout mActionBar;
@@ -57,9 +70,12 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-
         ButterKnife.bind(this, view);
+
         initRecyclerView();
+        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+        activityComponent.inject(this);
+        mPresenter.attachView(this);
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
         params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
@@ -70,7 +86,7 @@ public class SearchFragment extends Fragment {
 
     private void initRecyclerView() {
         setVideo();
-        setTagView();
+//        setTagView();
     }
 
     //비디오
@@ -95,26 +111,44 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    private void setTagView(){
-        for(int i=0; i<tagItemList.length; i++){
+    @Override
+    public void onStart(){
+        super.onStart();
+        mPresenter.loadTags();
+    }
+
+    @Override
+    public void showTags(List<Tag> tags){
+        for(int i=0; i<tags.size(); i++){
 
             RelativeLayout item = new RelativeLayout(getActivity());
             item.setBackgroundColor(Color.parseColor(tagColorList[i]));
 
             TextView tag = new TextView(getActivity());
-            tag.setText("#"+tagItemList[i]);
+            tag.setText("#"+tags.get(i).tagName());
             tag.setTextColor(Color.WHITE);
             tag.setTypeface(tag.getTypeface(), Typeface.BOLD);
             tag.setTextSize(20);
             item.addView(tag);
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                                                                                , ViewGroup.LayoutParams.WRAP_CONTENT);
+                    , ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(20,10,10,10);
 
             tag.setLayoutParams(params);
             itemLayout.addView(item);
         }
+    }
+
+    @Override
+    public void showTagsEmpty(){
+//        Toast.makeText(this, "no tags",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showError(){
+//        DialogFactory.createGenericErrorDialog(this,
+//                "There was an error loading friends you may know.").show();
     }
 
 }

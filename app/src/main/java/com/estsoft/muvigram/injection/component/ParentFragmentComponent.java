@@ -29,4 +29,5 @@ public interface ParentFragmentComponent {
     void inject(MusicSelectFragment musicSelectFragment);
     void inject(FeedFragment feedFragment);
 
+    void inject(SearchFragment searchFragment);
 }

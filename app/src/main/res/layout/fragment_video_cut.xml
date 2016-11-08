@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
+
+    <!-- video view -->
+    <com.estsoft.muvigram.customview.IncreasVideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:id="@+id/cut_video_video_view"
+        />
+
+    <!-- navigation and title -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_navigation_left_white_40dp"
+            android:id="@+id/cut_video_back_image_view"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:textAlignment="center"
+            android:text="@string/video_cut_title"
+            android:id="@+id/cut_video_title_text_view"/>
+
+    </FrameLayout>
+
+    <!-- util buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/ic_function_video_cut_40dp"
+            android:id="@+id/cut_video_submit_button"/>
+
+    </LinearLayout>
+
+
+    <!-- thumbnails -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:alpha="50">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:text="@string/video_cut_sub_title"/>
+
+        <com.estsoft.muvigram.customview.ScrollViewNoFling
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:id="@+id/cut_video_thumbnail_scroll_view"
+            android:scrollbars="none"
+            android:background="@drawable/border_white_red">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:orientation="horizontal"
+                android:id="@+id/cut_video_thumbnail_container_layout">
+            </LinearLayout>
+
+        </com.estsoft.muvigram.customview.ScrollViewNoFling>
+
+    </LinearLayout>
+
+
+    <!-- disabling view -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:visibility="gone"
+        android:alpha="0.8"
+        android:id="@+id/cut_video_disable_layout">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cut_video_thumbnail_progressbar"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>
