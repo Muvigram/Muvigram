@@ -8,6 +8,9 @@ import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
 import com.estsoft.muvigram.data.remote.SearchFragVideoService;
+import com.estsoft.muvigram.data.remote.SearchMusicService;
+import com.estsoft.muvigram.data.remote.SearchTagService;
+import com.estsoft.muvigram.data.remote.SearchUserService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.model.Category;
 import com.estsoft.muvigram.model.Friend;
@@ -38,6 +41,9 @@ public class DataManager {
     private final FindFriendService mFindFriendService;
     private final TrendingTagsService mTrendingTagsService;
     private final SearchFragVideoService mSearchFragVideoService;
+    private final SearchUserService mSearchUserService;
+    private final SearchTagService mSearchTagService;
+    private final SearchMusicService mSearchMusicService;
 
     @Inject
     public DataManager(NetworkTestService networkTestService,
@@ -45,13 +51,19 @@ public class DataManager {
                        MusicSelectService musicSelectService,
                        FindFriendService findFriendService,
                        TrendingTagsService trendingTagsService,
-                       SearchFragVideoService searchFragVideoService) {
+                       SearchFragVideoService searchFragVideoService,
+                       SearchUserService searchUserService,
+                       SearchTagService searchTagService,
+                       SearchMusicService searchMusicService) {
         this.mNetworkTestService = networkTestService;
         this.mLoginTestService = loginTestService;
         this.mMusicSelectService = musicSelectService;
         this.mFindFriendService = findFriendService;
         this.mTrendingTagsService = trendingTagsService;
         this.mSearchFragVideoService = searchFragVideoService;
+        this.mSearchUserService = searchUserService;
+        this.mSearchTagService = searchTagService;
+        this.mSearchMusicService = searchMusicService;
     }
 
     public Observable<TestRepo> getLoginTestService() {
@@ -75,6 +87,18 @@ public class DataManager {
     }
 
     public Observable<List<Tag>> getTags() { return  mTrendingTagsService.getTags(); }
+
+    public Observable<List<Friend>> getSearchUsers() {
+        return mSearchUserService.getUsers();
+    }
+
+    public Observable<List<Tag>> getSearchTags(){
+        return mSearchTagService.getTags();
+    }
+
+    public Observable<List<Music>> getSearchMusics() {
+        return mSearchMusicService.getMusics();
+    }
 
     public Observable<SearchHeaderVideoItem> getSearchFragVideo() { return mSearchFragVideoService.getVideo();}
 

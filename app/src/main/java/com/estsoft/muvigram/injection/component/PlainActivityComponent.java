@@ -10,6 +10,7 @@ import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
+import com.estsoft.muvigram.ui.search.SearchBarActivity;
 import com.estsoft.muvigram.ui.sign.SignInActivity;
 import com.estsoft.muvigram.ui.splash.SplashActivity;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectActivity;
@@ -60,4 +61,5 @@ public interface PlainActivityComponent {
     void inject(SignInActivity signInActivity);
     void inject(CommentActivity commentActivity);
     void inject(FindFriendActivity findFriendActivity);
+    void inject(SearchBarActivity searchBarActivity);
 }
