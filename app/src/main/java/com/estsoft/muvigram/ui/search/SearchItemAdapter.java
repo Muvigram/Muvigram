@@ -100,7 +100,7 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ViewHolder mHolder = (ViewHolder)holder;
         mHolder.setIsRecyclable(false);
 
-        if(index == PEOPLE_INDEX) {
+        if(index == PEOPLE_INDEX ) {
             float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, context.getResources().getDisplayMetrics());
             int pixel = (int)pixels;
             mHolder.profile.setPadding(pixel,pixel,pixel,pixel);
@@ -112,7 +112,7 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mHolder.title.setText(mUserList.get(position).name());
             mHolder.subtitle.setText(mUserList.get(position).id());
 
-        }else if(index == TAGS_INDEX){
+        }else if(index == TAGS_INDEX ){
             Picasso.with(context)
                     .load(TAG_IMAGE)
                     .into(mHolder.profile);
@@ -120,7 +120,7 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mHolder.title.setText(mTagList.get(position).tagName());
             mHolder.subtitle.setText(mTagList.get(position).numOfContents()+"");
 
-        }else if(index == SOUNDS_INDEX){
+        }else if(index == SOUNDS_INDEX ){
             Picasso.with(context)
                     .load(mMusicList.get(position).albumCover())
                     .into(mHolder.profile);
@@ -147,7 +147,15 @@ public class SearchItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount () {
-        return mUserList.size() + mTagList.size() + mMusicList.size();
+        if(index == PEOPLE_INDEX){
+            return mUserList.size();
+        }else if(index == TAGS_INDEX){
+            return  mTagList.size();
+        }else if(index == SOUNDS_INDEX){
+            return mMusicList.size();
+        }
+
+        return -1;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

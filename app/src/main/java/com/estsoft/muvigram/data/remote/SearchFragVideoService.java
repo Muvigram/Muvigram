@@ -24,7 +24,7 @@ public interface SearchFragVideoService {
 
     String ENDPOINT = "http://www.json-generator.com/api/json/get/";
 
-    @GET("ciexMxNdwy")
+    @GET("cjZIRSBthK")
     Observable<SearchHeaderVideoItem> getVideo();
 
     class Creator {

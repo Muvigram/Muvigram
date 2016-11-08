@@ -4,6 +4,7 @@ import com.estsoft.muvigram.injection.PerPlainActivity;
 import com.estsoft.muvigram.injection.module.PlainActivityModule;
 import com.estsoft.muvigram.ui.feed.comment.CommentActivity;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.intro.IntroActivity;
 import com.estsoft.muvigram.ui.musicselect.MusicSelectActivity;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;

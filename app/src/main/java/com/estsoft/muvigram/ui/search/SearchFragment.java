@@ -67,13 +67,16 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
-        activityComponent.inject(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+        activityComponent.inject(this);
+
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
         mPresenter.attachView(this);
@@ -98,11 +101,11 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         videoView.setOnCompletionListener(mp -> videoPlay(videoView, mp));
     }
 
-    private SearchHeaderVideoItem getVideoHeader() {
-        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
-        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
-        return new SearchHeaderVideoItem(videoFile, "Title");
-    }
+//    private SearchHeaderVideoItem getVideoHeader() {
+//        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
+//        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
+//        return new SearchHeaderVideoItem(videoFile, "Title");
+//    }
 
     private void videoPlay(final IncreasVideoView mVideoView ,final MediaPlayer mediaPlayer) {
         if(mVideoView != null) {
