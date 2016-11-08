@@ -8,6 +8,8 @@ import com.estsoft.muvigram.ui.base.BasePresenter;
 
 import javax.inject.Inject;
 
+import rx.subscriptions.CompositeSubscription;
+
 /**
  * Created by gangGongUi on 2016. 11. 8..
  */
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 public class FeedPresenter extends BasePresenter<FeedView>{
 
     private final DataManager mDataManager;
+    private final CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     @Inject
     public FeedPresenter(DataManager dataManager) {
@@ -27,6 +30,11 @@ public class FeedPresenter extends BasePresenter<FeedView>{
         //getMvpView().setMusicRecordViewImage();
     }
 
+    public void loadFeedRepos() {
+        checkViewAttached();
+
+
+    }
 
 
 }

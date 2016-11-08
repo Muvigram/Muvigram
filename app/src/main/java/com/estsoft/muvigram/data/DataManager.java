@@ -10,15 +10,12 @@ import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.TestRepo;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
 
 /**
  * Created by gangGongUi on 2016. 10. 9..
@@ -62,6 +59,12 @@ public class DataManager {
     public Observable<List<Friend>> getFriends() {
         return mFindFriendService.getFriends();
     }
+
+//    // is Test
+//    public Observable<List<FeedRepo>> getFeedRepos() {
+//
+//    }
+
 
 //    public Observable<Category> getCategories() {
 //        return mMusicSelectService.getCategries()

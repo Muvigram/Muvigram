@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment {
     }
 
     private SearchHeaderVideoItem getVideoHeader() {
-        final String VIDEO_FILE_NAME = "test_intro_video1";
+        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
         final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
         return new SearchHeaderVideoItem(videoFile, "Title");
     }

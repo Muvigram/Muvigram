@@ -1,5 +1,6 @@
 package com.estsoft.muvigram.ui.feed;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,22 +15,24 @@ import java.util.ArrayList;
 /**
  * Created by gangGongUi on 2016. 10. 26..
  */
-public class FeedAdapter extends RecyclerView.Adapter<Holder> {
+public class FeedAdapter extends RecyclerView.Adapter<FeedItemHolder> {
 
     private final ArrayList<FeedRepo> mFeedRepos;
+    private final Context mContext;
 
-    public FeedAdapter(@NonNull ArrayList<FeedRepo> mFeedRepos) {
+    public FeedAdapter(Context mContext, @NonNull ArrayList<FeedRepo> mFeedRepos) {
+        this.mContext = mContext;
         this.mFeedRepos = mFeedRepos;
     }
 
-    @Override public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override public FeedItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feedpageritem, parent, false);
-        return new Holder(view);
+        return new FeedItemHolder(mContext, view);
     }
 
-    @Override public void onBindViewHolder(Holder holder, int position) {
+    @Override public void onBindViewHolder(FeedItemHolder mFeedItemHolder, int position) {
         FeedRepo item = mFeedRepos.get(position);
-        item.onBindViewHolder(holder, position);
+        mFeedItemHolder.onBindViewHolder(item);
     }
 
     @Override public int getItemCount() {
