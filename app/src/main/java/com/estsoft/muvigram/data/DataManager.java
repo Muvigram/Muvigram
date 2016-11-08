@@ -19,15 +19,12 @@ import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.model.TestRepo;
 import com.estsoft.muvigram.ui.search.SearchHeaderVideoItem;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
 
 /**
  * Created by gangGongUi on 2016. 10. 9..

@@ -98,6 +98,12 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         videoView.setOnCompletionListener(mp -> videoPlay(videoView, mp));
     }
 
+    private SearchHeaderVideoItem getVideoHeader() {
+        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
+        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
+        return new SearchHeaderVideoItem(videoFile, "Title");
+    }
+
     private void videoPlay(final IncreasVideoView mVideoView ,final MediaPlayer mediaPlayer) {
         if(mVideoView != null) {
             mediaPlayer.setVolume(0, 0);
