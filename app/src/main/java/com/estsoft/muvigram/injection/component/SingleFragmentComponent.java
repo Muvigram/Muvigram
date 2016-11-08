@@ -1,11 +1,14 @@
 package com.estsoft.muvigram.injection.component;
 
+import android.support.v4.app.FragmentManager;
+
 import com.estsoft.muvigram.injection.PerSingleFragment;
 import com.estsoft.muvigram.injection.module.SingleFragmentModule;
 import com.estsoft.muvigram.ui.camera.CameraFragment;
 import com.estsoft.muvigram.ui.musicselectonline.MusicSelectOnlineListFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 import com.estsoft.muvigram.ui.videocut.VideoCutFragment;
+import com.estsoft.muvigram.ui.videoedit.AudioCutFragment;
 import com.estsoft.muvigram.ui.videoedit.VideoEditFragment;
 import com.estsoft.muvigram.ui.videoselect.VideoSelectFragment;
 
@@ -37,8 +40,10 @@ public interface SingleFragmentComponent {
     void inject(MusicSelectOnlineListFragment musicSelectOnlineListFragment);
 
     void inject(CameraFragment cameraFragment);
+
     void inject(VideoSelectFragment videoSelectFragment);
     void inject(VideoEditFragment videoEditFragment);
     void inject(VideoCutFragment videoCutFragment);
 
+    void inject(AudioCutFragment audioCutFragment);
 }
