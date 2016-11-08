@@ -149,4 +149,23 @@
     <string name="musicselect_online_category_empty_musics">There arn\'t any musics</string>
     <string name="musicselect_online_category_error_loading">There was a problem loading the categories.</string>
 
+    <!-- VideoSelection Fragment -->
+    <string name="video_select_local_loading_error">Loading local video problem</string>
+    <string name="video_select_title">Videos</string>
+    <string name="video_select_too_short">duration should be MIN_TIME seconds up</string>
+    <string name="video_select_too_long">duration should be MAX_TIME seconds down</string>
+    <string name="video_select_force_wait">please wait a second</string>
+
+    <!-- VideoCutting Fragment -->
+    <string name="video_cut_title">Cut Video</string>
+    <string name="video_cut_sub_title"> scroll to cut video</string>
+
+    <!-- VideoEdit Fragment -->
+    <string name="video_edit_title">Video Edit</string>
+    <string name="video_edit_audio_cut_title">Cut Music</string>
+    <string name="video_edit_audio_cut_sub_title"> scroll to cut music</string>
+    <string name="video_edit_upload_hint">title with #tag @friend</string>
+    <string name="video_edit_private_store">store privately</string>
+    <string name="video_edit_public_upload">upload publicly</string>
+
 </resources>

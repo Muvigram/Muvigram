@@ -55,7 +55,6 @@ public class DataManager {
         return mNetworkTestService.getTestData();
     }
 
-
     public Observable<List<Category>> getCategories() {
         return mMusicSelectService.getCategries();
     }

@@ -2,9 +2,11 @@ package com.estsoft.muvigram.injection.component;
 
 import android.app.Application;
 import android.content.Context;
+import android.media.MediaPlayer;
 
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.data.DataManager;
+import com.estsoft.muvigram.data.MediaManager;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
@@ -46,12 +48,14 @@ public interface ApplicationComponent {
 
     /* Dependency objects extended by constructor injections */
     DataManager dataManager();
+    MediaManager mediaManager();
 
     /* Dependency objects provided from modules and dependencies */
     @ApplicationContext Context context();
-
     Application application();
+    MediaPlayer mediaPlayer();
 
     /* Field injection */
+
 
 }

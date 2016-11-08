@@ -19,4 +19,8 @@
     <!--UserNameTextView-->
     <color name="userNameTextColor">#e0e0e0</color>
 
+    <!-- Waveform Colors -->
+    <color name="waveNormal">#77B3D4</color>
+    <color name="wavePlayed">#ff2d6f</color>
+
 </resources>
