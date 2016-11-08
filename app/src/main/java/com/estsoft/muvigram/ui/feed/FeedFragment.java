@@ -3,6 +3,7 @@ package com.estsoft.muvigram.ui.feed;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,8 @@ import com.volokh.danylo.visibility_utils.scroll_utils.RecyclerViewItemPositionG
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -43,12 +46,13 @@ import timber.log.Timber;
  * Edited by jang gong ui on 2016. 10. 17..
  */
 
-public class FeedFragment extends Fragment implements TransParentTabView.OnTabItemClickListener, FeedRepo.ItemCallback {
+public class FeedFragment extends Fragment implements TransParentTabView.OnTabItemClickListener, FeedRepo.ItemCallback, FeedView {
 
 
     @BindView(R.id.trnasparent_tab) TransParentTabView mFeedTabView;
     @BindView(R.id.pager) RecyclerViewPager mRecyclerViewPager;
     @BindView(R.id.musicRecordView) MusicRecordView mMusicRecordView;
+    @Inject FeedPresenter mFeedPresenter;
 
     private PreCachingLayoutManager mLayoutManager;
     private ListItemsVisibilityCalculator mListItemVisibilityCalculator;
@@ -58,45 +62,44 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
     private int mScrollState;
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
-
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        
-        ButterKnife.bind(this, view);
-
-        final ParentFragmentComponent mParentFragmentComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+    // TODO: dagger inject and ButterKnife, Presenter init
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                       Bundle savedInstanceState) {
+        final ParentFragmentComponent mParentFragmentComponent
+                = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
         mParentFragmentComponent.inject(this);
-
-
-        initViewPager();
-        initTransParentTab();
-        initMusicRecordView();
-
+        final View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        ButterKnife.bind(this, view);
+        mFeedPresenter.attachView(this);
         return view;
     }
 
+    // TODO: view initialization
+    @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViewPager();
+        initTransParentTab();
+        initMusicRecordView();
+    }
 
     @Override public void onResume() {
         super.onResume();
+        // the first item stat signal for a recyclerView .
         if (!mFeedRepos.isEmpty()) {
-            // need to call this method from list view handler in order to have filled list
             mRecyclerViewPager.post(() -> mListItemVisibilityCalculator.onScrollStateIdle(
                     mItemsPositionGetter,
                     mLayoutManager.findFirstVisibleItemPosition(),
                     mLayoutManager.findLastVisibleItemPosition()));
         }
+    }
 
-        Picasso.with(getContext())
-                .load(R.drawable.test_recode)
-                .transform(new CircleTransform())
-                .into(mMusicRecordView);
-
+    @Override public void onDestroy() {
+        super.onDestroy();
+        mFeedPresenter.detachView();
     }
 
     private void initViewPager() {
+
         mFeedRepos = getDummyFeedRepos();
         mLayoutManager = new PreCachingLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mLayoutManager.setExtraLayoutSpace(ViewUtils.getDisplayPerHeight(getContext(), 99));
@@ -108,8 +111,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         mRecyclerViewPager.setLongClickable(true);
         mRecyclerViewPager.setAdapter(mFeedAdapter);
         mRecyclerViewPager.setItemViewCacheSize(10);
-
-
         mRecyclerViewPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
@@ -141,7 +142,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         mItemsPositionGetter = new RecyclerViewItemPositionGetter(mLayoutManager, mRecyclerViewPager);
 
     }
-
     private void initTransParentTab() {
 
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mFeedTabView.getLayoutParams();
@@ -155,10 +155,8 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
         mFeedTabView.addTabItem(getResources().getString(R.string.feed_text_foryou));
         mFeedTabView.setActiveTab(1);
     }
-
     private void initMusicRecordView() {
         final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mMusicRecordView.getLayoutParams();
-
         final int bottomMargin = ViewUtils.getDisplayPerHeightByRes(getContext(), R.integer.music_record_view_margin_bottom_per);
         final int rightMargin = ViewUtils.getDisplayPerWidthByRes(getContext(), R.integer.music_record_view_margin_right_per);
         params.setMargins(0, 0, rightMargin, bottomMargin);
@@ -166,7 +164,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> mMusicRecordView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.rotate))
         );
     }
-
 
     private ArrayList<FeedRepo> getDummyFeedRepos() {
         ArrayList<FeedRepo> ret = new ArrayList<>();
@@ -195,20 +192,13 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
     }
 
 
+    /**
+     * call this method form recyclerView ItemCallback interface.
+     * the method has args a view and a currentItemPosition.
+     * using mMusicRecordView
+     **/
     @Override public void onActiveViewChangedActive(View newActiveView, int newActiveViewPosition) {
-        Timber.e("newActiveViewPosition = %d", newActiveViewPosition);
-
-        int[] dummyImages = {
-                R.drawable.test_recode,
-                R.drawable.test_recode1,
-                R.drawable.test_recode2
-        };
-
-        Picasso.with(getContext())
-                .load(dummyImages[newActiveViewPosition % dummyImages.length])
-                .placeholder(R.drawable.recode_placeholder)
-                .transform(new CircleTransform())
-                .into(mMusicRecordView);
+        mFeedPresenter.recyclerViewItemActiveChanged(newActiveView, newActiveViewPosition);
     }
 
     @Override public void onTabItemClick(TabView tabView) {
@@ -226,5 +216,14 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
             default:
                 break;
         }
+    }
+
+    /** FeedView Imp **/
+    @Override public void setMusicRecordViewImage(String imageUri) {
+        Picasso.with(getContext())
+                .load(imageUri)
+                .placeholder(R.drawable.recode_placeholder)
+                .transform(new CircleTransform())
+                .into(mMusicRecordView);
     }
 }

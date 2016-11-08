@@ -4,6 +4,7 @@ import com.estsoft.muvigram.injection.PerSingleFragmentActivity;
 import com.estsoft.muvigram.injection.module.ParentFragmentModule;
 import com.estsoft.muvigram.injection.module.SingleFragmentModule;
 import com.estsoft.muvigram.injection.module.SingleFragmentActivityModule;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 
 import dagger.Subcomponent;
 
@@ -25,5 +26,6 @@ public interface SingleFragmentActivityComponent {
     // TODO ...
 
     /* Field injection */
-    //
+    void inject(HomeActivity activity);
+
 }

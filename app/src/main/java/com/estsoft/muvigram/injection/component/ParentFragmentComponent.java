@@ -28,4 +28,5 @@ public interface ParentFragmentComponent {
     /* Field injection */
     void inject(MusicSelectFragment musicSelectFragment);
     void inject(FeedFragment feedFragment);
+
 }
