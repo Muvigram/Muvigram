@@ -12,8 +12,6 @@ import lombok.experimental.Accessors;
 
 @Data
 @AllArgsConstructor
-@Accessors(prefix = "m")
 public class SearchHeaderVideoItem {
-    private Uri mVideoFile;
-    private String mTitle;
+    private String title;
 }

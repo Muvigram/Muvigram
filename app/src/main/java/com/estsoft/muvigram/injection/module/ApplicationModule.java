@@ -7,6 +7,7 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
+import com.estsoft.muvigram.data.remote.SearchFragVideoService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 
@@ -69,6 +70,12 @@ public class ApplicationModule {
     @Singleton
     TrendingTagsService provideTrendingTagsService(){
         return TrendingTagsService.Creator.newTrendingTagsService();
+    }
+
+    @Provides
+    @Singleton
+    SearchFragVideoService provideSearchFragVideoService(){
+        return SearchFragVideoService.Creator.newSearchFragVideoService();
     }
 
 }
