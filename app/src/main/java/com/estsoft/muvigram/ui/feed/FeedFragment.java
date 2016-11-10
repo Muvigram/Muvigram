@@ -149,12 +149,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 getResources().getDrawable(R.drawable.dummy_vodeo_0),
                 getResources().getDrawable(R.drawable.dummy_vodeo_1),
                 getResources().getDrawable(R.drawable.dummy_vodeo_2),
-                getResources().getDrawable(R.drawable.dummy_vodeo_3),
-                getResources().getDrawable(R.drawable.dummy_vodeo_4),
-                getResources().getDrawable(R.drawable.dummy_vodeo_5),
-                getResources().getDrawable(R.drawable.dummy_vodeo_6),
-                getResources().getDrawable(R.drawable.dummy_vodeo_7),
-                getResources().getDrawable(R.drawable.dummy_vodeo_8),
         };
 
         final String[] profile  = {
@@ -162,10 +156,6 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 "https://pbs.twimg.com/profile_images/565601976063647744/PP085xzu.jpeg",
                 "https://scontent.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/13388457_1178748805489277_22468065_n.jpg",
                 "http://static.theappl.com/gallery/201512/3064187941_bbdbf0d9_89.jpg",
-                "https://scontent.cdninstagram.com/hphotos-xfa1/t51.2885-15/e15/11358125_937267183004110_1228791496_n.jpg",
-                "https://scontent.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/13388457_1178748805489277_22468065_n.jpg",
-                "http://static.theappl.com/gallery/201512/3064187941_bbdbf0d9_89.jpg",
-                "https://scontent.cdninstagram.com/hphotos-xfa1/t51.2885-15/e15/11358125_937267183004110_1228791496_n.jpg"
         };
 
 
@@ -178,7 +168,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                         getResources().getString(R.string.video_specification_dummy), true, this)
         );
 
-        for (int i = 0; i <= 8; i++) {
+        for (int i = 0; i <= 1; i++) {
             VIDEO_FILE_NAME = "dummy_vodeo_" + String.valueOf(i);
             videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
             ret.add(

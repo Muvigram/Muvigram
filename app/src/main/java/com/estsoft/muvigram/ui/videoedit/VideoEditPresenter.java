@@ -75,7 +75,7 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
                             RxUtil.unsubscribe(mSubscription);
                             mTitle = mAudioMetaDatas[0] + " - " + mAudioMetaDatas[1];
                             getMvpView().updateAudioTitle( mTitle );
-                            if (mAudioMetaDatas[3].equals("") || mAudioMetaDatas[3] == null) {
+                            if (mAudioMetaDatas[3] == null || mAudioMetaDatas[3].equals("")) {
                             } else {
                                 getMvpView().updateAudioAlbum( mAudioMetaDatas[3] );
                             }

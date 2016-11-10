@@ -1,5 +1,6 @@
 package com.estsoft.muvigram.ui.videoedit;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -23,6 +24,7 @@ import com.estsoft.muvigram.customview.MusicRecordView;
 import com.estsoft.muvigram.customview.StreamTextView;
 import com.estsoft.muvigram.injection.qualifier.ParentFragment;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.profile.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -200,6 +202,7 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
         mAudioPlayer.stop();
         mAudioPlayer.reset();
         mVideoView.stopPlayback();
+        backToHomeActivity();
         super.onDestroyView();
     }
 
@@ -241,6 +244,14 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
 
     }
 
+    @Override
+    public void backToHomeActivity(){
+        //Home Activity
+        Intent intent = new Intent(getActivity(), HomeActivity.class);
+        intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        intent.addFlags( Intent.FLAG_ACTIVITY_SINGLE_TOP );
+        startActivity( intent );
+    }
 
 
 }
