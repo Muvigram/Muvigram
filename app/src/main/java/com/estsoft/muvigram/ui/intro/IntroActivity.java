@@ -30,18 +30,12 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
     public static final int LOG_IN_ACTIVITY = 0;
     public static final int SIGN_UP_ACTIVITY = 1;
     public static final String KEY = "key";
-    @BindView(R.id.intro_email_button)
-    Button mEmailButton;
-    @BindString(R.string.intro_buttin_email)
-    String mEmailButtonText;
-    @BindString(R.string.test_login)
-    String mLoginText;
-    @BindString(R.string.test_sign)
-    String mSingupText;
-    @BindView(R.id.intro_video_view)
-    IncreasVideoView mVideoView;
-    @Inject
-    IntroPresenter mIntroPresenter;
+    @BindView(R.id.intro_email_button) Button mEmailButton;
+    @BindString(R.string.intro_buttin_email) String mEmailButtonText;
+    @BindString(R.string.test_login) String mLoginText;
+    @BindString(R.string.test_sign) String mSingupText;
+    @BindView(R.id.intro_video_view) IncreasVideoView mVideoView;
+    @Inject IntroPresenter mIntroPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

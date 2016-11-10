@@ -21,7 +21,7 @@ public interface TrendingTagsService {
 
     String ENDPOINT = "http://www.json-generator.com/api/json/get/";
 
-    @GET("bPShGOnWRe")
+    @GET("cnULekNmZK")
     Observable<List<Tag>> getTags();
 
     class Creator {

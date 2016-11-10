@@ -18,6 +18,9 @@ public abstract class Music implements Comparable<Music>, Parcelable {
     public abstract Long id();
     public abstract String title();
     @Nullable public abstract String artist();
+    @Nullable public abstract String albumCover();
+
+
 
     public static Music create(Music music) {
         return music;
@@ -41,6 +44,7 @@ public abstract class Music implements Comparable<Music>, Parcelable {
         public abstract Builder setId(Long id);
         public abstract Builder setTitle(String title);
         public abstract Builder setArtist(String artist);
+        public abstract Builder setAlbumCover(String albumCover);
         public abstract Music build();
     }
 

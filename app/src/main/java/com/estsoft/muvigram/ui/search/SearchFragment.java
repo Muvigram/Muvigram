@@ -1,11 +1,14 @@
 package com.estsoft.muvigram.ui.search;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
 import com.estsoft.muvigram.injection.component.SingleFragmentComponent;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
@@ -28,12 +32,14 @@ import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.util.DialogFactory;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by JEONGYI on 2016. 10. 11..
@@ -42,8 +48,8 @@ import butterknife.OnClick;
 
 public class SearchFragment extends Fragment implements TrendingTagsView {
 
-//    private String[] tagItemList = new String[]{"WaterBalance","Korea","SideToSide","Noma","Kkoma","JeongYi"};
-    private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33","#26c6da","#5677fc"};
+    private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33",
+            "#26c6da","#5677fc","#ab47bc","#651fff","#0097a7","#ff7043"};
 
     @Inject TrendingTagsPresenter mPresenter;
 
@@ -64,44 +70,51 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
+
+    Unbinder mUnbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ButterKnife.bind(this, view);
 
-        initRecyclerView();
         ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
         activityComponent.inject(this);
+
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        mUnbinder = ButterKnife.bind(this, view);
         mPresenter.attachView(this);
 
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
         params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
         mActionBar.setLayoutParams(params);
 
+        mPresenter.loadVideo();
+        mPresenter.loadTags();
         return view;
     }
 
-    private void initRecyclerView() {
-        setVideo();
-//        setTagView();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
+        mPresenter.detachView();
     }
 
-    //비디오
-    private void setVideo(){
-        SearchHeaderVideoItem videoItem = getVideoHeader();
-        videoView.setVideoURI(videoItem.getVideoFile());
+    @Override
+    public void showVideo(SearchHeaderVideoItem video){
+        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + video.getTitle());
+        videoView.setVideoURI(videoFile);
         videoView.setOnPreparedListener(mp -> videoPlay(videoView, mp));
         videoView.setOnCompletionListener(mp -> videoPlay(videoView, mp));
     }
 
-    private SearchHeaderVideoItem getVideoHeader() {
-        final String VIDEO_FILE_NAME = "test_intro_video1";
-        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
-        return new SearchHeaderVideoItem(videoFile, "Title");
-    }
+//    private SearchHeaderVideoItem getVideoHeader() {
+//        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
+//        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
+//        return new SearchHeaderVideoItem(videoFile, "Title");
+//    }
 
     private void videoPlay(final IncreasVideoView mVideoView ,final MediaPlayer mediaPlayer) {
         if(mVideoView != null) {
@@ -112,9 +125,14 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
     }
 
     @Override
-    public void onStart(){
-        super.onStart();
-        mPresenter.loadTags();
+    public void showVideoEmpty(){
+        Toast.makeText(getContext(), "no video", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showVideoError(){
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading video you may know.").show();
     }
 
     @Override
@@ -122,7 +140,8 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         for(int i=0; i<tags.size(); i++){
 
             RelativeLayout item = new RelativeLayout(getActivity());
-            item.setBackgroundColor(Color.parseColor(tagColorList[i]));
+            int random = (int)( Math.random() * tagColorList.length);
+            item.setBackgroundColor(Color.parseColor(tagColorList[random]));
 
             TextView tag = new TextView(getActivity());
             tag.setText("#"+tags.get(i).tagName());
@@ -142,13 +161,13 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
 
     @Override
     public void showTagsEmpty(){
-//        Toast.makeText(this, "no tags",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "no tags", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showError(){
-//        DialogFactory.createGenericErrorDialog(this,
-//                "There was an error loading friends you may know.").show();
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading tag.").show();
     }
 
 }

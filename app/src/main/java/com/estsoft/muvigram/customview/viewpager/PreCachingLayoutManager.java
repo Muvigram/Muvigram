@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
  */
 public class PreCachingLayoutManager extends LinearLayoutManager {
     private static final int DEFAULT_EXTRA_LAYOUT_SPACE = 5;
-    private int extraLayoutSpace = -1;
+    private int extraLayoutSpace = 0;
 
     public PreCachingLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);

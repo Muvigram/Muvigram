@@ -9,6 +9,10 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
+import com.estsoft.muvigram.data.remote.SearchFragVideoService;
+import com.estsoft.muvigram.data.remote.SearchMusicService;
+import com.estsoft.muvigram.data.remote.SearchTagService;
+import com.estsoft.muvigram.data.remote.SearchUserService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 
@@ -82,5 +86,27 @@ public class ApplicationModule {
         return TrendingTagsService.Creator.newTrendingTagsService();
     }
 
+    @Provides
+    @Singleton
+    SearchFragVideoService provideSearchFragVideoService(){
+        return SearchFragVideoService.Creator.newSearchFragVideoService();
+    }
 
+    @Provides
+    @Singleton
+    SearchUserService provideSearchUserService(){
+        return SearchUserService.Creator.newSearchUserService();
+    }
+
+    @Provides
+    @Singleton
+    SearchTagService provideSearchTagService(){
+        return SearchTagService.Creator.newSearchTagService();
+    }
+
+    @Provides
+    @Singleton
+    SearchMusicService provideSearchMusicService(){
+        return SearchMusicService.Creator.newSearchMusicService();
+    }
 }
