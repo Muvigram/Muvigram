@@ -57,55 +57,46 @@ public class ApplicationModule {
 
     /* Implicit Functionality */
     @Provides
-    @Singleton
     NetworkTestService providesNetWorkTestService() {
         return new NetworkTestService();
     }
 
     @Provides
-    @Singleton
     LoginTestService provideLoginService() {
         return LoginTestService.Creator.newLoginService();
     }
 
     @Provides
-    @Singleton
     MusicSelectService provideMusicSelectService() {
         return MusicSelectService.Creator.newMusicSelectService();
     }
 
     @Provides
-    @Singleton
     FindFriendService provideFindFriendService() {
         return FindFriendService.Creator.newFindFriendService();
     }
 
     @Provides
-    @Singleton
     TrendingTagsService provideTrendingTagsService(){
         return TrendingTagsService.Creator.newTrendingTagsService();
     }
 
     @Provides
-    @Singleton
     SearchFragVideoService provideSearchFragVideoService(){
         return SearchFragVideoService.Creator.newSearchFragVideoService();
     }
 
     @Provides
-    @Singleton
     SearchUserService provideSearchUserService(){
         return SearchUserService.Creator.newSearchUserService();
     }
 
     @Provides
-    @Singleton
     SearchTagService provideSearchTagService(){
         return SearchTagService.Creator.newSearchTagService();
     }
 
     @Provides
-    @Singleton
     SearchMusicService provideSearchMusicService(){
         return SearchMusicService.Creator.newSearchMusicService();
     }

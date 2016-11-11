@@ -15,7 +15,6 @@ import rx.Observable;
  * Created by estsoft on 2016-11-03.
  */
 
-@Singleton
 public class MediaManager {
     private static final String TAG = "MediaManager";
     private final MediaStorageService mMediaStorageService;

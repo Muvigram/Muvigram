@@ -24,7 +24,6 @@ import rx.Observable;
  * Created by estsoft on 2016-11-03.
  */
 
-@Singleton
 public class MediaStorageService {
     private static final String TAG = "MediaStorageService";
 

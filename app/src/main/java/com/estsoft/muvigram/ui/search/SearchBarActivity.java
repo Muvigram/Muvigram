@@ -104,6 +104,12 @@ public class SearchBarActivity extends BasePlainActivity implements SearchBarVie
         peopleTabClicked();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     public void searchEditTextWatcher(){
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override

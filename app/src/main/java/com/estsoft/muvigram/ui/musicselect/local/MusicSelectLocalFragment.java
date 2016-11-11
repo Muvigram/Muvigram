@@ -73,9 +73,15 @@ public class MusicSelectLocalFragment extends BaseNestedFragment implements Musi
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        mPresenter.detachView();
     }
 
     @Override

@@ -21,7 +21,6 @@ import rx.Observable;
 /**
  * Created by estsoft on 2016-10-26.
  */
-@Singleton
 public class FFmpegSupporter {
     private static final String TAG = "FFmpegSupporter";
 

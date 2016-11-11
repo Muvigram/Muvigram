@@ -40,7 +40,7 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
     @BindView(R.id.sign_in_btn) Button mSignInButton;
 
     @Inject
-    SignInPresenter mSignInPresenter;
+    SignInPresenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
         getPlainActivityComponent().inject(this);
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
-        mSignInPresenter.attachView(this);
+        mPresenter.attachView(this);
 
         Observable<CharSequence> emailChangeObservable = RxTextView.textChanges(mEmailEditText);
         Observable<CharSequence> passwordChangeObservable = RxTextView.textChanges(mPasswordEditText);
@@ -67,7 +67,7 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
             mSignInButton.setText(getString(R.string.sign_up));
         }
 
-        mSignInPresenter.attachSubscribe(emailChangeObservable, passwordChangeObservable, userIdChangeObservable);
+        mPresenter.attachSubscribe(emailChangeObservable, passwordChangeObservable, userIdChangeObservable);
 
     }
 
@@ -167,7 +167,7 @@ public class SignInActivity extends BasePlainActivity implements SignInView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSignInPresenter.detachView();
+        mPresenter.detachView();
     }
 
 }

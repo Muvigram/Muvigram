@@ -38,7 +38,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
 
     @BindView(R.id.home_trans_navigation) TransParentSpaceView mTransSpaceView;
     @BindView(R.id.background) FrameLayout background;
-    @Inject HomePresenter mHomePresenter;
+    @Inject HomePresenter mPresenter;
 
     private BottomSheetDialog mBottomSheetDialog;
     private FragmentManager mFragmentManager;
@@ -65,7 +65,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
 
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        mHomePresenter.attachView(this);
+        mPresenter.attachView(this);
 
         initBottomSheetView();
         initTransSpaceView(savedInstanceState);
@@ -79,6 +79,12 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     public ParentFragmentComponent getSingleFragmentActivityComponent(Fragment mFragment) {
@@ -132,7 +138,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
     }
 
     @Override public void onSpaceTabClick(int index) {
-        mHomePresenter.loadTestData();
+        mPresenter.loadTestData();
 
         mFragmentManager = getSupportFragmentManager();
 

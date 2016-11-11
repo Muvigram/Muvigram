@@ -38,6 +38,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import timber.log.Timber;
 
 /**
@@ -60,6 +61,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
     private FeedAdapter mFeedAdapter;
     private int mScrollState;
 
+    private Unbinder mUnbinder;
 
     // TODO: dagger inject and ButterKnife, Presenter init
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +70,7 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                 = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
         mParentFragmentComponent.inject(this);
         final View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         mFeedPresenter.attachView(this);
         return view;
     }
@@ -91,6 +93,12 @@ public class FeedFragment extends Fragment implements TransParentTabView.OnTabIt
                     mLayoutManager.findFirstVisibleItemPosition(),
                     mLayoutManager.findLastVisibleItemPosition()));
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     @Override public void onDestroy() {
