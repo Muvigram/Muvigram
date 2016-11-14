@@ -5,13 +5,14 @@
 
 
     <!-- intro button  -->
-    <dimen name="intro_button_minheight">60dp</dimen>
+    <dimen name="intro_button_min_height">60dp</dimen>
     <dimen name="intro_button_margin">20dp</dimen>
     <dimen name="intro_button_text_size">20sp</dimen>
     <dimen name="intro_facebook_button_text_size">18sp</dimen>
 
 
     <!-- FeedFragment <<<<< -->
+
 
     <!-- StreamTextView -->
     <dimen name="stream_text_view_text_size">13sp</dimen>

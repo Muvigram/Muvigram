@@ -20,7 +20,6 @@ import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.customview.TransCircleView;
 import com.estsoft.muvigram.customview.autolicktextview.AutoLinkMode;
 import com.estsoft.muvigram.customview.autolicktextview.AutoLinkTextView;
-import com.estsoft.muvigram.model.FeedRepo;
 import com.estsoft.muvigram.ui.feed.comment.CommentActivity;
 import com.estsoft.muvigram.util.ViewUtils;
 import com.jakewharton.rxbinding.view.RxView;
@@ -42,12 +41,10 @@ public class FeedItemHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.auto_link_text_view) public AutoLinkTextView mAutoLinkTextView;
     @BindView(R.id.profile_image_view) public DynamicImageView mDynamicImageView;
     @BindView(R.id.circular_like_view) public TransCircleView mTransLikeView;
-    @BindView(R.id.featured_text_view) public TextView mFeaturedTextView;
     @BindView(R.id.videoview) public IncreasVideoView mIncreasVideoView;
     @BindView(R.id.menu_button) public FeedMenuButton mFeedMenuButton;
     @BindView(R.id.user_name_text_view) public TextView mUserNameView;
-    @BindView(R.id.stream_text_view) public View mStreamTextView;
-    @BindView(R.id.placeholder) public View mView;
+    @BindView(R.id.placeholder) public View mPlaceHolderView;
     private Context mContext;
 
     public FeedItemHolder(Context context, View itemView) {
@@ -56,17 +53,19 @@ public class FeedItemHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void onBindViewHolder(@NonNull FeedRepo feedRepo) {
+    public void onBindViewHolder(@NonNull FeedItem item) {
 
-        // Todo set video
-        mView.setBackground(feedRepo.getThumbnail());
-        final Uri feedRepoUri = feedRepo.getUri();
-        if (feedRepo.getUri() != null) {
-            mIncreasVideoView.setVideoURI(feedRepoUri);
+        // Todo: set placeHolder
+        //mPlaceHolderView.setBackground(mContext.getD);
+
+        // Todo: set video
+        final Uri videoFileUri = Uri.parse("android.resource://" + mContext.getPackageName() + "/raw/" + item.getUri());
+        if (item.getUri() != null) {
+            mIncreasVideoView.setVideoURI(videoFileUri);
             mIncreasVideoView.setOnPreparedListener(mp -> mp.setLooping(true));
         }
 
-        // Todo set menu
+        // Todo: set menu
         final RelativeLayout.LayoutParams feedParams = (RelativeLayout.LayoutParams) mFeedMenuButton.getLayoutParams();
         int bottomMargin = ViewUtils.getDisplayPerHeightByRes(mContext, R.integer.feed_menu_button_margin_bottom_per);
         feedParams.setMargins(0, 0, 0, bottomMargin);
@@ -77,53 +76,38 @@ public class FeedItemHolder extends RecyclerView.ViewHolder {
                     final Resources res = mContext.getResources();
                     final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                     final CharSequence menuTitles[] = new CharSequence[]{
-                            res.getString(R.string.feed_menu_item1),
-                            res.getString(R.string.feed_menu_item2),
                             res.getString(R.string.feed_menu_item3),
-                            res.getString(R.string.feed_menu_item4),
-                            res.getString(R.string.feed_menu_item5),
-                            res.getString(R.string.feed_menu_item6),
                             res.getString(R.string.feed_menu_item7)};
                     dialog.setItems(menuTitles, (dialog1, which) -> {
                     });
                     dialog.show();
                 });
 
-        // Todo set streamTextView
-        final RelativeLayout.LayoutParams streamParams = (RelativeLayout.LayoutParams) mStreamTextView.getLayoutParams();
-        bottomMargin = ViewUtils.getDisplayPerHeightByRes(mContext, R.integer.stream_text_view_margin_bottom_per);
-        int leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.stream_text_view_margin_left_per);
-        streamParams.setMargins(leftMargin, 0, 0, bottomMargin);
+//        // Todo: set streamTextView
+//        final RelativeLayout.LayoutParams streamParams = (RelativeLayout.LayoutParams) mStreamTextView.getLayoutParams();
+//        bottomMargin = ViewUtils.getDisplayPerHeightByRes(mContext, R.integer.stream_text_view_margin_bottom_per);
+//        int leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.stream_text_view_margin_left_per);
+//        streamParams.setMargins(leftMargin, 0, 0, bottomMargin);
 
-        // Todo set autoLinkTextView
+        // Todo: set autoLinkTextView
         final RelativeLayout.LayoutParams autoTextParams = (RelativeLayout.LayoutParams) mAutoLinkTextView.getLayoutParams();
-        leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.auto_link_text_view_margin_left_per);
+        int leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.auto_link_text_view_margin_left_per);
         bottomMargin = ViewUtils.getDisplayPerHeightByRes(mContext, R.integer.auto_link_text_view_margin_bottom_per);
         autoTextParams.setMargins(leftMargin, 0, 0, bottomMargin);
         mAutoLinkTextView.addAutoLinkMode(AutoLinkMode.MODE_MENTION, AutoLinkMode.MODE_HASHTAG);
         mAutoLinkTextView.setHashtagModeColor(ContextCompat.getColor(mContext, R.color.white));
         mAutoLinkTextView.setMentionModeColor(ContextCompat.getColor(mContext, R.color.white));
-        mAutoLinkTextView.setAutoLinkText(feedRepo.getSpecification());
+        mAutoLinkTextView.setAutoLinkText(item.getSpecification());
         mAutoLinkTextView.setAutoLinkOnClickListener(((autoLinkMode, matchedText) -> Timber.e(matchedText)));
 
-        // Todo set username
+        // Todo: set username
         final RelativeLayout.LayoutParams userNameTextParams = (RelativeLayout.LayoutParams) mUserNameView.getLayoutParams();
         leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.user_name_text_view_margin_left_per);
         userNameTextParams.setMargins(leftMargin, 0, 0, 0);
-        mUserNameView.setText(USERNAME_PREFIX + feedRepo.getUsername());
+        mUserNameView.setText(USERNAME_PREFIX + item.getUsername());
         mUserNameView.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/RobotoCondensed-BoldItalic.ttf"));
 
-        // Todo set featuredText
-        if (feedRepo.isFeatured()) {
-            mFeaturedTextView.setVisibility(View.VISIBLE);
-            final RelativeLayout.LayoutParams featuredTextParams = (RelativeLayout.LayoutParams) mFeaturedTextView.getLayoutParams();
-            leftMargin = ViewUtils.getDisplayPerWidthByRes(mContext, R.integer.featured_text_view_margin_left_per);
-            featuredTextParams.setMargins(leftMargin, 0, 0, 0);
-            final int padding = mContext.getResources().getInteger(R.integer.featured_text_view_padding_left_right);
-            mFeaturedTextView.setPadding(padding, 0, padding, 0);
-        }
-
-        // Todo set TransCircleView - Like
+        // Todo: set TransCircleView - Like
         RxView.clicks(mTransLikeView)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -135,7 +119,7 @@ public class FeedItemHolder extends RecyclerView.ViewHolder {
                     }
                 });
 
-        // Todo set TransCircleView - comment
+        // Todo: set TransCircleView - comment
         RxView.clicks(mTransCommentView)
                 .debounce(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -143,9 +127,9 @@ public class FeedItemHolder extends RecyclerView.ViewHolder {
                     mContext.startActivity(new Intent(mContext, CommentActivity.class));
                 });
 
-        // Todo set profileImage
+        // Todo: set profileImage
         Picasso.with(mContext)
-                .load(feedRepo.getProfileImage())
+                .load(item.getProfileImage())
                 .transform(new com.estsoft.muvigram.util.transform.CircleTransform())
                 .into(mDynamicImageView);
 

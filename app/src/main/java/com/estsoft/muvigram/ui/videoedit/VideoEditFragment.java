@@ -1,6 +1,5 @@
 package com.estsoft.muvigram.ui.videoedit;
 
-import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +18,6 @@ import android.widget.Toast;
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.customview.MusicRecordView;
-import com.estsoft.muvigram.customview.StreamTextView;
 import com.estsoft.muvigram.injection.qualifier.ParentFragment;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.profile.CircleTransform;

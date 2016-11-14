@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
+import com.estsoft.muvigram.data.remote.FeedService;
 import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
@@ -82,5 +83,10 @@ public class ApplicationModule {
         return TrendingTagsService.Creator.newTrendingTagsService();
     }
 
+    @Provides
+    @Singleton
+    FeedService provideFeedService(){
+        return FeedService.Creator.newFeedService();
+    }
 
 }

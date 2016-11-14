@@ -1,12 +1,14 @@
 package com.estsoft.muvigram.data;
 
 
+import com.estsoft.muvigram.data.remote.FeedService;
 import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.model.Category;
+import com.estsoft.muvigram.model.FeedRepo;
 import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.Tag;
@@ -30,19 +32,21 @@ public class DataManager {
     private final MusicSelectService mMusicSelectService;
     private final FindFriendService mFindFriendService;
     private final TrendingTagsService mTrendingTagsService;
+    private final FeedService mFeedService;
+
 
     @Inject
-    public DataManager(NetworkTestService networkTestService,
-                       LoginTestService loginTestService,
-                       MusicSelectService musicSelectService,
-                       FindFriendService findFriendService,
-                       TrendingTagsService trendingTagsService) {
-        this.mNetworkTestService = networkTestService;
-        this.mLoginTestService = loginTestService;
-        this.mMusicSelectService = musicSelectService;
-        this.mFindFriendService = findFriendService;
-        this.mTrendingTagsService = trendingTagsService;
+    public DataManager(FeedService mFeedService, TrendingTagsService mTrendingTagsService,
+                       FindFriendService mFindFriendService, MusicSelectService mMusicSelectService,
+                       LoginTestService mLoginTestService, NetworkTestService mNetworkTestService) {
+        this.mFeedService = mFeedService;
+        this.mTrendingTagsService = mTrendingTagsService;
+        this.mFindFriendService = mFindFriendService;
+        this.mMusicSelectService = mMusicSelectService;
+        this.mLoginTestService = mLoginTestService;
+        this.mNetworkTestService = mNetworkTestService;
     }
+
 
     public Observable<TestRepo> getLoginTestService() {
         return mLoginTestService.getLoginTest();
@@ -66,11 +70,9 @@ public class DataManager {
 
     public Observable<List<Tag>> getTags() { return  mTrendingTagsService.getTags(); }
 
-//    // is Test
-//    public Observable<List<FeedRepo>> getFeedRepos() {
-//
-//    }
-
+    public Observable<List<FeedRepo>> getFeedRepos() {
+        return mFeedService.getFeedRepos();
+    }
 
 //    public Observable<Category> getCategories() {
 //        return mMusicSelectService.getCategries()

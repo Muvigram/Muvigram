@@ -52,34 +52,34 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // dagger
         mSingleFragmentActivityComponent = getConfigPersistentComponent()
                 .plus(new SingleFragmentActivityModule(this));
-
         mSingleFragmentActivityComponent.inject(this);
 
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-
         setContentView(R.layout.activity_home);
+        // butterKnife
         ButterKnife.bind(this);
+        // presenter
         mHomePresenter.attachView(this);
-
+        // view init
         initBottomSheetView();
-        initTransSpaceView(savedInstanceState);
-
+        initTransSpaceView();
+        // fragment set
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.activity_home);
-
         if (fragment == null) {
             mFeedFragment = new FeedFragment();
             fragment = mFeedFragment;
             fm.beginTransaction().add(R.id.activity_home, fragment).commit();
         }
-
     }
+
+
 
     public ParentFragmentComponent getSingleFragmentActivityComponent(Fragment mFragment) {
         return mSingleFragmentActivityComponent.plus(new ParentFragmentModule(mFragment));
@@ -107,7 +107,7 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
 
     }
 
-    private void initTransSpaceView(Bundle savedInstanceState) {
+    private void initTransSpaceView() {
         // space navigation view
         mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_home);
         mTransSpaceView.addSpaceBarIcon(R.drawable.ic_action_search);

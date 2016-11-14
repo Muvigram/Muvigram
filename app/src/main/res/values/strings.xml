@@ -75,7 +75,7 @@
     <string name="intro_dummy_text">by signing up, you agree to the Teams of Use <![CDATA["&"]]> \n Privacy Policy.</string>
 
     <!-- Feed Fragment -->
-
+    <string name="feed_dialog_text">loading</string>
     <string name="feed_text_follow">follow</string>
     <string name="feed_text_featured">featured</string>
     <string name="feed_text_foryou">for you</string>

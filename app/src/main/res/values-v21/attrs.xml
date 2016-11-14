@@ -28,19 +28,12 @@
         <attr name="dynamic_height"/>
     </declare-styleable>
 
-    <declare-styleable name="StreamTextView">
-        <attr name="dynamic_textColor" format="color"/>
+    <declare-styleable name="MusicRecordView">
         <attr name="dynamic_width"/>
         <attr name="dynamic_height"/>
-        <attr name="dynamic_text"/>
-        <attr name="dynamic_textSize"/>
-    </declare-styleable>
-
-    <declare-styleable name="TransParentTabView">
-        <attr name="textSize"/>
-        <attr name="textColor"/>
-        <attr name="backLineColor"/>
-        <attr name="activeTabColor"/>
+        <attr name="centerAxisColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="isSquare" format="boolean"/>
     </declare-styleable>
 
 </resources>
