@@ -33,7 +33,7 @@ public class SingleListViewItemActiveCalculator extends BaseItemsVisibilityCalcu
     private static final boolean SHOW_LOGS = Config.SHOW_LOGS;
     private static final String TAG = SingleListViewItemActiveCalculator.class.getSimpleName();
 
-    private static final int INACTIVE_LIST_ITEM_VISIBILITY_PERCENTS = 0;
+    private static final int INACTIVE_LIST_ITEM_VISIBILITY_PERCENTS = 70;
 
     private final Callback<ListItem> mCallback;
     private final List<? extends ListItem> mListItems;
@@ -234,12 +234,8 @@ public class SingleListViewItemActiveCalculator extends BaseItemsVisibilityCalcu
 
         int currentItemVisibilityPercents;
         for(int indexOfCurrentItem = itemsPositionGetter.getLastVisiblePosition(), indexOfCurrentView = itemsPositionGetter.indexOfChild(outMostVisibleItem.getView())
-                ; indexOfCurrentView >= 0  // iterating via listView Items
+                ; indexOfCurrentView >= 0 // iterating via listView Items
                 ; indexOfCurrentItem--, indexOfCurrentView--){
-
-            if(indexOfCurrentItem == -1) {
-                indexOfCurrentItem = 0;
-            }
 
             if(SHOW_LOGS) Logger.v(TAG, "bottomToTopMostVisibleItem, indexOfCurrentView " + indexOfCurrentView);
             ListItem listItem = mListItems.get(indexOfCurrentItem);

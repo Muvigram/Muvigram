@@ -1,8 +1,7 @@
 package com.estsoft.muvigram.data;
 
 
-import android.provider.MediaStore;
-
+import com.estsoft.muvigram.data.remote.FeedService;
 import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
@@ -16,6 +15,7 @@ import com.estsoft.muvigram.data.remote.TrendingSoundsService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.data.remote.TrendingUsersService;
 import com.estsoft.muvigram.model.Category;
+import com.estsoft.muvigram.model.FeedRepo;
 import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.ProfileThumbnailRepo;
@@ -42,7 +42,10 @@ public class DataManager {
     private final MusicSelectService mMusicSelectService;
     private final FindFriendService mFindFriendService;
 
+    private final FeedService mFeedService;
+
     //SearchFragment
+    private final SearchFragVideoService mSearchFragVideoService;
     private final SearchUserService mSearchUserService;
     private final SearchTagService mSearchTagService;
     private final SearchMusicService mSearchMusicService;
@@ -66,7 +69,8 @@ public class DataManager {
                        TrendingSoundsService trendingSoundsService,
                        TrendingUsersService trendingUsersService,
                        ProfileUserInfoService userInfoService,
-                       ProfileThumbnailService profileThumbnailService) {
+                       ProfileThumbnailService profileThumbnailService,
+                       FeedService mFeedService) {
         this.mNetworkTestService = networkTestService;
         this.mLoginTestService = loginTestService;
         this.mMusicSelectService = musicSelectService;
@@ -79,6 +83,7 @@ public class DataManager {
         this.mTrendingUsersService = trendingUsersService;
         this.mProfileUserInfoService = userInfoService;
         this.mProfileThumbnailService = profileThumbnailService;
+        this.mFeedService = mFeedService;
     }
 
     public Observable<TestRepo> getLoginTestService() {
@@ -97,14 +102,19 @@ public class DataManager {
         return mMusicSelectService.getMusics();
     }
 
-
     //SearchFragment
     public Observable<List<Friend>> getSearchUsers() {
         return mSearchUserService.getUsers();
     }
+
     public Observable<List<Tag>> getSearchTags(){
         return mSearchTagService.getTags();
     }
+
+    public Observable<List<Music>> getSearchMusics() {
+        return mSearchMusicService.getMusics();
+    }
+
     public Observable<List<Music>> getSearchMusics() { return mSearchMusicService.getMusics();}
     public Observable<List<Tag>> getTrendingTags() { return  mTrendingTagsService.getTags(); }
     public Observable<List<Music>> getTrendingSounds() {return  mTrendingSoundsService.getMusics();}
@@ -114,7 +124,6 @@ public class DataManager {
     //ProfileFragment
     public Observable<List<Friend>> getFriends() {
         return mFindFriendService.getFriends();
-    }
     public Observable<UserInfoRepo> getProfileUserInfo() { return  mProfileUserInfoService.getUserInfo();}
     public Observable<List<ProfileThumbnailRepo>> getProfileThumbnail() { return mProfileThumbnailService.getThumbnails();}
 

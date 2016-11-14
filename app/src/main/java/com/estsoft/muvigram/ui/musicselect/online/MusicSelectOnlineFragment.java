@@ -77,9 +77,15 @@ public class MusicSelectOnlineFragment extends BaseNestedFragment implements Mus
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        mPresenter.detachView();
     }
 
     /* Reactive view logic */

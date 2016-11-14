@@ -1,12 +1,10 @@
 package com.estsoft.muvigram.ui.intro;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,7 +12,6 @@ import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
-import com.estsoft.muvigram.ui.sign.SignInActivity;
 
 import javax.inject.Inject;
 
@@ -35,7 +32,7 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
     @BindString(R.string.test_login) String mLoginText;
     @BindString(R.string.test_sign) String mSingupText;
     @BindView(R.id.intro_video_view) IncreasVideoView mVideoView;
-    @Inject IntroPresenter mIntroPresenter;
+    @Inject IntroPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +49,9 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
         ButterKnife.bind(this);
 
 
-        mIntroPresenter.attachView(this);
-        mIntroPresenter.checkViewAttached();
-        mIntroPresenter.loadVideo();
+        mPresenter.attachView(this);
+        mPresenter.checkViewAttached();
+        mPresenter.loadVideo();
 
 
     }
@@ -67,20 +64,20 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
 
     @OnClick(R.id.intro_email_button)
     public void emailButtonClick() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setItems(new CharSequence[]{mLoginText, mSingupText}, (dialog1, which) -> {
-            Intent intent = new Intent(this, SignInActivity.class);
-            intent = (which == 0)
-                    ? intent.putExtra(KEY, LOG_IN_ACTIVITY) : intent.putExtra(KEY, SIGN_UP_ACTIVITY);
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-        });
-        dialog.show();
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+//        dialog.setItems(new CharSequence[]{mLoginText, mSingupText}, (dialog1, which) -> {
+//            Intent intent = new Intent(this, SignInActivity.class);
+//            intent = (which == 0)
+//                    ? intent.putExtra(KEY, LOG_IN_ACTIVITY) : intent.putExtra(KEY, SIGN_UP_ACTIVITY);
+//            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+//        });
+//        dialog.show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mIntroPresenter.detachView();
+        mPresenter.detachView();
     }
 
     private void videoPlay(final MediaPlayer mediaPlayer) {

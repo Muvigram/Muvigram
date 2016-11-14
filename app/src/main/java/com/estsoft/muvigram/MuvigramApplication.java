@@ -45,6 +45,4 @@ public class MuvigramApplication extends Application {
         }
         return mApplicationComponent;
     }
-
-
 }

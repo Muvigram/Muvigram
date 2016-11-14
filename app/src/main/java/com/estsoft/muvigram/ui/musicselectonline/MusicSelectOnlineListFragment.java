@@ -69,9 +69,15 @@ public class MusicSelectOnlineListFragment extends BaseSingleFragment
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        mPresenter.detachView();
     }
 
     @Override

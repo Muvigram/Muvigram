@@ -1,95 +1,57 @@
 package com.estsoft.muvigram.model;
 
-import android.content.Context;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.view.View;
+import android.os.Parcelable;
 
-import com.estsoft.muvigram.R;
-import com.estsoft.muvigram.customview.IncreasVideoView;
-import com.volokh.danylo.visibility_utils.items.ListItem;
-
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.estsoft.muvigram.ui.feed.FeedItem;
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
 /**
- * Created by gangGongUi on 2016. 10. 24..
+ * Created by gangGongUi on 2016. 11. 9..
  */
-@Data
-@Accessors(prefix = "m")
-public class FeedRepo implements ListItem {
-    private static final int MAX_LOAD = 100;
-    private static final int RUNNING_LOAD = 50;
-    private static final String USERNAME_PREFIX = "@";
-    private final Rect mCurrentViewRect = new Rect();
-    private final Context mContext;
-    private Uri mUri;
-    private String mUsername;
-    private Drawable mThumbnail;
-    private String mProfileImage;
-    private String mSpecification;
-    private boolean mFeatured = false;
-    private ItemCallback mItemCallback;
 
+@AutoValue
+public abstract class FeedRepo implements Comparable<FeedRepo>, Parcelable {
 
-    public FeedRepo(Context mContext, String mUsername, Uri mUri, Drawable mThumbnail, String mProfileImage, String mSpecification,
-                    boolean mFeatured, ItemCallback mItemCallback) {
-        this.mUri = mUri;
-        this.mUsername = mUsername;
-        this.mThumbnail = mThumbnail;
-        this.mItemCallback = mItemCallback;
-        this.mContext = mContext;
-        this.mProfileImage = mProfileImage;
-        this.mSpecification = mSpecification;
-        this.mFeatured = mFeatured;
+    public abstract String video_name();
+    public abstract String video_uri();
+    public abstract String name();
+    public abstract String video_thumbnail();
+    public abstract String profile_image();
+    public abstract String specification();
+    public abstract String album_cover();
+    public abstract boolean featured();
+
+    public static FeedRepo create(FeedRepo feedRepo) {
+        return feedRepo;
     }
 
-
-    // Todo set placeholder for percents.
-    @Override public int getVisibilityPercents(View view) {
-        int percents = 100;
-        view.getLocalVisibleRect(mCurrentViewRect);
-        int height = view.getHeight();
-        if (viewIsPartiallyHiddenTop()) {
-            percents = (height - mCurrentViewRect.top) * 100 / height;
-        } else if (viewIsPartiallyHiddenBottom(height)) {
-            percents = mCurrentViewRect.bottom * 100 / height;
-        }
-
-        final IncreasVideoView mIncreasVideoView = ((IncreasVideoView) view.findViewById(R.id.videoview));
-        final View placeHolder = view.findViewById(R.id.placeholder);
-        if (percents == MAX_LOAD) {
-            mIncreasVideoView.start();
-            mIncreasVideoView.postDelayed(() -> placeHolder.setVisibility(View.GONE), 300);
-        } else if (percents <= RUNNING_LOAD && placeHolder.getVisibility() != View.VISIBLE) {
-            mIncreasVideoView.pause();
-            placeHolder.setVisibility(View.VISIBLE);
-        }
-        return percents;
+    public static Builder builder() {
+        return new AutoValue_FeedRepo.Builder();
     }
 
-    @Override public void setActive(View newActiveView, int newActiveViewPosition) {
-        mItemCallback.onActiveViewChangedActive(newActiveView, newActiveViewPosition);
+    public static TypeAdapter<FeedRepo> typeAdapter(Gson gson) {
+        return new AutoValue_FeedRepo.GsonTypeAdapter(gson);
     }
 
-    @Override public void deactivate(View currentView, int position) {
-        currentView.findViewById(R.id.placeholder).setVisibility(View.VISIBLE);
-        final IncreasVideoView mIncreasVideoView = (IncreasVideoView) currentView.findViewById(R.id.videoview);
-        mIncreasVideoView.pause();
+    @Override public int compareTo(FeedRepo o) {
+        return video_uri().compareTo(o.video_uri());
     }
 
-    private boolean viewIsPartiallyHiddenBottom(int height) {
-        return mCurrentViewRect.bottom > 0 && mCurrentViewRect.bottom < height;
+    @AutoValue.Builder public abstract static class Builder {
+        public abstract Builder video_name(String video_name);
+        public abstract Builder video_uri(String video_uri);
+        public abstract Builder name(String name);
+        public abstract Builder video_thumbnail(String video_thumbnail);
+        public abstract Builder profile_image(String profile_image);
+        public abstract Builder specification(String specification);
+        public abstract Builder album_cover(String album_cover);
+        public abstract Builder featured(boolean featured);
+        public abstract FeedRepo build();
     }
 
-    private boolean viewIsPartiallyHiddenTop() {
-        return mCurrentViewRect.top > 0;
+    public FeedItem toFeedItem() {
+        return new FeedItem(video_name(), name(), video_thumbnail(), video_thumbnail(), profile_image(), specification(), album_cover() ,featured());
     }
-
-    public interface ItemCallback {
-        void onActiveViewChangedActive(View newActiveView, int newActiveViewPosition);
-    }
-
-
 }

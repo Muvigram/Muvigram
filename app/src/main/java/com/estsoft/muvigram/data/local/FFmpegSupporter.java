@@ -14,14 +14,12 @@ import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedExceptio
 import java.io.File;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import rx.Observable;
 
 /**
  * Created by estsoft on 2016-10-26.
  */
-@Singleton
 public class FFmpegSupporter {
     private static final String TAG = "FFmpegSupporter";
 

@@ -58,7 +58,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dip"
                     android:textSize="@dimen/intro_button_text_size"
-                    android:minHeight="@dimen/intro_button_minheight"
+                    android:minHeight="@dimen/intro_button_min_height"
                     android:layout_marginLeft="@dimen/intro_button_margin"
                     android:layout_height="wrap_content"/>
 
@@ -70,7 +70,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:minHeight="@dimen/intro_button_minheight"
+                    android:minHeight="@dimen/intro_button_min_height"
                     android:layout_marginRight="@dimen/intro_button_margin"
                     android:layout_gravity="center"
                     android:textSize="@dimen/intro_button_text_size"
@@ -90,7 +90,7 @@
                 android:textSize="@dimen/intro_facebook_button_text_size"
                 android:layout_marginLeft="@dimen/intro_button_margin"
                 android:layout_marginRight="@dimen/intro_button_margin"
-                android:minHeight="@dimen/intro_button_minheight"
+                android:minHeight="@dimen/intro_button_min_height"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

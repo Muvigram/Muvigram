@@ -24,5 +24,6 @@ public interface VideoEditView extends MvpView {
     void nextVideoSpeedFragment();
     void nextAudioSelectActivity();
     void nextActivity();
+    void backToHomeActivity();
 
 }

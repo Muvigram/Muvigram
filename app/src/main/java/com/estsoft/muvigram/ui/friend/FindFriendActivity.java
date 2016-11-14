@@ -60,6 +60,12 @@ public class FindFriendActivity extends BasePlainActivity implements FindFriendV
         mPresenter.loadFriends();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     /* Reactive view logic */
     @Override
     public void showFriends(List<Friend> friends) {

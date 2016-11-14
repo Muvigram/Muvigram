@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_dark">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:background="@android:color/background_dark">
 
     <!-- video view-->
     <com.estsoft.muvigram.customview.IncreasVideoView
@@ -47,6 +48,11 @@
         <com.estsoft.muvigram.customview.MusicRecordView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:dynamic_width="5"
+            app:dynamic_height="5"
+            app:isSquare="true"
+            app:backgroundColor="@color/grey_black_1000"
+            app:centerAxisColor="@color/yellow_600"
             android:layout_gravity="end"
             android:layout_marginTop="50dp"
             android:background="@drawable/ic_function_album_60dp"
