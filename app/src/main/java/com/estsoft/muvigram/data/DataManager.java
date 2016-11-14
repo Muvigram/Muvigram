@@ -2,8 +2,6 @@ package com.estsoft.muvigram.data;
 
 
 import com.estsoft.muvigram.data.remote.FeedService;
-import android.provider.MediaStore;
-
 import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
