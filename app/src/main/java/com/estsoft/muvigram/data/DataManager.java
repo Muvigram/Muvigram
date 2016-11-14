@@ -45,7 +45,6 @@ public class DataManager {
     private final FeedService mFeedService;
 
     //SearchFragment
-    private final SearchFragVideoService mSearchFragVideoService;
     private final SearchUserService mSearchUserService;
     private final SearchTagService mSearchTagService;
     private final SearchMusicService mSearchMusicService;
@@ -102,6 +101,10 @@ public class DataManager {
         return mMusicSelectService.getMusics();
     }
 
+    public Observable<List<FeedRepo>> getFeedRepos() {
+        return mFeedService.getFeedRepos();
+    }
+
     //SearchFragment
     public Observable<List<Friend>> getSearchUsers() {
         return mSearchUserService.getUsers();
@@ -111,9 +114,6 @@ public class DataManager {
         return mSearchTagService.getTags();
     }
 
-    public Observable<List<Music>> getSearchMusics() {
-        return mSearchMusicService.getMusics();
-    }
 
     public Observable<List<Music>> getSearchMusics() { return mSearchMusicService.getMusics();}
     public Observable<List<Tag>> getTrendingTags() { return  mTrendingTagsService.getTags(); }
@@ -124,6 +124,7 @@ public class DataManager {
     //ProfileFragment
     public Observable<List<Friend>> getFriends() {
         return mFindFriendService.getFriends();
+    }
     public Observable<UserInfoRepo> getProfileUserInfo() { return  mProfileUserInfoService.getUserInfo();}
     public Observable<List<ProfileThumbnailRepo>> getProfileThumbnail() { return mProfileThumbnailService.getThumbnails();}
 
