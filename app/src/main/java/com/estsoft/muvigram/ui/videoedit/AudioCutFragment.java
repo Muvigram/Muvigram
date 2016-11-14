@@ -239,4 +239,5 @@ public class AudioCutFragment extends BaseSingleFragment implements AudioCutView
         mVideoView.stopPlayback();
         super.onDestroyView();
     }
+
 }

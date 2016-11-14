@@ -113,6 +113,12 @@ public class MusicSelectFragment extends BaseParentFragment implements MusicSele
         mUnbinder.unbind();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     private void syncPage(int position) {
         mViewPager.setCurrentItem(position);
         switch (position) {

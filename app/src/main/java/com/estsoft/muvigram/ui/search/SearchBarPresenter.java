@@ -4,7 +4,6 @@ import com.estsoft.muvigram.data.DataManager;
 import com.estsoft.muvigram.injection.PerParentFragment;
 import com.estsoft.muvigram.injection.PerPlainActivity;
 import com.estsoft.muvigram.ui.base.BasePresenter;
-import com.estsoft.muvigram.util.RxUtil;
 
 import javax.inject.Inject;
 
@@ -18,21 +17,21 @@ import timber.log.Timber;
  * Created by JEONGYI on 2016. 11. 7..
  */
 
-@PerParentFragment
-public class TrendingTagsPresenter extends BasePresenter<TrendingTagsView>{
+@PerPlainActivity
+public class SearchBarPresenter extends BasePresenter<SearchBarView>{
 
     private final DataManager mDataManager;
     private final CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
 
     @Inject
-    public TrendingTagsPresenter(DataManager dataManager){
+    public SearchBarPresenter(DataManager dataManager){
         mDataManager = dataManager;
     }
 
     @Override
-    public void attachView(TrendingTagsView trendingTagsView){
-        super.attachView(trendingTagsView);
+    public void attachView(SearchBarView searchBarView){
+        super.attachView(searchBarView);
     }
 
     @Override
@@ -41,34 +40,32 @@ public class TrendingTagsPresenter extends BasePresenter<TrendingTagsView>{
         mCompositeSubscription.unsubscribe();
     }
 
-    public void loadVideo(){
+    public void loadUsers(){
         checkViewAttached();
 
-        final Subscription subscribe = mDataManager.getSearchFragVideo()
+        final Subscription subscribe = mDataManager.getSearchUsers()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
-                        video -> {
-                            if (video == null) {
-                                getMvpView().showVideoEmpty();
+                        users -> {
+                            if (users.isEmpty()) {
+                                getMvpView().showUsersEmpty();
                             } else {
-                                getMvpView().showVideo(video);
+                                getMvpView().showUsers(users);
                             }
                         },
                         e -> {
-                            Timber.e(e, "there was an error loading video");
-                            e.printStackTrace();
-                            getMvpView().showVideoError();
+                            Timber.e(e, "There was an error loading users");
+                            getMvpView().showUsersError();
                         }
                 );
-
         mCompositeSubscription.add(subscribe);
     }
 
     public void loadTags(){
         checkViewAttached();
 
-        final Subscription subscribe = mDataManager.getTags()
+        final Subscription subscribe = mDataManager.getSearchTags()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -81,7 +78,29 @@ public class TrendingTagsPresenter extends BasePresenter<TrendingTagsView>{
                         },
                         e -> {
                             Timber.e(e, "There was an error loading tags");
-                            getMvpView().showError();
+                            getMvpView().showTagsError();
+                        }
+                );
+        mCompositeSubscription.add(subscribe);
+    }
+
+    public void loadMusics(){
+        checkViewAttached();
+
+        final Subscription subscribe = mDataManager.getSearchMusics()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        musics -> {
+                            if (musics.isEmpty()) {
+                                getMvpView().showMusicsEmpty();
+                            } else {
+                                getMvpView().showMusics(musics);
+                            }
+                        },
+                        e -> {
+                            Timber.e(e, "There was an error loading musics");
+                            getMvpView().showMusicsError();
                         }
                 );
         mCompositeSubscription.add(subscribe);

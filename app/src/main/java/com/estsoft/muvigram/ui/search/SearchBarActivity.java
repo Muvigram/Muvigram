@@ -20,6 +20,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerPlainActivity;
+import com.estsoft.muvigram.model.Friend;
+import com.estsoft.muvigram.model.Music;
+import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.activity.BasePlainActivity;
 
 import org.w3c.dom.Text;
@@ -28,23 +32,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchBarActivity extends BasePlainActivity {
+@PerPlainActivity
+public class SearchBarActivity extends BasePlainActivity implements SearchBarView{
 
-    @BindView(R.id.search_edittext)
-    EditText searchEditText;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerView;
+    @Inject SearchBarPresenter mPresenter;
+    @Inject SearchItemAdapter mAdapter;
 
-    @BindView(R.id.people_tab_clicked_line)
-    RelativeLayout peopleTabClickedLine;
+
+    @BindView(R.id.search_edittext) EditText searchEditText;
+    @BindView(R.id.recyclerview) RecyclerView recyclerView;
+    @BindView(R.id.people_tab_clicked_line) RelativeLayout peopleTabClickedLine;
     @BindView(R.id.tags_tab_clicked_line) RelativeLayout tagsTabClickedLine;
     @BindView(R.id.sounds_tab_clicked_line) RelativeLayout soundsTabClickedLine;
 
-    private SearchItemAdapter adapter;
     private final static int PEOPLE_INDEX = 0;
     private final static int TAGS_INDEX = 1;
     private final static int SOUNDS_INDEX = 2;
@@ -55,7 +61,8 @@ public class SearchBarActivity extends BasePlainActivity {
         tagsTabClickedLine.setBackgroundResource(R.color.grey_200);
         soundsTabClickedLine.setBackgroundResource(R.color.grey_200);
 
-        setRecyclerView(PEOPLE_INDEX);
+//        setRecyclerView(PEOPLE_INDEX);
+        mPresenter.loadUsers();
         searchEditTextWatcher();
     }
 
@@ -65,7 +72,8 @@ public class SearchBarActivity extends BasePlainActivity {
         tagsTabClickedLine.setBackgroundResource(R.color.light_blue_300);
         soundsTabClickedLine.setBackgroundResource(R.color.grey_200);
 
-        setRecyclerView(TAGS_INDEX);
+//        setRecyclerView(TAGS_INDEX);
+        mPresenter.loadTags();
         searchEditTextWatcher();
     }
 
@@ -75,7 +83,8 @@ public class SearchBarActivity extends BasePlainActivity {
         tagsTabClickedLine.setBackgroundResource(R.color.grey_200);
         soundsTabClickedLine.setBackgroundResource(R.color.light_blue_300);
 
-        setRecyclerView(SOUNDS_INDEX);
+//        setRecyclerView(SOUNDS_INDEX);
+        mPresenter.loadMusics();
         searchEditTextWatcher();
     }
 
@@ -89,8 +98,16 @@ public class SearchBarActivity extends BasePlainActivity {
         setContentView(R.layout.activity_search_bar);
         ButterKnife.bind(this);
 
-        peopleTabClicked();
+        getPlainActivityComponent().inject(this);
+        mPresenter.attachView(this);
 
+        peopleTabClicked();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     public void searchEditTextWatcher(){
@@ -99,43 +116,131 @@ public class SearchBarActivity extends BasePlainActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 String text = searchEditText.getText().toString()
                         .toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+                mAdapter.filter(text);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text = searchEditText.getText().toString()
                         .toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+                mAdapter.filter(text);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 String text = searchEditText.getText().toString()
                         .toLowerCase(Locale.getDefault());
-                adapter.filter(text);
+                mAdapter.filter(text);
             }
         });
     }
 
-    public void setRecyclerView(int index){
+//    public void setRecyclerView(int index){
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//
+//        if(index == PEOPLE_INDEX) {
+//            mAdapter = new SearchItemAdapter(getSearchPeopleItems(), PEOPLE_INDEX, getApplicationContext());
+//        }else if(index == TAGS_INDEX){
+//            mAdapter = new SearchItemAdapter(getSearchTagItems(), TAGS_INDEX, getApplicationContext());
+//        }else if(index == SOUNDS_INDEX){
+//            mAdapter = new SearchItemAdapter(getSearchSoundItems(), SOUNDS_INDEX, getApplicationContext());
+//        }
+//
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(mAdapter);
+//        recyclerView.setHasFixedSize(true);
+//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+//        params.setMargins(0,0,0,0);
+//        recyclerView.setLayoutParams(params);
+//    }
+
+    @Override
+    public void showUsers(List<Friend> users){
+        mAdapter.setUsers(users);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
-        if(index == PEOPLE_INDEX) {
-            adapter = new SearchItemAdapter(getSearchPeopleItems(), PEOPLE_INDEX, getApplicationContext());
-        }else if(index == TAGS_INDEX){
-            adapter = new SearchItemAdapter(getSearchTagItems(), TAGS_INDEX, getApplicationContext());
-        }else if(index == SOUNDS_INDEX){
-            adapter = new SearchItemAdapter(getSearchSoundItems(), SOUNDS_INDEX, getApplicationContext());
-        }
-
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
         params.setMargins(0,0,0,0);
         recyclerView.setLayoutParams(params);
     }
+
+    @Override
+    public void showUsersEmpty(){
+
+    }
+
+    @Override
+    public void showUsersError(){
+
+    }
+
+    @Override
+    public void showTags(List<Tag> tags){
+        mAdapter.setTags(tags);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+        params.setMargins(0,0,0,0);
+        recyclerView.setLayoutParams(params);
+    }
+
+    @Override
+    public void showTagsEmpty(){
+
+    }
+
+    @Override
+    public void showTagsError(){
+
+    }
+
+    @Override
+    public void showMusics(List<Music> musics){
+        mAdapter.setMusics(musics);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) recyclerView.getLayoutParams();
+        params.setMargins(0,0,0,0);
+        recyclerView.setLayoutParams(params);
+    }
+
+    @Override
+    public void showMusicsEmpty(){
+
+    }
+
+    @Override
+    public void showMusicsError(){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //가짜데이터

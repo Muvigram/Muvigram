@@ -84,6 +84,11 @@ public class CameraFragment extends BaseSingleFragment implements CameraView {
         mUnbinder.unbind();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
 
     /* Business - View Logic */
 

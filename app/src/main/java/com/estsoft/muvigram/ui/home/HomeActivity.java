@@ -81,6 +81,12 @@ public class HomeActivity extends BaseActivity implements HomeView, TransParentS
 
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
     public ParentFragmentComponent getSingleFragmentActivityComponent(Fragment mFragment) {
         return mSingleFragmentActivityComponent.plus(new ParentFragmentModule(mFragment));
     }

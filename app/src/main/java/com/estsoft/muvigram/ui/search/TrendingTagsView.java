@@ -1,5 +1,7 @@
 package com.estsoft.muvigram.ui.search;
 
+import android.provider.MediaStore;
+
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.MvpView;
 
@@ -10,6 +12,10 @@ import java.util.List;
  */
 
 public interface TrendingTagsView extends MvpView{
+
+    void showVideo(SearchHeaderVideoItem video);
+    void showVideoEmpty();
+    void showVideoError();
 
     void showTags(List<Tag> tags);
     void showTagsEmpty();

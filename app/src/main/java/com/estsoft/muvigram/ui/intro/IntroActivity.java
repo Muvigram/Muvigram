@@ -35,7 +35,7 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
     @BindString(R.string.test_login) String mLoginText;
     @BindString(R.string.test_sign) String mSingupText;
     @BindView(R.id.intro_video_view) IncreasVideoView mVideoView;
-    @Inject IntroPresenter mIntroPresenter;
+    @Inject IntroPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,9 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
         ButterKnife.bind(this);
 
 
-        mIntroPresenter.attachView(this);
-        mIntroPresenter.checkViewAttached();
-        mIntroPresenter.loadVideo();
+        mPresenter.attachView(this);
+        mPresenter.checkViewAttached();
+        mPresenter.loadVideo();
 
 
     }
@@ -80,7 +80,7 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mIntroPresenter.detachView();
+        mPresenter.detachView();
     }
 
     private void videoPlay(final MediaPlayer mediaPlayer) {

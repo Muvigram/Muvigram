@@ -2,10 +2,16 @@ package com.estsoft.muvigram.data;
 
 
 import com.estsoft.muvigram.data.remote.FeedService;
+import android.provider.MediaStore;
+
 import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
+import com.estsoft.muvigram.data.remote.SearchFragVideoService;
+import com.estsoft.muvigram.data.remote.SearchMusicService;
+import com.estsoft.muvigram.data.remote.SearchTagService;
+import com.estsoft.muvigram.data.remote.SearchUserService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.model.Category;
 import com.estsoft.muvigram.model.FeedRepo;
@@ -13,6 +19,7 @@ import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.model.TestRepo;
+import com.estsoft.muvigram.ui.search.SearchHeaderVideoItem;
 
 import java.util.List;
 
@@ -34,17 +41,31 @@ public class DataManager {
     private final TrendingTagsService mTrendingTagsService;
     private final FeedService mFeedService;
 
+    private final SearchFragVideoService mSearchFragVideoService;
+    private final SearchUserService mSearchUserService;
+    private final SearchTagService mSearchTagService;
+    private final SearchMusicService mSearchMusicService;
 
     @Inject
-    public DataManager(FeedService mFeedService, TrendingTagsService mTrendingTagsService,
-                       FindFriendService mFindFriendService, MusicSelectService mMusicSelectService,
-                       LoginTestService mLoginTestService, NetworkTestService mNetworkTestService) {
+    public DataManager(NetworkTestService networkTestService,
+                       LoginTestService loginTestService,
+                       MusicSelectService musicSelectService,
+                       FindFriendService findFriendService,
+                       TrendingTagsService trendingTagsService,
+                       SearchFragVideoService searchFragVideoService,
+                       SearchUserService searchUserService,
+                       SearchTagService searchTagService,
+                       SearchMusicService searchMusicService,FeedService mFeedService) {
+        this.mNetworkTestService = networkTestService;
+        this.mLoginTestService = loginTestService;
+        this.mMusicSelectService = musicSelectService;
+        this.mFindFriendService = findFriendService;
+        this.mTrendingTagsService = trendingTagsService;
+        this.mSearchFragVideoService = searchFragVideoService;
+        this.mSearchUserService = searchUserService;
+        this.mSearchTagService = searchTagService;
+        this.mSearchMusicService = searchMusicService;
         this.mFeedService = mFeedService;
-        this.mTrendingTagsService = mTrendingTagsService;
-        this.mFindFriendService = mFindFriendService;
-        this.mMusicSelectService = mMusicSelectService;
-        this.mLoginTestService = mLoginTestService;
-        this.mNetworkTestService = mNetworkTestService;
     }
 
 
@@ -70,6 +91,19 @@ public class DataManager {
 
     public Observable<List<Tag>> getTags() { return  mTrendingTagsService.getTags(); }
 
+    public Observable<List<Friend>> getSearchUsers() {
+        return mSearchUserService.getUsers();
+    }
+
+    public Observable<List<Tag>> getSearchTags(){
+        return mSearchTagService.getTags();
+    }
+
+    public Observable<List<Music>> getSearchMusics() {
+        return mSearchMusicService.getMusics();
+    }
+
+    public Observable<SearchHeaderVideoItem> getSearchFragVideo() { return mSearchFragVideoService.getVideo();}
     public Observable<List<FeedRepo>> getFeedRepos() {
         return mFeedService.getFeedRepos();
     }
