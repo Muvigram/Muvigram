@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,11 +26,15 @@ import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
 import com.estsoft.muvigram.injection.component.SingleFragmentComponent;
 import com.estsoft.muvigram.injection.qualifier.ActivityContext;
+import com.estsoft.muvigram.model.Friend;
+import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
 import com.estsoft.muvigram.ui.home.HomeActivity;
+import com.estsoft.muvigram.ui.profile.CircleTransform;
 import com.estsoft.muvigram.util.DialogFactory;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Random;
@@ -48,26 +53,29 @@ import butterknife.Unbinder;
 
 public class SearchFragment extends Fragment implements TrendingTagsView {
 
-    private String[] tagColorList = new String[]{"#ff4081","#ff7997","#f9a825","#c0ca33",
-            "#26c6da","#5677fc","#ab47bc","#651fff","#0097a7","#ff7043"};
-
     @Inject TrendingTagsPresenter mPresenter;
 
-    @BindView(R.id.search_fragment_recyclerview) RecyclerView recyclerView;
     @BindView(R.id.action_bar) RelativeLayout mActionBar;
     @BindView(R.id.search_bar) RelativeLayout mSearchBar;
-    @BindView(R.id.search_fragment_increasevideoview) IncreasVideoView videoView;
-    @BindView(R.id.items) LinearLayout itemLayout;
+
+    @BindView(R.id.trending_tag1) TextView tag1;
+    @BindView(R.id.trending_tag2) TextView tag2;
+    @BindView(R.id.trending_tag3) TextView tag3;
+    @BindView(R.id.trending_sound1) TextView sound1;
+    @BindView(R.id.trending_sound2) TextView sound2;
+    @BindView(R.id.trending_sound3) TextView sound3;
+    @BindView(R.id.trending_user_id1) TextView userId1;
+    @BindView(R.id.trending_user_id2) TextView userId2;
+    @BindView(R.id.trending_user_id3) TextView userId3;
+    @BindView(R.id.trending_user_image1) ImageView userProfile1;
+    @BindView(R.id.trending_user_image2) ImageView userProfile2;
+    @BindView(R.id.trending_user_image3) ImageView userProfile3;
 
     @OnClick(R.id.search_bar) void clickSearchBar(){
         startActivity(new Intent(getActivity(), SearchBarActivity.class));
     }
 
-    @OnClick(R.id.find_friend_button) void clickFindFriendButton(){
-        startActivity(new Intent(getActivity(), FindFriendActivity.class));
-    }
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -90,8 +98,9 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
         mActionBar.setLayoutParams(params);
 
-        mPresenter.loadVideo();
-        mPresenter.loadTags();
+        mPresenter.loadTrendingTags();
+        mPresenter.loadTrendingSounds();
+        mPresenter.loadTrendingUsers();
         return view;
     }
 
@@ -102,61 +111,12 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
         mPresenter.detachView();
     }
 
-    @Override
-    public void showVideo(SearchHeaderVideoItem video){
-        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + video.getTitle());
-        videoView.setVideoURI(videoFile);
-        videoView.setOnPreparedListener(mp -> videoPlay(videoView, mp));
-        videoView.setOnCompletionListener(mp -> videoPlay(videoView, mp));
-    }
-
-//    private SearchHeaderVideoItem getVideoHeader() {
-//        final String VIDEO_FILE_NAME = "dummy_vodeo_0";
-//        final Uri videoFile = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/" + VIDEO_FILE_NAME);
-//        return new SearchHeaderVideoItem(videoFile, "Title");
-//    }
-
-    private void videoPlay(final IncreasVideoView mVideoView ,final MediaPlayer mediaPlayer) {
-        if(mVideoView != null) {
-            mediaPlayer.setVolume(0, 0);
-            mVideoView.seekTo(0);
-            mVideoView.start();
-        }
-    }
-
-    @Override
-    public void showVideoEmpty(){
-        Toast.makeText(getContext(), "no video", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showVideoError(){
-        DialogFactory.createGenericErrorDialog(getContext(),
-                "There was an error loading video you may know.").show();
-    }
 
     @Override
     public void showTags(List<Tag> tags){
-        for(int i=0; i<tags.size(); i++){
-
-            RelativeLayout item = new RelativeLayout(getActivity());
-            int random = (int)( Math.random() * tagColorList.length);
-            item.setBackgroundColor(Color.parseColor(tagColorList[random]));
-
-            TextView tag = new TextView(getActivity());
-            tag.setText("#"+tags.get(i).tagName());
-            tag.setTextColor(Color.WHITE);
-            tag.setTypeface(tag.getTypeface(), Typeface.BOLD);
-            tag.setTextSize(20);
-            item.addView(tag);
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
-                    , ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20,10,10,10);
-
-            tag.setLayoutParams(params);
-            itemLayout.addView(item);
-        }
+        tag1.setText("# "+tags.get(0).tagName());
+        tag2.setText("# "+tags.get(1).tagName());
+        tag3.setText("# "+tags.get(2).tagName());
     }
 
     @Override
@@ -165,7 +125,49 @@ public class SearchFragment extends Fragment implements TrendingTagsView {
     }
 
     @Override
-    public void showError(){
+    public void showTagsError(){
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading tag.").show();
+    }
+
+
+    @Override
+    public void showSounds(List<Music> musics){
+        sound1.setText(musics.get(0).title()+ " - "+musics.get(0).artist());
+        sound2.setText(musics.get(1).title()+ " - "+musics.get(1).artist());
+        sound3.setText(musics.get(2).title()+ " - "+musics.get(2).artist());
+    }
+
+    @Override
+    public void showSoundsEmpty(){
+        Toast.makeText(getContext(), "no tags", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showSoundsError(){
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading tag.").show();
+    }
+
+
+    @Override
+    public void showUsers(List<Friend> users){
+        Picasso.with(getContext()).load(users.get(0).profile()).transform(new CircleTransform()).into(userProfile1);
+        Picasso.with(getContext()).load(users.get(1).profile()).transform(new CircleTransform()).into(userProfile2);
+        Picasso.with(getContext()).load(users.get(2).profile()).transform(new CircleTransform()).into(userProfile3);
+
+        userId1.setText("@"+users.get(0).id());
+        userId2.setText("@"+users.get(1).id());
+        userId3.setText("@"+users.get(2).id());
+    }
+
+    @Override
+    public void showUsersEmpty(){
+        Toast.makeText(getContext(), "no tags", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showUsersError(){
         DialogFactory.createGenericErrorDialog(getContext(),
                 "There was an error loading tag.").show();
     }

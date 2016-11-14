@@ -1,9 +1,7 @@
 package com.estsoft.muvigram.data.remote;
 
-import android.provider.MediaStore;
-
+import com.estsoft.muvigram.model.Music;
 import com.estsoft.muvigram.model.Tag;
-import com.estsoft.muvigram.ui.search.SearchHeaderVideoItem;
 import com.estsoft.muvigram.util.MyGsonTypeAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,30 +15,33 @@ import retrofit2.http.GET;
 import rx.Observable;
 
 /**
- * Created by JEONGYI on 2016. 11. 8..
+ * Created by JEONGYI on 2016. 11. 7..
  */
 
-public interface SearchFragVideoService {
+public interface TrendingSoundsService {
 
     String ENDPOINT = "http://www.json-generator.com/api/json/get/";
 
-    @GET("cjZIRSBthK")
-    Observable<SearchHeaderVideoItem> getVideo();
+    //데이터를 가져오는 인터페이스
+    @GET("cvRDXVJazS")
+    Observable<List<Music>> getMusics();
 
+    //구현은 레트로핏이 해줌
     class Creator {
-        public static SearchFragVideoService newSearchFragVideoService() {
+        public static TrendingSoundsService newTredingSoundsService() {
             Gson gson = new GsonBuilder()
                     .registerTypeAdapterFactory(MyGsonTypeAdapterFactory.create())
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(TrendingTagsService.ENDPOINT)
+                    .baseUrl(FindFriendService.ENDPOINT)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
 
-            return retrofit.create(SearchFragVideoService.class);
+            return retrofit.create(TrendingSoundsService.class);
         }
+
     }
 
 }

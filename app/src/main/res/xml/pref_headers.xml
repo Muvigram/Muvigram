@@ -5,27 +5,7 @@
     <header
         android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="친구 초대" />
-
-    <header
-        android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
-        android:title="언어" />
-
-    <header
-        android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
-        android:title="지방" />
-
-    <header
-        android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
         android:title="푸시 알림" />
-
-    <header
-        android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
-        android:title="차단 목록 관리" />
 
     <header
         android:fragment="com.estsoft.muvigram.ui.setting.SettingsActivity$GeneralPreferenceFragment"

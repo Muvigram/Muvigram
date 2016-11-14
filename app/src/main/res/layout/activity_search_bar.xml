@@ -51,18 +51,17 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_searchbar_cancel"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/cancel_button"/>
+
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:background="@color/light_blue_300"
-            android:id="@+id/cancel_textview"
-            android:text="Cancel"/>
 
     </LinearLayout>
 

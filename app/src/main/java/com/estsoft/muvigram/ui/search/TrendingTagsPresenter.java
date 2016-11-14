@@ -41,34 +41,12 @@ public class TrendingTagsPresenter extends BasePresenter<TrendingTagsView>{
         mCompositeSubscription.unsubscribe();
     }
 
-    public void loadVideo(){
+
+
+    public void loadTrendingTags(){
         checkViewAttached();
 
-        final Subscription subscribe = mDataManager.getSearchFragVideo()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        video -> {
-                            if (video == null) {
-                                getMvpView().showVideoEmpty();
-                            } else {
-                                getMvpView().showVideo(video);
-                            }
-                        },
-                        e -> {
-                            Timber.e(e, "there was an error loading video");
-                            e.printStackTrace();
-                            getMvpView().showVideoError();
-                        }
-                );
-
-        mCompositeSubscription.add(subscribe);
-    }
-
-    public void loadTags(){
-        checkViewAttached();
-
-        final Subscription subscribe = mDataManager.getTags()
+        final Subscription subscribe = mDataManager.getTrendingTags()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
@@ -81,7 +59,51 @@ public class TrendingTagsPresenter extends BasePresenter<TrendingTagsView>{
                         },
                         e -> {
                             Timber.e(e, "There was an error loading tags");
-                            getMvpView().showError();
+                            getMvpView().showTagsError();
+                        }
+                );
+        mCompositeSubscription.add(subscribe);
+    }
+
+    public void loadTrendingSounds(){
+        checkViewAttached();
+
+        final Subscription subscribe = mDataManager.getTrendingSounds()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        sounds -> {
+                            if (sounds.isEmpty()) {
+                                getMvpView().showSoundsEmpty();
+                            } else {
+                                getMvpView().showSounds(sounds);
+                            }
+                        },
+                        e -> {
+                            Timber.e(e, "There was an error loading tags");
+                            getMvpView().showSoundsError();
+                        }
+                );
+        mCompositeSubscription.add(subscribe);
+    }
+
+    public void loadTrendingUsers(){
+        checkViewAttached();
+
+        final Subscription subscribe = mDataManager.getTrendingUsers()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        users -> {
+                            if (users.isEmpty()) {
+                                getMvpView().showUsersEmpty();
+                            } else {
+                                getMvpView().showUsers(users);
+                            }
+                        },
+                        e -> {
+                            Timber.e(e, "There was an error loading tags");
+                            getMvpView().showUsersError();
                         }
                 );
         mCompositeSubscription.add(subscribe);

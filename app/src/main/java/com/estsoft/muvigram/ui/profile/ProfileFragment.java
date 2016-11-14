@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -17,13 +18,25 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerSingleFragment;
+import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
+import com.estsoft.muvigram.model.ProfileThumbnailRepo;
 import com.estsoft.muvigram.model.UserInfoRepo;
 import com.estsoft.muvigram.ui.friend.FindFriendActivity;
+import com.estsoft.muvigram.ui.home.HomeActivity;
 import com.estsoft.muvigram.ui.setting.SettingsActivity;
+import com.estsoft.muvigram.util.DialogFactory;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,24 +46,25 @@ import butterknife.OnClick;
  * Created by JEONGYI on 2016. 10. 11..
  */
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileFragmentView{
+
+    @Inject ProfileFragmentPresenter mPresenter;
+    ImageAdapter mAdapter ;
 
     @BindView(R.id.find_friend_button) ImageButton findFriendButton;
     @BindView(R.id.setting_button) ImageButton settingButton;
     @BindView(R.id.action_bar) RelativeLayout mActionBar;
-    @BindView(R.id.id) TextView userId;
-    @BindView(R.id.bio) TextView userBio;
-    @BindView(R.id.name) TextView userName;
+    @BindView(R.id.profile_image) ImageView profileImageView;
+    @BindView(R.id.id) TextView userIdTextView;
+    @BindView(R.id.bio) TextView userBioTextView;
+    @BindView(R.id.name) TextView userNameTextView;
+    @BindView(R.id.profile_gridview) ExpandableHeightGridView gridView;
 
-    UserInfoRepo user = new UserInfoRepo("pwjddl1126","박정이",
-            "\"live with passion, live like muvigram\"",
-            "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg");
-    private Integer[] mProfileThum = {R.drawable.profile_test, R.drawable.profile_test1,
-            R.drawable.profile_test2, R.drawable.profile_test3, R.drawable.profile_test};
+    private String userId;
+    private String userName;
+    private String profileImage;
+    private String bio;
 
-//    @Inject
-//    ProfilePresenter mProfilePresenter;
-//    private Integer[] mProfileThum = mProfilePresenter.loadThumbnails();
     DisplayMetrics mMetrics;
 
 
@@ -62,9 +76,21 @@ public class ProfileFragment extends Fragment {
         startActivity(new Intent(getActivity(), SettingsActivity.class));
     }
 
+    @OnClick(R.id.edit_profile_button) void clickEditProfile(){
+        Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("userBio", bio);
+        intent.putExtra("userName", userName);
+        intent.putExtra("userProfileImage",profileImage);
+        startActivityForResult(intent,0);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+
+        activityComponent.inject(this);
 
     }
 
@@ -74,39 +100,74 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this,v);
 
-        ImageView profile = (ImageView) v.findViewById(R.id.profile_image);
-        Picasso.with(getActivity())
-                .load(user.getProfileImage())
-                .transform(new CircleTransform()).into(profile);
-
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
         params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
         mActionBar.setLayoutParams(params);
 
-        userId.setText("@"+user.getUserid());
-        userBio.setText(user.getBio());
-        userName.setText(user.getUserName());
+        mPresenter.attachView(this);
+        mPresenter.loadUserInfo();
+        mPresenter.loadThumbnail();
 
-        //프로필 수정
-        Button editProfileButton = (Button)v.findViewById(R.id.edit_profile_button);
-        editProfileButton.setOnClickListener(v1 -> {
-            Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-            intent.putExtra("userId", user.getUserid());
-            intent.putExtra("userBio", user.getBio());
-            intent.putExtra("userName", user.getUserName());
-            intent.putExtra("userProfileImage",user.getProfileImage());
-            startActivityForResult(intent,0);
-        });
+        return v;
+    }
 
-        //그리드뷰
-        ExpandableHeightGridView gridView = (ExpandableHeightGridView)v.findViewById(R.id.profile_gridview);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
+    @Override
+    public void showUserInfo(UserInfoRepo userInfo){
+
+        userId = userInfo.userid();
+        userName  =userInfo.userName();
+        profileImage = userInfo.profileImage();
+        bio = userInfo.bio();
+
+        Picasso.with(getActivity())
+                .load(profileImage)
+                .transform(new CircleTransform()).into(profileImageView);
+        profileImageView.setFocusable(true);
+
+        userIdTextView.setText("@"+userId);
+        userBioTextView.setText("\""+bio+"\"");
+        userNameTextView.setText(userName);
+
+    }
+
+    @Override
+    public void showUserInfoEmpty(){
+        Toast.makeText(getContext(), "no userInfo", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showUserInfoError(){
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading UserInfo.").show();
+    }
+
+    @Override
+    public void showThumbnail(List<ProfileThumbnailRepo> thumbnail){
         gridView.setExpanded(true);
-        gridView.setAdapter(new ImageAdapter(getActivity()));
+        mAdapter = new ImageAdapter(getActivity());
+        mAdapter.setThumbnails(thumbnail);
+        gridView.setAdapter(mAdapter);
+
 //        gridView.setOnItemClickListener(gridViewOnItemClickListener);
         mMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
+    }
 
-        return v;
+    @Override
+    public void showThumbnailEmpty(){
+        Toast.makeText(getContext(), "no thumbnail", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showThumbnailError(){
+        DialogFactory.createGenericErrorDialog(getContext(),
+                "There was an error loading Thumbnail.").show();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,35 +175,49 @@ public class ProfileFragment extends Fragment {
         switch (resultCode) {
             case -1:
                 Log.d("----->","asdfasdf");
-                String userId = data.getStringExtra("userId");
-                String userName = data.getStringExtra("userName");
-                String userBio = data.getStringExtra("userBio");
-                user.setUserid(userId);
-                user.setUserName(userName);
-                user.setBio(userBio);
+                String tempUserId = data.getStringExtra("userId");
+                String tempUserName = data.getStringExtra("userName");
+                String tempUserBio = data.getStringExtra("userBio");
+
+                //TODO-- insert editted info into database
+//                user.setUserid(userId);
+//                user.setUserName(userName);
+//                user.setBio(userBio);
+                userId = tempUserId;
+                userName = tempUserName;
+                bio = tempUserBio;
                 break;
+
             default:
                 break;
         }
 
-        userId.setText("@"+user.getUserid());
-        userBio.setText(user.getBio());
-        userName.setText(user.getUserName());
+        userIdTextView.setText("@"+userId);
+        userBioTextView.setText("\""+bio+"\"");
+        userNameTextView.setText(userName);
     }
 
     public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
 
-        public ImageAdapter(Context c) {
-            mContext = c;
+        private Context mContext;
+        private List<ProfileThumbnailRepo> mThumbnails;
+
+        @ActivityContext
+        public ImageAdapter(Context context) {
+            mContext = context;
+            this.mThumbnails = new ArrayList<>();
+        }
+
+        public void setThumbnails(List<ProfileThumbnailRepo> thumbnails){
+            mThumbnails = thumbnails;
         }
 
         public int getCount() {
-            return mProfileThum.length;
+            return mThumbnails.size();
         }
 
         public Object getItem(int position) {
-            return mProfileThum[position];
+            return mThumbnails.get(position);
         }
 
         public long getItemId(int position) {
@@ -163,7 +238,11 @@ public class ProfileFragment extends Fragment {
             } else {
                 imageView = (ImageView) convertView;
             }
-            imageView.setImageResource(mProfileThum[position]);
+
+            Picasso.with(mContext)
+                    .load(mThumbnails.get(position).thumbnail())
+                    .into(imageView);
+
             return imageView;
         }
     }

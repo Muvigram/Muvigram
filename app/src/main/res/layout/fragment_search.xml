@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/light_blue_300"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent">
-
-
-
+              android:orientation="vertical"
+              android:background="@color/light_blue_300"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:id="@+id/action_bar"
@@ -46,171 +43,152 @@
 
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/find_friend_button"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/search_find_friend_button_event"
-                android:src="@drawable/ic_action_search_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                tools:ignore="ContentDescription,RtlHardcoded,RtlSymmetry"
-                android:contentDescription="클릭 시 친구 찾기 액티비티로 이동"/>
-
-
         </RelativeLayout>
 
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/indigo_300">
-
-        <com.estsoft.muvigram.customview.IncreasVideoView
-            android:id="@+id/search_fragment_increasevideoview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="80dip"
-        android:background="@color/grey_300">
-
-        <LinearLayout
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_search_popular_now"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cardview_text_1"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="55dp"
             android:background="@color/white">
 
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_search_leaderboard"/>
+                android:text="@string/trending_tags"
+                android:padding="8dp"
+                android:textStyle="bold"/>
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cardview_text_2"
-                android:gravity="center"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="80dip"
-        android:background="@color/grey_300">
-
-        <LinearLayout
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_search_songchart"/>
+                android:id="@+id/trending_tag1"
+                android:padding="8dp"/>
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_tag2"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_tag3"
+                android:padding="8dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trending_sounds"
+                android:padding="8dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_sound1"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_sound2"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_sound3"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trending_users"
+                android:padding="8dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="8dp"
                 android:gravity="center"
-                android:text="@string/cardview_text_3"/>
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/trending_user_image1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trending_user_id1"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/trending_user_image2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trending_user_id2"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/trending_user_image3"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/trending_user_id3"
+                        android:padding="8dp"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
-        <LinearLayout
-          android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_search_popular_now"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cardview_text_4"
-                android:gravity="center"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/grey_300">
-        <TextView
-            android:layout_centerInParent="true"
-            android:text="@string/search_heard_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/items"
-        android:layout_marginBottom="53dp"
-        android:orientation="vertical">
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_fragment_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    </LinearLayout>
     </ScrollView>
 </LinearLayout>

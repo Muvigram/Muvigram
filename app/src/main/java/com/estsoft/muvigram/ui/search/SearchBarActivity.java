@@ -88,7 +88,7 @@ public class SearchBarActivity extends BasePlainActivity implements SearchBarVie
         searchEditTextWatcher();
     }
 
-    @OnClick(R.id.cancel_textview) void clickCancel(){
+    @OnClick(R.id.cancel_button) void clickCancel(){
         searchEditText.setText("");
     }
 

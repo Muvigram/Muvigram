@@ -7,16 +7,21 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
-import com.estsoft.muvigram.data.remote.SearchFragVideoService;
+import com.estsoft.muvigram.data.remote.ProfileThumbnailService;
+import com.estsoft.muvigram.data.remote.ProfileUserInfoService;
 import com.estsoft.muvigram.data.remote.SearchMusicService;
 import com.estsoft.muvigram.data.remote.SearchTagService;
 import com.estsoft.muvigram.data.remote.SearchUserService;
+import com.estsoft.muvigram.data.remote.TrendingSoundsService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
+import com.estsoft.muvigram.data.remote.TrendingUsersService;
 import com.estsoft.muvigram.model.Category;
 import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
+import com.estsoft.muvigram.model.ProfileThumbnailRepo;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.model.TestRepo;
+import com.estsoft.muvigram.model.UserInfoRepo;
 import com.estsoft.muvigram.ui.search.SearchHeaderVideoItem;
 
 import java.util.List;
@@ -36,31 +41,44 @@ public class DataManager {
     private final LoginTestService mLoginTestService;
     private final MusicSelectService mMusicSelectService;
     private final FindFriendService mFindFriendService;
-    private final TrendingTagsService mTrendingTagsService;
-    private final SearchFragVideoService mSearchFragVideoService;
+
+    //SearchFragment
     private final SearchUserService mSearchUserService;
     private final SearchTagService mSearchTagService;
     private final SearchMusicService mSearchMusicService;
+    private final TrendingTagsService mTrendingTagsService;
+    private final TrendingSoundsService mTrendingSoundsService;
+    private final TrendingUsersService mTrendingUsersService;
+
+    //ProfileFragment
+    private final ProfileUserInfoService mProfileUserInfoService;
+    private final ProfileThumbnailService mProfileThumbnailService;
 
     @Inject
     public DataManager(NetworkTestService networkTestService,
                        LoginTestService loginTestService,
                        MusicSelectService musicSelectService,
                        FindFriendService findFriendService,
-                       TrendingTagsService trendingTagsService,
-                       SearchFragVideoService searchFragVideoService,
                        SearchUserService searchUserService,
                        SearchTagService searchTagService,
-                       SearchMusicService searchMusicService) {
+                       SearchMusicService searchMusicService,
+                       TrendingTagsService trendingTagsService,
+                       TrendingSoundsService trendingSoundsService,
+                       TrendingUsersService trendingUsersService,
+                       ProfileUserInfoService userInfoService,
+                       ProfileThumbnailService profileThumbnailService) {
         this.mNetworkTestService = networkTestService;
         this.mLoginTestService = loginTestService;
         this.mMusicSelectService = musicSelectService;
         this.mFindFriendService = findFriendService;
-        this.mTrendingTagsService = trendingTagsService;
-        this.mSearchFragVideoService = searchFragVideoService;
         this.mSearchUserService = searchUserService;
         this.mSearchTagService = searchTagService;
         this.mSearchMusicService = searchMusicService;
+        this.mTrendingTagsService = trendingTagsService;
+        this.mTrendingSoundsService = trendingSoundsService;
+        this.mTrendingUsersService = trendingUsersService;
+        this.mProfileUserInfoService = userInfoService;
+        this.mProfileThumbnailService = profileThumbnailService;
     }
 
     public Observable<TestRepo> getLoginTestService() {
@@ -79,25 +97,27 @@ public class DataManager {
         return mMusicSelectService.getMusics();
     }
 
-    public Observable<List<Friend>> getFriends() {
-        return mFindFriendService.getFriends();
-    }
 
-    public Observable<List<Tag>> getTags() { return  mTrendingTagsService.getTags(); }
-
+    //SearchFragment
     public Observable<List<Friend>> getSearchUsers() {
         return mSearchUserService.getUsers();
     }
-
     public Observable<List<Tag>> getSearchTags(){
         return mSearchTagService.getTags();
     }
+    public Observable<List<Music>> getSearchMusics() { return mSearchMusicService.getMusics();}
+    public Observable<List<Tag>> getTrendingTags() { return  mTrendingTagsService.getTags(); }
+    public Observable<List<Music>> getTrendingSounds() {return  mTrendingSoundsService.getMusics();}
+    public Observable<List<Friend>> getTrendingUsers() {return  mTrendingUsersService.getFriends();}
 
-    public Observable<List<Music>> getSearchMusics() {
-        return mSearchMusicService.getMusics();
+
+    //ProfileFragment
+    public Observable<List<Friend>> getFriends() {
+        return mFindFriendService.getFriends();
     }
+    public Observable<UserInfoRepo> getProfileUserInfo() { return  mProfileUserInfoService.getUserInfo();}
+    public Observable<List<ProfileThumbnailRepo>> getProfileThumbnail() { return mProfileThumbnailService.getThumbnails();}
 
-    public Observable<SearchHeaderVideoItem> getSearchFragVideo() { return mSearchFragVideoService.getVideo();}
 
 //    public Observable<Category> getCategories() {
 //        return mMusicSelectService.getCategries()

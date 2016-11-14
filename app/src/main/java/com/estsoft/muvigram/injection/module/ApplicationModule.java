@@ -9,11 +9,14 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
-import com.estsoft.muvigram.data.remote.SearchFragVideoService;
+import com.estsoft.muvigram.data.remote.ProfileThumbnailService;
+import com.estsoft.muvigram.data.remote.ProfileUserInfoService;
 import com.estsoft.muvigram.data.remote.SearchMusicService;
 import com.estsoft.muvigram.data.remote.SearchTagService;
 import com.estsoft.muvigram.data.remote.SearchUserService;
+import com.estsoft.muvigram.data.remote.TrendingSoundsService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
+import com.estsoft.muvigram.data.remote.TrendingUsersService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 
 import javax.inject.Singleton;
@@ -88,8 +91,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    SearchFragVideoService provideSearchFragVideoService(){
-        return SearchFragVideoService.Creator.newSearchFragVideoService();
+    TrendingSoundsService provideTrendingSoundsService(){
+        return TrendingSoundsService.Creator.newTredingSoundsService();
+    }
+
+    @Provides
+    @Singleton
+    TrendingUsersService provideTrendingUsersService(){
+        return TrendingUsersService.Creator.newTrendingUserService();
     }
 
     @Provides
@@ -108,5 +117,17 @@ public class ApplicationModule {
     @Singleton
     SearchMusicService provideSearchMusicService(){
         return SearchMusicService.Creator.newSearchMusicService();
+    }
+
+    @Provides
+    @Singleton
+    ProfileUserInfoService provideProfileUserInfoService(){
+        return ProfileUserInfoService.Creator.newProfileUserInfoService();
+    }
+
+    @Provides
+    @Singleton
+    ProfileThumbnailService provideProfileThumbnailService(){
+        return ProfileThumbnailService.Creator.newProfileThumbnailService();
     }
 }

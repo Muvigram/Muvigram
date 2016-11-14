@@ -15,23 +15,30 @@
         android:id="@+id/action_bar"
         android:gravity="center">
 
-        <Button
-            android:text="@string/notify_text_all"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:id="@+id/all_button"
-            android:background="@color/gray"
-            android:textAllCaps="false"/>
-
-        <Button
-            android:text="@string/notify_text_priority"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="@color/gray"
-            android:layout_marginLeft="4dp"
-            android:id="@+id/prefer_button"
-            android:textAllCaps="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/notifications"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
 
     </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_layout">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerview"
+            android:background="@color/white"
+            android:scrollbars="vertical"
+            android:layout_marginBottom="50dp"
+            >
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

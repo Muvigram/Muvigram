@@ -82,10 +82,9 @@
 
 
     <!-- Search Fragment -->
-    <string name="cardview_text_1">popular now</string>
-    <string name="cardview_text_2">leaderboard</string>
-    <string name="cardview_text_3">song chart</string>
-    <string name="cardview_text_4">live moments</string>
+    <string name="trending_tags">Trending tags</string>
+    <string name="trending_sounds">Trending sounds</string>
+    <string name="trending_users">Trending users</string>
 
     <string name="search_people">search people</string>
     <string name="search_tags">search tags</string>
@@ -93,8 +92,7 @@
 
 
     <!-- Notify Fragment -->
-    <string name="notify_text_all">all</string>
-    <string name="notify_text_priority">priority</string>
+    <string name="notifications">Notifications</string>
     <string name="notify_follow_message">is now following you</string>
     <string name="notify_like_message">liked your muvigram</string>
     <string name="notify_reply_message">commented on your muvigram</string>
