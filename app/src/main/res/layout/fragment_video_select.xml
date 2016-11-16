@@ -42,15 +42,13 @@
             android:layout_gravity="bottom"
             android:background="@android:color/darker_gray"/>
 
-        <GridView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="4"
-            android:columnWidth="100dp"
-            android:horizontalSpacing="2dp"
-            android:verticalSpacing="2dp"
+            android:scrollbars="none"
             android:id="@+id/select_video_grid">
-        </GridView>
+
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 
