@@ -6,6 +6,9 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
+import com.estsoft.muvigram.data.remote.NotifyCommentService;
+import com.estsoft.muvigram.data.remote.NotifyFollowService;
+import com.estsoft.muvigram.data.remote.NotifyLikeService;
 import com.estsoft.muvigram.data.remote.ProfileThumbnailService;
 import com.estsoft.muvigram.data.remote.ProfileUserInfoService;
 import com.estsoft.muvigram.data.remote.SearchMusicService;
@@ -18,6 +21,9 @@ import com.estsoft.muvigram.model.Category;
 import com.estsoft.muvigram.model.FeedRepo;
 import com.estsoft.muvigram.model.Friend;
 import com.estsoft.muvigram.model.Music;
+import com.estsoft.muvigram.model.NotifyComment;
+import com.estsoft.muvigram.model.NotifyFollow;
+import com.estsoft.muvigram.model.NotifyLike;
 import com.estsoft.muvigram.model.ProfileThumbnailRepo;
 import com.estsoft.muvigram.model.Tag;
 import com.estsoft.muvigram.model.TestRepo;
@@ -52,6 +58,11 @@ public class DataManager {
     private final TrendingSoundsService mTrendingSoundsService;
     private final TrendingUsersService mTrendingUsersService;
 
+    //NotifyFragement
+    private final NotifyCommentService mNotifyCommentService;
+    private final NotifyFollowService mNotifyFollowService;
+    private final NotifyLikeService mNotifyLikeService;
+
     //ProfileFragment
     private final ProfileUserInfoService mProfileUserInfoService;
     private final ProfileThumbnailService mProfileThumbnailService;
@@ -69,7 +80,10 @@ public class DataManager {
                        TrendingUsersService trendingUsersService,
                        ProfileUserInfoService userInfoService,
                        ProfileThumbnailService profileThumbnailService,
-                       FeedService mFeedService) {
+                       FeedService mFeedService,
+                       NotifyCommentService notifyCommentService,
+                       NotifyFollowService notifyFollowService,
+                       NotifyLikeService notifyLikeService) {
         this.mNetworkTestService = networkTestService;
         this.mLoginTestService = loginTestService;
         this.mMusicSelectService = musicSelectService;
@@ -83,6 +97,9 @@ public class DataManager {
         this.mProfileUserInfoService = userInfoService;
         this.mProfileThumbnailService = profileThumbnailService;
         this.mFeedService = mFeedService;
+        this.mNotifyCommentService = notifyCommentService;
+        this.mNotifyFollowService = notifyFollowService;
+        this.mNotifyLikeService =  notifyLikeService;
     }
 
     public Observable<TestRepo> getLoginTestService() {
@@ -109,22 +126,23 @@ public class DataManager {
     public Observable<List<Friend>> getSearchUsers() {
         return mSearchUserService.getUsers();
     }
-
     public Observable<List<Tag>> getSearchTags(){
         return mSearchTagService.getTags();
     }
-
-
     public Observable<List<Music>> getSearchMusics() { return mSearchMusicService.getMusics();}
+
     public Observable<List<Tag>> getTrendingTags() { return  mTrendingTagsService.getTags(); }
     public Observable<List<Music>> getTrendingSounds() {return  mTrendingSoundsService.getMusics();}
     public Observable<List<Friend>> getTrendingUsers() {return  mTrendingUsersService.getFriends();}
 
+    //NotifyFragment
+    public Observable<List<NotifyComment>> getNotifyComments() {return  mNotifyCommentService.getNotifyComment();}
+    public Observable<List<NotifyFollow>> getNotifyFollow() {return  mNotifyFollowService.getNotifyFollowService();}
+    public Observable<List<NotifyLike>> getNotifyLikes() {return  mNotifyLikeService.getNotifyLike();}
+
 
     //ProfileFragment
-    public Observable<List<Friend>> getFriends() {
-        return mFindFriendService.getFriends();
-    }
+    public Observable<List<Friend>> getFriends() { return mFindFriendService.getFriends();}
     public Observable<UserInfoRepo> getProfileUserInfo() { return  mProfileUserInfoService.getUserInfo();}
     public Observable<List<ProfileThumbnailRepo>> getProfileThumbnail() { return mProfileThumbnailService.getThumbnails();}
 

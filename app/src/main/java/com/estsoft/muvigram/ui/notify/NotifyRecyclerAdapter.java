@@ -11,11 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.PerParentFragment;
+import com.estsoft.muvigram.injection.PerPlainActivity;
+import com.estsoft.muvigram.injection.qualifier.ActivityContext;
 import com.estsoft.muvigram.ui.profile.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,11 +30,13 @@ import timber.log.Timber;
  * Created by JEONGYI on 2016. 10. 19..
  */
 
+@PerParentFragment
 public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private static final int TYPE_ITEM_FOLLOW = 0;
     private static final int TYPE_ITEM_LIKE = 1;
     private static final int TYPE_ITEM_REPLY = 2;
+    private final Context mContext;
     private static final String PROFILE_IMAGE = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
     private static final String VIDEO_THUMBNAILS = "https://pbs.twimg.com/media/CODCz6EUcAAvryE.jpg";
 
@@ -38,9 +45,15 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private List<NotificationItem> mNotificationItemList;
     private NotificationItem mNotificationItem;
 
-    public NotifyRecyclerAdapter(List<NotificationItem> mNotificationItemList) {
+    @Inject
+    public NotifyRecyclerAdapter(@ActivityContext Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public void setNotificationItemList(List<NotificationItem> mNotificationItemList){
         this.mNotificationItemList = mNotificationItemList;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder (ViewGroup parent, int position){
@@ -65,11 +78,11 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         if(holder instanceof FollowItemViewHolder) {
             FollowItemViewHolder followItemViewHolder = (FollowItemViewHolder) holder;
-            followItemViewHolder.id.setText ("like_id");
+            followItemViewHolder.id.setText (mNotificationItemList.get(position).getNotifyFollow().user());
 
             context = followItemViewHolder.profile.getContext();
             Picasso.with(context)
-                    .load(PROFILE_IMAGE)
+                    .load(mNotificationItemList.get(position).getNotifyFollow().profile())
                     .transform(new CircleTransform()).into(followItemViewHolder.profile);
 
 
@@ -86,33 +99,33 @@ public class NotifyRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         } else if(holder instanceof LikeItemViewHolder) {
             LikeItemViewHolder likeItemViewHolder = (LikeItemViewHolder) holder;
-            likeItemViewHolder.id.setText ("like_id");
+            likeItemViewHolder.id.setText (mNotificationItemList.get(position).getNotifyLike().user());
 
             context = likeItemViewHolder.profile.getContext();
             Picasso.with(context)
-                    .load(PROFILE_IMAGE)
+                    .load(mNotificationItemList.get(position).getNotifyLike().profile())
                     .transform(new CircleTransform()).into(likeItemViewHolder.profile);
 
             context = likeItemViewHolder.thumbnail.getContext();
             Picasso.with(context)
-                    .load(VIDEO_THUMBNAILS)
+                    .load(mNotificationItemList.get(position).getNotifyLike().thumbnail())
                     .resize(70, 70)
                     .into(likeItemViewHolder.thumbnail);
 
         } else if(holder instanceof ReplyItemViewHolder) {
             ReplyItemViewHolder replyItemViewHolder = (ReplyItemViewHolder) holder;
-            replyItemViewHolder.id.setText("reply_id");
-            replyItemViewHolder.reply.setText("reply yeah");
+            replyItemViewHolder.id.setText(mNotificationItemList.get(position).getNotifyComment().user());
+            replyItemViewHolder.reply.setText(mNotificationItemList.get(position).getNotifyComment().content());
 
 
             context = replyItemViewHolder.profile.getContext();
             Picasso.with(context)
-                    .load(PROFILE_IMAGE)
+                    .load(mNotificationItemList.get(position).getNotifyComment().profile())
                     .transform(new CircleTransform()).into(replyItemViewHolder.profile);
 
             context = replyItemViewHolder.thumbnail.getContext();
             Picasso.with(context)
-                    .load(VIDEO_THUMBNAILS)
+                    .load(mNotificationItemList.get(position).getNotifyComment().thumbnail())
                     .resize(70, 70)
                     .into(replyItemViewHolder.thumbnail);
         }

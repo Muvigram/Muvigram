@@ -5,6 +5,7 @@ import com.estsoft.muvigram.injection.module.NestedFragmentModule;
 import com.estsoft.muvigram.injection.module.ParentFragmentModule;
 import com.estsoft.muvigram.ui.feed.FeedFragment;
 import com.estsoft.muvigram.ui.musicselect.pager.MusicSelectFragment;
+import com.estsoft.muvigram.ui.notify.NotifyFragment;
 import com.estsoft.muvigram.ui.profile.ProfileFragment;
 import com.estsoft.muvigram.ui.search.SearchFragment;
 
@@ -32,5 +33,6 @@ public interface ParentFragmentComponent {
     void inject(FeedFragment feedFragment);
 
     void inject(SearchFragment searchFragment);
+    void inject(NotifyFragment notifyFragment);
     void inject(ProfileFragment profileFragment);
 }

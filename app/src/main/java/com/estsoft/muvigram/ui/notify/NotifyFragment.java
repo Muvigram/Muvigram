@@ -14,27 +14,50 @@ import android.widget.LinearLayout;
 
 import com.estsoft.muvigram.MuvigramApplication;
 import com.estsoft.muvigram.R;
+import com.estsoft.muvigram.injection.component.ParentFragmentComponent;
+import com.estsoft.muvigram.model.NotifyComment;
+import com.estsoft.muvigram.model.NotifyFollow;
+import com.estsoft.muvigram.model.NotifyLike;
+import com.estsoft.muvigram.ui.home.HomeActivity;
+import com.estsoft.muvigram.ui.profile.ProfileFragment;
+import com.estsoft.muvigram.ui.profile.ProfileFragmentPresenter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * Created by JEONGYI on 2016. 10. 11..
  */
 
-public class NotifyFragment extends Fragment {
+public class NotifyFragment extends Fragment implements NotifyFragmentView{
+
+    @Inject NotifyFragmentPresenter mPresenter;
+    @Inject NotifyRecyclerAdapter mAdapter ;
 
     @BindView(R.id.action_bar) LinearLayout mActionBar;
     @BindView(R.id.recyclerview) RecyclerView recyclerView;
     @BindView(R.id.swipe_layout) SwipeRefreshLayout mSwipeRefreshLayout;
 
+    List<NotificationItem> listItems = new ArrayList<>();
+    boolean isFollowChecked = false;
+    boolean isCommentChecked = false;
+    boolean isLikeChecked = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        ParentFragmentComponent activityComponent = ((HomeActivity) getActivity()).getSingleFragmentActivityComponent(this);
+
+        activityComponent.inject(this);
     }
 
     @Override
@@ -43,79 +66,138 @@ public class NotifyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notify, container, false);
         ButterKnife.bind(this,view);
 
-        initRecyclerView();
-
         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mActionBar.getLayoutParams();
         params.setMargins(0, ((MuvigramApplication) getActivity().getApplication()).getStatusBarHeight(), 0, 0);
         mActionBar.setLayoutParams(params);
+        mPresenter.attachView(this);
+
+        Timber.e("before loading");
+        mPresenter.loadNotifyComments();
+        mPresenter.loadNotifyFollow();
+        mPresenter.loadNotifyLikes();
+        Timber.e("after loading");
+
+
+        initRecyclerView();
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
-        NotifyRecyclerAdapter adapter = new NotifyRecyclerAdapter(getNotificationItems());
+
+        Collections.sort(listItems, new DateDescCompare() );
+        mAdapter.setNotificationItemList(listItems);
+
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // 새로고침 코드
-                adapter.clear();
-                adapter.addAll(refreshTest());
+//                mAdapter.clear();
+//                mAdapter.addAll(refreshTest());
+                mAdapter.notifyDataSetChanged();
                 // 새로고침 완료
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
-    public List<NotificationItem> getNotificationItems()
-    {
-        List<NotificationItem> listItems = new ArrayList<>();
-        NotificationItem[] items = new NotificationItem[10];
-
-        for(int i=0; i<5; i++){
-            items[i] = new NotificationItem();
+    static class DateDescCompare implements Comparator<NotificationItem> {
+        @Override
+        public int compare(NotificationItem arg0, NotificationItem arg1) {
+            return arg0.getDate() > arg1.getDate() ? -1 : arg0.getDate() < arg1.getDate() ? 1:0;
         }
 
-        items[0].add(new NotifyFollowItem());
-        items[1].add(new NotifyLikeItem());
-        items[2].add(new NotifyReplyItem());
-        items[3].add(new NotifyLikeItem());
-        items[4].add(new NotifyFollowItem());
-
-        for(int i=0; i<5; i++){
-            listItems.add(items[i]);
-        }
-
-        return listItems;
     }
 
     public List<NotificationItem> refreshTest()
     {
-        List<NotificationItem> listItems = new ArrayList<>();
-        NotificationItem[] items = new NotificationItem[10];
-
-        for(int i=0; i<6; i++){
-            items[i] = new NotificationItem();
-        }
-
-        items[0].add(new NotifyFollowItem());
-        items[1].add(new NotifyLikeItem());
-        items[2].add(new NotifyReplyItem());
-        items[3].add(new NotifyLikeItem());
-        items[4].add(new NotifyFollowItem());
-        items[5].add(new NotifyFollowItem());
-
-        for(int i=0; i<6; i++){
-            listItems.add(items[i]);
-        }
-
+        //TODO -- set new data
         return listItems;
+    }
+
+    @Override
+    public void showComments(List<NotifyComment> comments){
+        if(!isCommentChecked) {
+            for (int i = 0; i < comments.size(); i++) {
+                NotificationItem notificationItem = new NotificationItem();
+                notificationItem.add(comments.get(i));
+                listItems.add(notificationItem);
+            }
+            isCommentChecked = true;
+        }
+        Collections.sort(listItems, new DateDescCompare() );
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showCommentsEmpty(){
+
+    }
+
+    @Override
+    public void showCommentsError(){
+
+    }
+
+    @Override
+    public void showFollow(List<NotifyFollow> follows){
+        if(!isFollowChecked) {
+            for (int i = 0; i < follows.size(); i++) {
+                NotificationItem notificationItem = new NotificationItem();
+                notificationItem.add(follows.get(i));
+                listItems.add(notificationItem);
+            }
+            isFollowChecked = true;
+        }
+        Collections.sort(listItems, new DateDescCompare() );
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showFollowEmpty(){
+
+    }
+
+    @Override
+    public void showFollowError(){
+
+    }
+
+    @Override
+    public void showLikes(List<NotifyLike> likes){
+        if(!isLikeChecked) {
+            for (int i = 0; i < likes.size(); i++) {
+                NotificationItem notificationItem = new NotificationItem();
+                notificationItem.add(likes.get(i));
+                listItems.add(notificationItem);
+            }
+            isLikeChecked = true;
+        }
+        Collections.sort(listItems, new DateDescCompare() );
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLikesEmpty(){
+
+    }
+
+    @Override
+    public void showLikesError(){
+
     }
 
 }

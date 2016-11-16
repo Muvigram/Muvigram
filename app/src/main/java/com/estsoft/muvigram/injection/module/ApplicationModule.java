@@ -10,6 +10,9 @@ import com.estsoft.muvigram.data.remote.FindFriendService;
 import com.estsoft.muvigram.data.remote.LoginTestService;
 import com.estsoft.muvigram.data.remote.MusicSelectService;
 import com.estsoft.muvigram.data.remote.NetworkTestService;
+import com.estsoft.muvigram.data.remote.NotifyCommentService;
+import com.estsoft.muvigram.data.remote.NotifyFollowService;
+import com.estsoft.muvigram.data.remote.NotifyLikeService;
 import com.estsoft.muvigram.data.remote.ProfileThumbnailService;
 import com.estsoft.muvigram.data.remote.ProfileUserInfoService;
 import com.estsoft.muvigram.data.remote.SearchMusicService;
@@ -19,6 +22,7 @@ import com.estsoft.muvigram.data.remote.TrendingSoundsService;
 import com.estsoft.muvigram.data.remote.TrendingTagsService;
 import com.estsoft.muvigram.data.remote.TrendingUsersService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
+import com.estsoft.muvigram.model.NotifyFollow;
 
 import javax.inject.Singleton;
 
@@ -123,6 +127,24 @@ public class ApplicationModule {
     @Singleton
     SearchMusicService provideSearchMusicService(){
         return SearchMusicService.Creator.newSearchMusicService();
+    }
+
+    @Provides
+    @Singleton
+    NotifyCommentService provideNotifyCommnetSerivce(){
+        return NotifyCommentService.Creator.newNotifyCommentService();
+    }
+
+    @Provides
+    @Singleton
+    NotifyFollowService provideNotifyFollowService(){
+        return NotifyFollowService.Creator.newNotifyFollowService();
+    }
+
+    @Provides
+    @Singleton
+    NotifyLikeService provideNotifyLikeService(){
+        return NotifyLikeService.Creator.newNotifyLikeService();
     }
 
     @Provides
