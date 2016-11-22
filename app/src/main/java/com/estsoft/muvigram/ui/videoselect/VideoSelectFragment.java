@@ -37,7 +37,7 @@ public class VideoSelectFragment extends BaseSingleFragment implements VideoSele
     
     private static final String TAG = "VideoSelectFragment";
     private static final int MIN_DURATION = 15;
-    private static final int MAX_DURATION = 180;
+    private static final int MAX_DURATION = 210;
 
     @Inject VideoSelectPresenter mPresenter;
     @Inject ThumbnailListAdapter mThumbnailAdaptor;

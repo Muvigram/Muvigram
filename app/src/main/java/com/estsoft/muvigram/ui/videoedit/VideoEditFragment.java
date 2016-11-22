@@ -144,12 +144,14 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
 
         //video prepare
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        Log.d(TAG, "onStart: " + mCutVideoPath);
         retriever.setDataSource(mCutVideoPath);
 
         mAudioPlayer.seekTo(mAudioOffset);
 //        mVideoView.seekTo( 0 );
         // for audioCutFragments
         mVideoDuration = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+        Log.d(TAG, "onStart: " + mVideoDuration);
 
         mPresenter.setAudioOffset(mAudioOffset);
     }
