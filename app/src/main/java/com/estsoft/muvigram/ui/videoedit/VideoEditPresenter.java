@@ -30,7 +30,10 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
     final MediaManager mMediaManager;
     String[] mAudioMetaDatas;
     String mTitle;
-    Subscription mSubscription;
+    Subscription mAudioMetaSubscription;
+
+    String mAudioPath;
+    String mVideoPath;
 
 
     @Inject
@@ -51,6 +54,11 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
 
     /* Business logic here ... */
 
+    public void setMediaPaths( String videoPath, String audioPath ) {
+        mVideoPath = videoPath;
+        mAudioPath = audioPath;
+    }
+
     public void videoRestarted() {
         getMvpView().reStartVideoView( 0 );
         getMvpView().reStartAudio( mAudioOffsetMs );
@@ -60,9 +68,13 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
         mAudioOffsetMs = audioOffset;
     }
 
+    public void createVideo() {
+
+    }
+
     public void loadAudioMetaData( String path ) {
-        mSubscription = mMediaManager.getAlbumMetaData(path).
-                observeOn(AndroidSchedulers.mainThread())
+        mAudioMetaSubscription = mMediaManager.getAlbumMetaData(path)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         strings -> {
@@ -72,7 +84,7 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
                             e.printStackTrace();
                         },
                         () -> {
-                            RxUtil.unsubscribe(mSubscription);
+                            RxUtil.unsubscribe(mAudioMetaSubscription);
                             mTitle = mAudioMetaDatas[0] + " - " + mAudioMetaDatas[1];
                             getMvpView().updateAudioTitle( mTitle );
                             if (mAudioMetaDatas[3] == null || mAudioMetaDatas[3].equals("")) {
@@ -80,7 +92,8 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
                                 getMvpView().updateAudioAlbum( mAudioMetaDatas[3] );
                             }
                         }
-                        );
+                );
 
     }
+
 }

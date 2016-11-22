@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,16 +54,12 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
     @Inject MediaPlayer mAudioPlayer;
     @Inject @ParentFragment FragmentManager mFragmentManager;
 
-    @BindView(R.id.edit_video_title_text_view)
-    TextView mTitle;
-    @BindView(R.id.edit_video_video_view)
-    IncreasVideoView mVideoView;
-    @BindView(R.id.edit_video_back_image_view)
-    ImageView mbackButton;
-    @BindView(R.id.edit_video_audio_edit_button)
-    ImageView mAudioEditButton;
-    @BindView(R.id.edit_video_audio_album)
-    MusicRecordView mAlbumView;
+    @BindView(R.id.edit_video_title_text_view)      TextView mTitle;
+    @BindView(R.id.edit_video_video_view)           IncreasVideoView mVideoView;
+    @BindView(R.id.edit_video_back_image_view)      ImageView mbackButton;
+    @BindView(R.id.edit_video_audio_edit_button)    ImageView mAudioEditButton;
+    @BindView(R.id.edit_video_audio_album)          MusicRecordView mAlbumView;
+    @BindView(R.id.edit_video_upload_public)        LinearLayout mPublicUpload;
 
     @OnClick(R.id.edit_video_back_image_view)
     void OnBackClick() { getActivity().onBackPressed(); }
@@ -123,12 +120,11 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
         super.onActivityCreated(savedInstanceState);
         getSingleFragmentComponent().inject(this);
         mPresenter.attachView(this);
-
+        mPresenter.setMediaPaths( mCutVideoPath, mAudioPath );
         mPresenter.loadAudioMetaData(mAudioPath);
 
         if (mAudioStatus != NO_AUDIO) {
             try {
-//                mAudioPlayer.setOnSeekCompleteListener( mp -> mp.start() );
                 mAudioPlayer.setDataSource(mAudioPath);
                 mAudioPlayer.prepare();
             } catch ( IOException e) {
@@ -182,8 +178,6 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
                 .into(mAlbumView);
     }
 
-
-
     @Override
     public void onPause() {
         super.onPause();
@@ -235,6 +229,11 @@ public class VideoEditFragment extends BaseSingleFragment implements VideoEditVi
     @Override
     public void nextAudioSelectActivity() {
         Toast.makeText(getActivity(), "오디오 선택", Toast.LENGTH_SHORT).show();
+    }
+    @OnClick(R.id.edit_video_upload_public)
+    @Override
+    public void uploadPublicClicked() {
+        mPresenter.createVideo();
     }
 
     @Override

@@ -10,7 +10,6 @@ import com.estsoft.muvigram.injection.PerSingleFragment;
 import com.estsoft.muvigram.ui.base.BasePresenter;
 import com.estsoft.muvigram.util.RxUtil;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +99,9 @@ public class VideoCutPresenter extends BasePresenter<VideoCutView> {
         getMvpView().enableProgress( PROGRESS_MAX );
         RxUtil.unsubscribe(mSubscription);
         RxUtil.unsubscribe(mRuntimeWatcher);
-        mCutVideoPath = mMediaManager.getTrimmingTargetFilePath();
+        mCutVideoPath = mMediaManager.getTrimmingTargetVideoFilePath();
         Log.e(TAG, "cutVideo: " +  mMediaPlayerOffsetMs + " / " + (VIDEO_CUT_DURATION + mMediaPlayerOffsetMs) );
-        mSubscription = mMediaManager.getTrimmingProcess( videoPath, mMediaPlayerOffsetMs, (VIDEO_CUT_DURATION + mMediaPlayerOffsetMs) )
+        mSubscription = mMediaManager.getVideoTrimmingProcess( videoPath, mMediaPlayerOffsetMs, (VIDEO_CUT_DURATION + mMediaPlayerOffsetMs) )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .distinct()
@@ -224,7 +223,7 @@ public class VideoCutPresenter extends BasePresenter<VideoCutView> {
 
     private Observable<Integer> getVideoRunTimeObserver() {
         return Observable.create(subscriber -> {
-            while( !isStop || !isGone ) {
+            while( !isStop ) {
                 requestVideoRuntime();
                 subscriber.onNext( mCurrentRunTime );
                 Log.e(TAG, "getVideoRunTimeObserver: Thread is alive!!" );
@@ -240,13 +239,14 @@ public class VideoCutPresenter extends BasePresenter<VideoCutView> {
     }
 
     boolean isStop;
-    public synchronized void onResume() {
+    public void onResume() {
         isStop = false;
+        Log.d(TAG, "onStop: false ");
         setRuntimeWatcher();
     }
-    public synchronized void onStop() {
+    public void onStop() {
         isStop = true;
-
+        Log.d(TAG, "onStop: true ");
     }
 
     public void onDestroy() {

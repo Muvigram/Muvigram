@@ -71,6 +71,38 @@
 
     </LinearLayout>
 
+    <!-- disabling view -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:visibility="visible"
+        android:alpha="0.8"
+        android:id="@+id/audio_cut_disable_layout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/audio_cut_progressbar"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/audio_cut_progress_text"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 
 

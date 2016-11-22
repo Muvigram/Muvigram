@@ -160,6 +160,10 @@
     <string name="video_cut_transcode">converting</string>
     <string name="video_cut_progress">loading</string>
 
+    <!-- AudioCutting Fragment -->
+    <string name="audio_cut_progress">loading</string>
+    <string name="audio_cut_trim">cutting</string>
+
     <!-- VideoEdit Fragment -->
     <string name="video_edit_title">Video Edit</string>
     <string name="video_edit_audio_cut_title">Cut Music</string>

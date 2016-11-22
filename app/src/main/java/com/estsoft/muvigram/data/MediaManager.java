@@ -4,19 +4,19 @@ import android.content.Context;
 import android.util.Log;
 
 import com.estsoft.muvigram.data.local.FFmpegSupporter;
-import com.estsoft.muvigram.data.local.FileNotSupportException;
 import com.estsoft.muvigram.data.local.MediaStorageService;
 import com.estsoft.muvigram.injection.qualifier.ApplicationContext;
 import com.estsoft.muvigram.model.VideoMetaData;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.subjects.PublishSubject;
+import rx.subjects.Subject;
 
 /**
  * Created by estsoft on 2016-11-03.
@@ -29,7 +29,9 @@ public class MediaManager {
     private final FFmpegSupporter mFFmpegSupporter;
     final String EDIT_DIR = "/edit";
     final File mEditingDirectory;
-    final String mTrimmingTargetFilePath;
+    final String mTrimmingTargetVideoFilePath;
+    final String mTrimmingTargetAudioFilePath;
+    final String mCreatedTargetFilePath;
 
     @Inject
     public MediaManager(@ApplicationContext Context context, MediaStorageService mediaStorageService, FFmpegSupporter fFmpegSupporter) {
@@ -39,8 +41,9 @@ public class MediaManager {
 
         mEditingDirectory = new File(mContext.getExternalFilesDir(null), EDIT_DIR);
         if (!mEditingDirectory.exists()) mEditingDirectory.mkdirs();
-        mTrimmingTargetFilePath = mEditingDirectory.getAbsolutePath() + File.separator + "trim_result.mp4";
-        Log.d(TAG, "MediaManager: " + mTrimmingTargetFilePath);
+        mTrimmingTargetVideoFilePath = mEditingDirectory.getAbsolutePath() + File.separator + "trim_video.mp4";
+        mTrimmingTargetAudioFilePath = mEditingDirectory.getAbsolutePath() + File.separator + "trim_audio.mp3";
+        mCreatedTargetFilePath = mEditingDirectory.getAbsolutePath() + File.separator + "result.mp4";
     }
 
     /* API Data supplier - Business logic*/
@@ -52,27 +55,49 @@ public class MediaManager {
         return mMediaStorageService.getAudioMetaData( audioPath );
     }
 
-//    public Observable<String> getMpegProcess(String videoPath, int startTimeMs, int runTimeSeconds) {
-//        return mFFmpegSupporter.cutVideo( videoPath, startTimeMs, runTimeSeconds);
-//    }
-
-
-    public String getTrimmingTargetFilePath() {
-        return mTrimmingTargetFilePath;
-    }
-    public Observable< ? extends Integer > getTrimmingProcess(String videoPath, int startTimeMs, int runTimeMs) {
+    public Observable< ? extends Integer > getVideoTrimmingProcess(String videoPath, int startTimeMs, int runTimeMs) {
         Observable< ? extends Integer > observable;
         try {
-            observable = mFFmpegSupporter.cutVideoM4M(videoPath, startTimeMs, runTimeMs, mTrimmingTargetFilePath);
+            observable = mFFmpegSupporter.cutVideoM4M(videoPath, startTimeMs, runTimeMs, mTrimmingTargetVideoFilePath);
         } catch ( Exception e ) {
-            observable = PublishSubject.create();
-            ((PublishSubject)observable).onError( e );
+            observable = getErrorSubject( e );
         }
         return  observable;
     }
 
-    private Observable< Object > getErrorObservable( Exception exception ) {
-        return Observable.from( new Exception[] { exception } );
+    public Observable< ? extends Integer > getAudioTrimmingProcess( String audioPath, int audioOffset, int runtimeBuffer ) {
+        Observable< ? extends Integer > observable;
+        try {
+            observable = mFFmpegSupporter.cutAudio(audioPath, audioOffset, runtimeBuffer, mTrimmingTargetAudioFilePath);
+        } catch ( FFmpegCommandAlreadyRunningException e ){
+            observable = getErrorSubject( e );
+        }
+        return observable;
     }
+
+    public Observable< ? extends Integer > getVideoCreatingProcess( String videoPath, String audioPath, int audioOffset ) {
+        return null;
+    }
+
+    private PublishSubject getErrorSubject( Exception exception ) {
+        PublishSubject subject = PublishSubject.create();
+        subject.onError( exception );
+        return subject;
+    }
+
+    public String getTrimmingTargetVideoFilePath() {
+        return mTrimmingTargetVideoFilePath;
+    }
+    public String getTrimmingTargetAudioFilePath() { return mTrimmingTargetAudioFilePath; }
+    public String getCreatedTargetFilePath() { return  mCreatedTargetFilePath; }
+
+
+//    private Observable< Object > getErrorObservable( Exception exception ) {
+//        return Observable.from( new Exception[] { exception } );
+//    }
+
+//    public Observable<String> getMpegProcess(String videoPath, int startTimeMs, int runTimeSeconds) {
+//        return mFFmpegSupporter.cutVideo( videoPath, startTimeMs, runTimeSeconds);
+//    }
 
 }

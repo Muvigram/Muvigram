@@ -125,9 +125,7 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
 
     /* View logic here ... */
     @Override
-    public void onStart() {
-        super.onStart();
-    }
+    public void onStart() {        super.onStart();    }
 
     @Override
     public void restartVideoAt( int ms ) {

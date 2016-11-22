@@ -30,11 +30,17 @@ public class AudioCutPresenter extends BasePresenter<AudioCutView> {
     int mAudioOffsetMs;
     boolean isStopped;
 
+    final MediaManager mMediaManager;
+    String mAudioPath;
+    int runtimeBuffer = 20;
+
     Subscription mRuntimeWatcher;
+    Subscription mTrimAuidoSubscription;
+
 
     @Inject
-    public AudioCutPresenter(  ) {
-
+    public AudioCutPresenter( MediaManager mediaManager ) {
+        mMediaManager = mediaManager;
     }
 
     @Override
@@ -48,6 +54,9 @@ public class AudioCutPresenter extends BasePresenter<AudioCutView> {
     }
 
     //logic here
+    public void setAudioPath( String path ) {
+        mAudioPath = path;
+    }
     public void videoRestarted() {
         getMvpView().restartVideoAt( 0 );
         getMvpView().restartAudioAt( mAudioOffsetMs );
@@ -105,6 +114,7 @@ public class AudioCutPresenter extends BasePresenter<AudioCutView> {
                         requestMediaCurrentPosition();
                         subscriber.onNext(mAudioCurrentPositionMs);
                         try {
+                            Log.e(TAG, "getTimeStampOb: THREAD is alive!");
                             Thread.sleep(100);
                         } catch (InterruptedException e ) {
                             e.printStackTrace();
@@ -112,6 +122,27 @@ public class AudioCutPresenter extends BasePresenter<AudioCutView> {
                     }
                     subscriber.onCompleted();
         });
+    }
+
+    public void cutAudio() {
+        getMvpView().enableProgress( 100 );
+        mTrimAuidoSubscription = mMediaManager.getAudioTrimmingProcess( mAudioPath, mAudioOffsetMs, runtimeBuffer )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.computation())
+                .subscribe(
+                        process -> {
+                            getMvpView().updateProgress( process * 100 / runtimeBuffer );
+                            Log.d(TAG, "createVideo: " + process);
+                        },
+                        e -> {
+                            e.printStackTrace();
+                        },
+                        () -> {
+                            getMvpView().disableProgress();
+                            getMvpView().backToVideoEditFragment();
+                        }
+
+                );
     }
 
     public void onStop() {
