@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\estsoft\AndroidProjects\muvigram\media4mobile\src\main\shaders"/></dataSet><dataSet config="release"><source path="C:\Users\estsoft\AndroidProjects\muvigram\media4mobile\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/JEONGYI/AndroidStudioProjects/muvigram/media4mobile/src/main/shaders"/></dataSet><dataSet config="release"><source path="/Users/JEONGYI/AndroidStudioProjects/muvigram/media4mobile/src/release/shaders"/></dataSet></merger>
