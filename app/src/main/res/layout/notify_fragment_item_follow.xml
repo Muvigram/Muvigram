@@ -14,7 +14,7 @@
         android:id="@+id/profile_image"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"/>
-
+c
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

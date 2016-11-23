@@ -14,7 +14,7 @@ import lombok.Data;
  * Created by gangGongUi on 2016. 10. 13..
  */
 @AutoValue
-public abstract class UserInfoRepo implements Comparable<UserInfoRepo>, Parcelable {
+public abstract class   UserInfoRepo implements Comparable<UserInfoRepo>, Parcelable {
     public abstract String userid();
     public abstract String userName();
     public abstract String password();

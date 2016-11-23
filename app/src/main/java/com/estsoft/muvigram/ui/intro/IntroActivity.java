@@ -56,6 +56,11 @@ public class IntroActivity extends BasePlainActivity implements IntroView {
 
     }
 
+    @OnClick(R.id.intro_facebook_button)
+    public void facebookButtonClick(){
+
+    }
+
     @OnClick(R.id.intro_twitter_button)
     public void skip() {
         startActivity(new Intent(this, HomeActivity.class));
