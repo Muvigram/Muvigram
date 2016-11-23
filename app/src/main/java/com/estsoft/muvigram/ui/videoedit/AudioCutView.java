@@ -13,5 +13,10 @@ public interface AudioCutView extends MvpView {
     void restartAudioAt( int ms );
     void providingMediaCurrentPosition();
     void providingPixelToMillis( int pixel );
+
+    void enableProgress( int max );
+    void updateProgress( int percent );
+    void disableProgress();
+
     void backToVideoEditFragment();
 }

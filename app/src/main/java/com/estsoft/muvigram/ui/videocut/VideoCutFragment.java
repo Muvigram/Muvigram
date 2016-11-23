@@ -3,6 +3,8 @@ package com.estsoft.muvigram.ui.videocut;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,11 +18,14 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
 import com.estsoft.muvigram.ui.base.fragment.BaseSingleFragment;
 import com.estsoft.muvigram.ui.videoedit.VideoEditActivity;
+import com.estsoft.muvigram.util.DialogFactory;
 
 import javax.inject.Inject;
 
@@ -45,9 +50,12 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
     @BindView(R.id.cut_video_thumbnail_container_layout)    LinearLayout mThumbnailContainer;
     @BindView(R.id.cut_video_video_view)    IncreasVideoView mVideoView;
     @BindView(R.id.cut_video_submit_button)    ImageView mSubmitButton;
-    @BindView(R.id.cut_video_thumbnail_progressbar)    ProgressBar mProgressBar;
+    @BindView(R.id.cut_video_progressbar)    ProgressBar mProgressBar;
+    @BindView(R.id.cut_video_progress_text)    TextView mProgressText;
     @BindView(R.id.cut_video_disable_layout)               LinearLayout mDisableLayout;
     @BindView(R.id.cut_video_back_image_view) ImageView mBackButton;
+
+    MediaPlayer mVideoViewMediaPlayer;
 
     @OnTouch(R.id.cut_video_disable_layout)
     boolean onLayoutTouch() { return true; }
@@ -104,7 +112,7 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
                 checkLayoutMeasured();
             }
         });
-
+        mVideoView.setOnPreparedListener( mediaPlayer -> this.mVideoViewMediaPlayer = mediaPlayer );
         return view;
     }
 
@@ -117,14 +125,18 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
 
     /* View logic here ... */
     @Override
-    public void onStart() {
-        super.onStart();
-    }
+    public void onStart() {        super.onStart();    }
 
     @Override
     public void restartVideoAt( int ms ) {
         Log.d(TAG, "restartVideoAt: " + ms);
         mVideoView.seekTo( ms );
+        if (mVideoViewMediaPlayer != null) {
+            mVideoViewMediaPlayer.setOnSeekCompleteListener( mediaPlayer -> {
+                Log.d(TAG, "restartVideoAt ... : " + mediaPlayer.getCurrentPosition());
+                mPresenter.setMediaPlayerOffsetMs( mediaPlayer.getCurrentPosition() );
+            });
+        }
         if (!mVideoView.isPlaying()) mVideoView.start();
     }
 
@@ -164,9 +176,24 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
 
 
     @Override
-    public void enableProgress() {
+    public void enableProgress( int max ) {
         mDisableLayout.setVisibility(View.VISIBLE);
+//        mProgressBar.setMax( max );
+        mProgressText.setText(getResources().getString(R.string.video_cut_progress));
         Log.d(TAG, "enableProgress: ");
+    }
+
+    @Override
+    public void updateProgress(int percent, int key) {
+        if (percent == 0) {
+            mProgressText.setText(getResources().getString(R.string.video_cut_progress));
+        } else if (key == TASK_TRANSCODE ){
+            mProgressText.setText(getResources().getString(R.string.video_cut_transcode) + " : " + percent + "%");
+        } else if (key == TASK_THUMBNAIL ) {
+            mProgressText.setText(getResources().getString(R.string.video_cut_progress) + " : " + percent + "%");
+        } else {
+            mProgressText.setText(getResources().getString(R.string.video_cut_progress) + " : " + percent + "%");
+        }
     }
 
     @Override
@@ -179,6 +206,11 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
     @Override
     public void nextActivity(String cutAudioPath) {
 //        Intent intent = VideoEditActivity.newIntent(getContext(), cutAudioPath, null);
+        //
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(cutAudioPath);
+        Toast.makeText(getContext(), "result File duration ... " + retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION), Toast.LENGTH_SHORT).show();
+        //
         String testAudioPath =
                 "/storage/emulated/0/Download/sample_song_221s.mp3";
         Intent intent = VideoEditActivity.newIntent(getContext(), cutAudioPath, testAudioPath, 0);
@@ -186,8 +218,14 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
     }
 
     @Override
-    public void onError() {
-        Log.d(TAG, "onError: ");
+    public void onError( int key ) {
+        String msg = "";
+        if ( key == ERROR_FILE_NOT_SUPPORT ) {
+            msg = "this video format is not support";
+        } else {
+            msg = "Sorry! error occurred";
+        }
+        DialogFactory.createSimpleOkErrorDialog(getContext(), " T_T ", msg);
     }
 
     @Override
@@ -199,7 +237,7 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
     @Override
     public void onPause() {
         super.onPause();
-        mPresenter.onResume();
+//        mPresenter.onResume();
     }
 
     int currentPosition = 0;
@@ -214,6 +252,7 @@ public class VideoCutFragment extends BaseSingleFragment implements VideoCutView
     @Override
     public void onResume() {
         super.onResume();
+        mPresenter.onResume();
         mVideoView.seekTo(currentPosition);
         mVideoView.start();
     }

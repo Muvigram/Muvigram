@@ -115,4 +115,5 @@ dependencies {
     compile 'com.writingminds:FFmpegAndroid:0.3.2'
     // Visibility util
     compile project(':list-visibility-utils')
+    compile project(path: ':media4mobile')
 }

@@ -156,7 +156,13 @@
 
     <!-- VideoCutting Fragment -->
     <string name="video_cut_title">Cut Video</string>
-    <string name="video_cut_sub_title"> scroll to cut video</string>
+    <string name="video_cut_sub_title">scroll to cut video</string>
+    <string name="video_cut_transcode">converting</string>
+    <string name="video_cut_progress">loading</string>
+
+    <!-- AudioCutting Fragment -->
+    <string name="audio_cut_progress">loading</string>
+    <string name="audio_cut_trim">cutting</string>
 
     <!-- VideoEdit Fragment -->
     <string name="video_edit_title">Video Edit</string>

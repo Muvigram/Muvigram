@@ -48,8 +48,8 @@
         <com.estsoft.muvigram.customview.MusicRecordView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:dynamic_width="5"
-            app:dynamic_height="5"
+            app:dynamic_width="15"
+            app:dynamic_height="15"
             app:isSquare="true"
             app:backgroundColor="@color/grey_black_1000"
             app:centerAxisColor="@color/yellow_600"
@@ -155,7 +155,8 @@
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:padding="10dp"
-                android:background="@drawable/border_white_red_full">
+                android:background="@drawable/border_white_red_full"
+                android:id="@+id/edit_video_upload_public">
 
                 <ImageView
                     android:layout_width="wrap_content"

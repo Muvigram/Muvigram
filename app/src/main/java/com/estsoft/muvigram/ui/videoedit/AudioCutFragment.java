@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.estsoft.muvigram.R;
 import com.estsoft.muvigram.customview.IncreasVideoView;
@@ -56,18 +59,17 @@ public class AudioCutFragment extends BaseSingleFragment implements AudioCutView
     @Inject @ParentFragment
     FragmentManager mFragmentManager;
 
-    @BindView(R.id.audio_cut_video_view)
-    IncreasVideoView mVideoView;
-    @BindView(R.id.audio_cut_waveform_container)
-    LinearLayout mWaveformContainer;
-    @BindView(R.id.audio_cut_submit)
-    ImageView mSubmitButton;
-    @BindView(R.id.audio_cut_waveform_view)
-    WaveformView mWaveformView;
+    @BindView(R.id.audio_cut_video_view)            IncreasVideoView mVideoView;
+    @BindView(R.id.audio_cut_waveform_container)    LinearLayout mWaveformContainer;
+    @BindView(R.id.audio_cut_submit)                ImageView mSubmitButton;
+    @BindView(R.id.audio_cut_waveform_view)         WaveformView mWaveformView;
+    @BindView(R.id.audio_cut_disable_layout)        LinearLayout mDisableLayout;
+    @BindView(R.id.audio_cut_progressbar)           ProgressBar mProgressBar;
+    @BindView(R.id.audio_cut_progress_text)         TextView mProgressText;
 
     @OnClick(R.id.audio_cut_submit)
-    public void OnsubmitClick( View view ) {
-        backToVideoEditFragment();
+    public void OnSubmitClick( View view ) {
+        mPresenter.cutAudio();
     }
 
     @OnTouch(R.id.audio_cut_waveform_view)
@@ -150,6 +152,7 @@ public class AudioCutFragment extends BaseSingleFragment implements AudioCutView
         super.onActivityCreated(savedInstanceState);
         getSingleFragmentComponent().inject(this);
         mPresenter.attachView(this);
+        mPresenter.setAudioPath(mAudioPath);
 
         try {
 //            mAudioPlayer.setOnSeekCompleteListener( mp -> mp.start() );
@@ -169,6 +172,7 @@ public class AudioCutFragment extends BaseSingleFragment implements AudioCutView
         mAudioPlayer.seekTo(mAudioOffset);
 //        mVideoView.seekTo( 0 );
         mPresenter.startRuntimeWatcher();
+        disableProgress();
     }
 
     @Override
@@ -223,6 +227,29 @@ public class AudioCutFragment extends BaseSingleFragment implements AudioCutView
             e.printStackTrace();
         }
         mPresenter.setAudioOffset( mAudioOffset, mWaveformView.millisecondToPixel( mAudioOffset ) );
+    }
+
+    @Override
+    public void enableProgress(int max) {
+        mDisableLayout.setVisibility(View.VISIBLE);
+//        mProgressBar.setMax( max );
+        mProgressText.setText(getResources().getString(R.string.video_cut_progress));
+        Log.d(TAG, "enableProgress: ");
+    }
+
+    @Override
+    public void updateProgress(int percent ) {
+        if (percent == 0) {
+            mProgressText.setText(getResources().getString(R.string.audio_cut_progress));
+        } else {
+            mProgressText.setText(getResources().getString(R.string.audio_cut_trim) + " : " + percent + "%");
+        }
+    }
+
+    @Override
+    public void disableProgress() {
+        mDisableLayout.setVisibility(View.GONE);
+        Log.d(TAG, "disableProgress: ");
     }
 
     @Override
