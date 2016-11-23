@@ -75,8 +75,14 @@ public class MediaManager {
         return observable;
     }
 
-    public Observable< ? extends Integer > getVideoCreatingProcess( String videoPath, String audioPath, int audioOffset ) {
-        return null;
+    public Observable< ? extends Integer > getVideoCreatingProcess( String videoPath, String audioPath, int videoVolumePercent, int audioVolmePercent ) {
+        Observable< ? extends Integer > observable;
+//        try {
+            observable = mFFmpegSupporter.muxVideoAndAudio(videoPath, audioPath, videoVolumePercent, audioVolmePercent, mCreatedTargetFilePath);
+//        } catch ( FFmpegCommandAlreadyRunningException e ){
+//            observable = getErrorSubject( e );
+//        }
+        return observable;
     }
 
     private PublishSubject getErrorSubject( Exception exception ) {

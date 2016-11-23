@@ -192,6 +192,21 @@ public class FFmpegSupporter {
         ffmpeg.execute(cliCommand, new ExecuteResponseHandlerImpl(publishSubject));
         return publishSubject;
     }
+    public Observable<Integer> muxVideoAndAudio(String videoPath, String audioPath, float videoVolume, float audioVolume, String targetPath ) {
+        String[] cliCommand = Command.getInstance()
+                .input(videoPath)
+                .input(audioPath)
+                .shortest()
+                .videoMap()
+                .videoCodecCopy()
+                .filterComplexAudioVolmue(videoVolume, audioVolume)
+                .audioCodec("acc")
+                .target(targetPath)
+                .build();
+
+
+        return null;
+    }
 
     private class ExecuteResponseHandlerImpl implements FFmpegExecuteResponseHandler {
         PublishSubject<Integer> subject;
@@ -272,11 +287,25 @@ public class FFmpegSupporter {
 
         private String initCommand() { commandLine = ""; return commandLine; }
         public Command input( String path ) { commandLine += SPACE + "-i" + SPACE + path; return this; }
+        public Command target( String path ) { commandLine += SPACE + "-y" + SPACE + path; return this; }
         public Command offsetMs( String offsetMs ) { commandLine += SPACE + "-ss" +SPACE + cutMsToTimeStamp(offsetMs); return this; }
         public Command runtime( String runtime ) { commandLine += SPACE + "-t" + SPACE + runtime; return this; }
+        public Command shortest() { commandLine += SPACE + "-shortest"; return this; }
+        public Command videoMap() { commandLine += SPACE + "-map" + SPACE + "0:v:0"; return this; }
+        public Command videoCodecCopy() { commandLine += SPACE + "-c:v" + SPACE + "copy"; return this; }
         public Command audioCodecCopy() { commandLine += SPACE + "-c:a" + SPACE + "copy"; return this; }
         public Command audioCodec( String codec ) { commandLine += SPACE + "-c:a" + SPACE + codec; return this; }
-        public Command target( String path ) { commandLine += SPACE + "-y" + SPACE + path; return this; }
+        public Command filterComplexAudioVolmue(float firstVolume, float secondVolume) {
+            commandLine += SPACE + "-filter_complex"
+                    + SPACE + "\"[0:a:0]volume=" + String.valueOf(firstVolume) + "[a0];"
+                    + SPACE + "[1:a:0]volume=" + String.valueOf(secondVolume) + "[a1];"
+                    + SPACE + "[a0][a1]amix=inputs=2[out]\""
+                    + SPACE + "-map" + SPACE + "\"[out]\""
+                    + SPACE + "-ac" + SPACE + "2";
+            return this;
+        }
+
+
         public String[] build() {
             Log.d(TAG, "build: " + commandLine ); return commandLine.trim().split(SPACE); }
 

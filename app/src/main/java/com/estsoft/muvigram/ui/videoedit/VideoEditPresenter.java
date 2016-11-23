@@ -70,6 +70,8 @@ public class VideoEditPresenter extends BasePresenter<VideoEditView> {
 
     public void createVideo() {
 
+        mMediaManager.getVideoCreatingProcess(mVideoPath, mAudioPath, 0, 100);
+
     }
 
     public void loadAudioMetaData( String path ) {
